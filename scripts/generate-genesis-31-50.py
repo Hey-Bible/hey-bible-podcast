@@ -16,7 +16,7 @@ from bible_data import BIBLE_STRUCTURE
 
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
-BOOKS_DIR = BASE_DIR / "books"
+BOOKS_DIR = BASE_DIR / "verses"
 TRANSLATION = "web"
 TTS_VOICE = "Bill"
 TTS_MODEL = "tts-elevenlabs-turbo-v2-5"

@@ -15,7 +15,7 @@ from bible_data import BIBLE_STRUCTURE
 
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
-BOOKS_DIR = BASE_DIR / "books"
+BOOKS_DIR = BASE_DIR / "verses"
 CHAPTERS_DIR = BASE_DIR / "chapters"
 STATE_DIR = BASE_DIR / "state"
 STATE_FILE = STATE_DIR / "progress.json"
