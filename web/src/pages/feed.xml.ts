@@ -5,9 +5,9 @@ import { fetchChapters } from '~/lib/chapters';
 const SITE = 'https://xn--pci.fm';
 const TITLE = 'The Hey Bible Podcast';
 const DESCRIPTION =
-  'The whole Bible read aloud, one book at a time. A new book every month. World English Bible (public domain).';
+  'The whole Bible read aloud, one book at a time. A new book every month. World English Bible — public domain (https://worldenglish.bible).';
 const AUTHOR = "Working Dev's Hero";
-const EMAIL = 'hello@workingdevshero.com';
+const EMAIL = 'bobby@heybible.org';
 const IMAGE = `${SITE}/og-image.png`;
 
 function escapeXml(s: string): string {
@@ -70,7 +70,7 @@ export const GET: APIRoute = async () => {
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
     <description>${escapeXml(DESCRIPTION)}</description>
     <language>en-us</language>
-    <copyright>Public domain (World English Bible)</copyright>
+    <copyright>Public domain — World English Bible (https://worldenglish.bible)</copyright>
     <lastBuildDate>${now}</lastBuildDate>
     <itunes:author>${escapeXml(AUTHOR)}</itunes:author>
     <itunes:summary>${escapeXml(DESCRIPTION)}</itunes:summary>
