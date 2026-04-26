@@ -19,6 +19,12 @@ INTERMEDIATE_DIR = BASE_DIR / "intermediate"
 RELEASES_DIR = BASE_DIR / "releases"
 STATE_FILE = BASE_DIR / "state" / "progress.json"
 RSS_FILE = BASE_DIR / "podcast.xml"
+WEB_DATA_DIR = BASE_DIR / "web" / "src" / "data"
+BOOKS_JSON_FILE = WEB_DATA_DIR / "books.json"
+
+# Old and New Testament split
+OLD_TESTAMENT = BOOK_ORDER[:39]  # Genesis to Malachi
+NEW_TESTAMENT = BOOK_ORDER[39:]  # Matthew to Revelation
 
 def load_progress():
     """Load current progress from state file"""
@@ -46,6 +52,140 @@ def get_next_book(book: str) -> str:
     except ValueError:
         pass
     return None
+
+def get_testament(book: str) -> str:
+    """Get testament for a book"""
+    if book.lower() in OLD_TESTAMENT:
+        return "old"
+    return "new"
+
+def get_chapter_count(book: str) -> int:
+    """Get total chapters in a book"""
+    return len(BIBLE_STRUCTURE[book]["chapters"])
+
+def generate_books_json():
+    """Generate initial books.json with all 66 books"""
+    WEB_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    
+    books = []
+    progress = load_progress()
+    current_book = progress.get("book", "genesis")
+    released_books = progress.get("released_books", [])
+    
+    for book_slug in BOOK_ORDER:
+        # Determine status
+        if book_slug in released_books:
+            status = "available"
+            release_tag = f"{book_slug}-{datetime.now().strftime('%Y-%m')}"
+        elif book_slug == current_book:
+            status = "in-progress"
+            release_tag = None
+        else:
+            status = "coming-soon"
+            release_tag = None
+        
+        book_entry = {
+            "slug": book_slug,
+            "name": book_slug.replace("-", " ").title(),
+            "testament": get_testament(book_slug),
+            "chapters": get_chapter_count(book_slug),
+            "status": status,
+            "releaseTag": release_tag
+        }
+        
+        # Add progress info for in-progress book
+        if book_slug == current_book:
+            book_entry["progress"] = {
+                "currentChapter": progress.get("chapter", 1),
+                "currentVerse": progress.get("verse", 1)
+            }
+        
+        books.append(book_entry)
+    
+    with open(BOOKS_JSON_FILE, "w") as f:
+        json.dump(books, f, indent=2)
+    
+    print(f"  ✓ Generated {BOOKS_JSON_FILE} with {len(books)} books")
+    return books
+
+def update_book_status(book: str, status: str, release_tag: str = None):
+    """Update a book's status in books.json"""
+    if not BOOKS_JSON_FILE.exists():
+        generate_books_json()
+    
+    with open(BOOKS_JSON_FILE) as f:
+        books = json.load(f)
+    
+    for b in books:
+        if b["slug"] == book:
+            b["status"] = status
+            b["releaseTag"] = release_tag
+            if status == "available":
+                # Remove progress info when released
+                b.pop("progress", None)
+            break
+    
+    with open(BOOKS_JSON_FILE, "w") as f:
+        json.dump(books, f, indent=2)
+    
+    print(f"  ✓ Updated {book} status to '{status}'")
+
+def upload_to_github_release(book: str, release_tag: str) -> bool:
+    """Upload files to GitHub release using gh CLI"""
+    print(f"  Uploading to GitHub release...")
+    
+    mp3_file = RELEASES_DIR / f"{book}-complete.mp3"
+    json_file = INTERMEDIATE_DIR / f"{book}-chapters.json"
+    
+    if not mp3_file.exists():
+        print(f"  Error: MP3 file not found: {mp3_file}")
+        return False
+    
+    if not json_file.exists():
+        print(f"  Warning: Chapters JSON not found: {json_file}")
+    
+    try:
+        # Check if release exists, create if not
+        result = subprocess.run(
+            ["gh", "release", "view", release_tag],
+            capture_output=True,
+            cwd=BASE_DIR
+        )
+        
+        if result.returncode != 0:
+            # Create release
+            print(f"  Creating release {release_tag}...")
+            subprocess.run(
+                ["gh", "release", "create", release_tag, 
+                 "--title", f"Release: {get_book_title(book)}",
+                 "--notes", f"Complete audio for {get_book_title(book)}"],
+                check=True,
+                capture_output=True,
+                cwd=BASE_DIR
+            )
+        
+        # Upload files
+        files_to_upload = [str(mp3_file)]
+        if json_file.exists():
+            files_to_upload.append(str(json_file))
+        
+        subprocess.run(
+            ["gh", "release", "upload", release_tag] + files_to_upload,
+            check=True,
+            capture_output=True,
+            cwd=BASE_DIR
+        )
+        
+        print(f"  ✓ Uploaded {len(files_to_upload)} file(s) to release {release_tag}")
+        return True
+        
+    except subprocess.CalledProcessError as e:
+        print(f"  Error uploading to GitHub: {e}")
+        print(f"  stderr: {e.stderr.decode() if e.stderr else 'N/A'}")
+        return False
+    except Exception as e:
+        print(f"  Error: {e}")
+        return False
 
 def ensure_rss_feed_exists():
     """Create initial RSS feed if it doesn't exist"""
@@ -165,20 +305,26 @@ def add_rss_item(book: str, release_file: Path) -> bool:
         return False
 
 def release_book(book: str) -> bool:
-    """Copy intermediate book to releases and update RSS"""
+    """Copy intermediate book to releases, update RSS, upload to GitHub, update web data"""
     print(f"\nReleasing book: {book.title()}")
     print("=" * 60)
     
     intermediate_file = INTERMEDIATE_DIR / f"{book}-complete.mp3"
+    chapters_json = INTERMEDIATE_DIR / f"{book}-chapters.json"
     
     if not intermediate_file.exists():
         print(f"  Error: Intermediate file not found: {intermediate_file}")
         print(f"  Run compile-book.py first on the 25th!")
         return False
     
+    if not chapters_json.exists():
+        print(f"  Warning: Chapters JSON not found: {chapters_json}")
+        print(f"  Run compile-book.py to generate chapter timestamps.")
+    
     RELEASES_DIR.mkdir(parents=True, exist_ok=True)
     release_file = RELEASES_DIR / f"{book}-complete.mp3"
     
+    # Copy MP3 file
     if release_file.exists():
         print(f"  Release already exists: {release_file}")
     else:
@@ -186,12 +332,32 @@ def release_book(book: str) -> bool:
         shutil.copy2(intermediate_file, release_file)
         print(f"  ✓ Released: {release_file}")
     
+    # Copy chapters JSON to releases
+    release_json = RELEASES_DIR / f"{book}-chapters.json"
+    if chapters_json.exists() and not release_json.exists():
+        shutil.copy2(chapters_json, release_json)
+        print(f"  ✓ Copied: {release_json}")
+    
     # Update RSS feed
     print(f"  Updating RSS feed...")
     ensure_rss_feed_exists()
     
     if not add_rss_item(book, release_file):
         print(f"  Warning: Failed to add RSS item")
+    
+    # Generate/upload web data
+    print(f"  Updating web data...")
+    if not BOOKS_JSON_FILE.exists():
+        generate_books_json()
+    
+    # Create release tag
+    release_tag = f"{book}-{datetime.now().strftime('%Y-%m')}"
+    
+    # Upload to GitHub releases
+    upload_to_github_release(book, release_tag)
+    
+    # Update book status to available
+    update_book_status(book, "available", release_tag)
     
     return True
 

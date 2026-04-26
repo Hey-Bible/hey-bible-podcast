@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Compile a complete book by stitching together all chapters"""
 
+import datetime
 import json
 import os
 import subprocess
@@ -118,6 +119,26 @@ def get_existing_chapters(book: str) -> list:
     
     return sorted(chapters)
 
+def get_audio_duration(file_path: Path) -> float:
+    """Get audio file duration in seconds using ffprobe"""
+    try:
+        result = subprocess.run(
+            [
+                "ffprobe", "-v", "error", "-show_entries", "format=duration",
+                "-of", "default=noprint_wrappers=1:nokey=1", str(file_path)
+            ],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        
+        if result.returncode == 0:
+            return float(result.stdout.strip())
+    except Exception as e:
+        print(f"  Warning: Could not get duration for {file_path}: {e}")
+    
+    return 0.0
+
 def compile_book(book: str) -> bool:
     """Compile all chapters into a complete book audio file"""
     print(f"\nCompiling book: {book.title()}")
@@ -141,8 +162,9 @@ def compile_book(book: str) -> bool:
     
     INTERMEDIATE_DIR.mkdir(parents=True, exist_ok=True)
     output_path = INTERMEDIATE_DIR / f"{book}-complete.mp3"
+    chapters_json_path = INTERMEDIATE_DIR / f"{book}-chapters.json"
     
-    if output_path.exists():
+    if output_path.exists() and chapters_json_path.exists():
         print(f"  Book already compiled: {output_path}")
         return True
     
@@ -215,6 +237,67 @@ def compile_book(book: str) -> bool:
         if output_path.exists() and output_path.stat().st_size > 10000:
             print(f"  ✓ Created: {output_path}")
             print(f"  Size: {output_path.stat().st_size / (1024*1024):.2f} MB")
+            
+            # Build chapter timestamp data
+            print(f"  Building chapter timestamp data...")
+            chapter_data = []
+            current_offset = 0.0
+            
+            # Track book title duration first
+            title_duration = get_audio_duration(title_path)
+            current_offset += title_duration
+            
+            for chapter_num, chapter_file in chapters:
+                # Chapter number title (e.g., "Chapter 1")
+                chapter_title_file = CHAPTER_TITLES_DIR / f"chapter-{chapter_num}.mp3"
+                
+                if not chapter_title_file.exists():
+                    print(f"  Warning: Chapter title file missing: {chapter_title_file}")
+                    continue
+                
+                # Get duration of chapter title + chapter content
+                title_duration = get_audio_duration(chapter_title_file)
+                chapter_duration = get_audio_duration(chapter_file)
+                
+                # Chapter title
+                chapter_data.append({
+                    "number": chapter_num,
+                    "title": f"Chapter {chapter_num}",
+                    "start": current_offset,
+                    "end": current_offset + title_duration,
+                    "duration": title_duration
+                })
+                current_offset += title_duration
+                
+                # Chapter content
+                chapter_data.append({
+                    "number": chapter_num,
+                    "title": f"Chapter {chapter_num}",
+                    "start": current_offset,
+                    "end": current_offset + chapter_duration,
+                    "duration": chapter_duration
+                })
+                current_offset += chapter_duration
+            
+            # Write chapters JSON
+            total_duration = get_audio_duration(output_path)
+            release_tag = f"{book}-{datetime.now().strftime('%Y-%m')}"
+            
+            chapters_data = {
+                "book": book,
+                "title": book.replace("-", " ").title(),
+                "duration": total_duration,
+                "releaseTag": release_tag,
+                "chapters": chapter_data
+            }
+            
+            with open(chapters_json_path, "w") as f:
+                json.dump(chapters_data, f, indent=2)
+            
+            print(f"  ✓ Created: {chapters_json_path}")
+            print(f"  Total duration: {total_duration:.2f}s ({total_duration/60:.2f} min)")
+            print(f"  Tracked {len(chapter_data)} segments")
+            
             return True
         else:
             print(f"  Output file too small or missing")

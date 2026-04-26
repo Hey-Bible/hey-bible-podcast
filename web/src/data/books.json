@@ -1,0 +1,534 @@
+[
+  {
+    "slug": "genesis",
+    "name": "Genesis",
+    "testament": "old",
+    "chapters": 50,
+    "status": "in-progress",
+    "releaseTag": null,
+    "progress": {
+      "currentChapter": 1,
+      "currentVerse": 1
+    }
+  },
+  {
+    "slug": "exodus",
+    "name": "Exodus",
+    "testament": "old",
+    "chapters": 40,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "leviticus",
+    "name": "Leviticus",
+    "testament": "old",
+    "chapters": 27,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "numbers",
+    "name": "Numbers",
+    "testament": "old",
+    "chapters": 36,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "deuteronomy",
+    "name": "Deuteronomy",
+    "testament": "old",
+    "chapters": 34,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "joshua",
+    "name": "Joshua",
+    "testament": "old",
+    "chapters": 24,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "judges",
+    "name": "Judges",
+    "testament": "old",
+    "chapters": 39,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "ruth",
+    "name": "Ruth",
+    "testament": "old",
+    "chapters": 4,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "1-samuel",
+    "name": "1 Samuel",
+    "testament": "old",
+    "chapters": 31,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "2-samuel",
+    "name": "2 Samuel",
+    "testament": "old",
+    "chapters": 24,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "1-kings",
+    "name": "1 Kings",
+    "testament": "old",
+    "chapters": 22,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "2-kings",
+    "name": "2 Kings",
+    "testament": "old",
+    "chapters": 25,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "1-chronicles",
+    "name": "1 Chronicles",
+    "testament": "old",
+    "chapters": 29,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "2-chronicles",
+    "name": "2 Chronicles",
+    "testament": "old",
+    "chapters": 36,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "ezra",
+    "name": "Ezra",
+    "testament": "old",
+    "chapters": 10,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "nehemiah",
+    "name": "Nehemiah",
+    "testament": "old",
+    "chapters": 13,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "esther",
+    "name": "Esther",
+    "testament": "old",
+    "chapters": 10,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "job",
+    "name": "Job",
+    "testament": "old",
+    "chapters": 42,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "psalms",
+    "name": "Psalms",
+    "testament": "old",
+    "chapters": 150,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "proverbs",
+    "name": "Proverbs",
+    "testament": "old",
+    "chapters": 31,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "ecclesiastes",
+    "name": "Ecclesiastes",
+    "testament": "old",
+    "chapters": 12,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "song-of-solomon",
+    "name": "Song Of Solomon",
+    "testament": "old",
+    "chapters": 8,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "isaiah",
+    "name": "Isaiah",
+    "testament": "old",
+    "chapters": 66,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "jeremiah",
+    "name": "Jeremiah",
+    "testament": "old",
+    "chapters": 52,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "lamentations",
+    "name": "Lamentations",
+    "testament": "old",
+    "chapters": 5,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "ezekiel",
+    "name": "Ezekiel",
+    "testament": "old",
+    "chapters": 48,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "daniel",
+    "name": "Daniel",
+    "testament": "old",
+    "chapters": 12,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "hosea",
+    "name": "Hosea",
+    "testament": "old",
+    "chapters": 14,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "joel",
+    "name": "Joel",
+    "testament": "old",
+    "chapters": 3,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "amos",
+    "name": "Amos",
+    "testament": "old",
+    "chapters": 9,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "obadiah",
+    "name": "Obadiah",
+    "testament": "old",
+    "chapters": 1,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "jonah",
+    "name": "Jonah",
+    "testament": "old",
+    "chapters": 4,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "micah",
+    "name": "Micah",
+    "testament": "old",
+    "chapters": 7,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "nahum",
+    "name": "Nahum",
+    "testament": "old",
+    "chapters": 3,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "habakkuk",
+    "name": "Habakkuk",
+    "testament": "old",
+    "chapters": 3,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "zephaniah",
+    "name": "Zephaniah",
+    "testament": "old",
+    "chapters": 3,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "haggai",
+    "name": "Haggai",
+    "testament": "old",
+    "chapters": 2,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "zechariah",
+    "name": "Zechariah",
+    "testament": "old",
+    "chapters": 14,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "malachi",
+    "name": "Malachi",
+    "testament": "old",
+    "chapters": 4,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "matthew",
+    "name": "Matthew",
+    "testament": "new",
+    "chapters": 28,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "mark",
+    "name": "Mark",
+    "testament": "new",
+    "chapters": 16,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "luke",
+    "name": "Luke",
+    "testament": "new",
+    "chapters": 24,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "john",
+    "name": "John",
+    "testament": "new",
+    "chapters": 21,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "acts",
+    "name": "Acts",
+    "testament": "new",
+    "chapters": 28,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "romans",
+    "name": "Romans",
+    "testament": "new",
+    "chapters": 16,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "1-corinthians",
+    "name": "1 Corinthians",
+    "testament": "new",
+    "chapters": 16,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "2-corinthians",
+    "name": "2 Corinthians",
+    "testament": "new",
+    "chapters": 13,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "galatians",
+    "name": "Galatians",
+    "testament": "new",
+    "chapters": 6,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "ephesians",
+    "name": "Ephesians",
+    "testament": "new",
+    "chapters": 6,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "philippians",
+    "name": "Philippians",
+    "testament": "new",
+    "chapters": 4,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "colossians",
+    "name": "Colossians",
+    "testament": "new",
+    "chapters": 4,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "1-thessalonians",
+    "name": "1 Thessalonians",
+    "testament": "new",
+    "chapters": 5,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "2-thessalonians",
+    "name": "2 Thessalonians",
+    "testament": "new",
+    "chapters": 3,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "1-timothy",
+    "name": "1 Timothy",
+    "testament": "new",
+    "chapters": 6,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "2-timothy",
+    "name": "2 Timothy",
+    "testament": "new",
+    "chapters": 4,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "titus",
+    "name": "Titus",
+    "testament": "new",
+    "chapters": 3,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "philemon",
+    "name": "Philemon",
+    "testament": "new",
+    "chapters": 1,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "hebrews",
+    "name": "Hebrews",
+    "testament": "new",
+    "chapters": 13,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "james",
+    "name": "James",
+    "testament": "new",
+    "chapters": 5,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "1-peter",
+    "name": "1 Peter",
+    "testament": "new",
+    "chapters": 5,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "2-peter",
+    "name": "2 Peter",
+    "testament": "new",
+    "chapters": 3,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "1-john",
+    "name": "1 John",
+    "testament": "new",
+    "chapters": 5,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "2-john",
+    "name": "2 John",
+    "testament": "new",
+    "chapters": 1,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "3-john",
+    "name": "3 John",
+    "testament": "new",
+    "chapters": 1,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "jude",
+    "name": "Jude",
+    "testament": "new",
+    "chapters": 1,
+    "status": "coming-soon",
+    "releaseTag": null
+  },
+  {
+    "slug": "revelation",
+    "name": "Revelation",
+    "testament": "new",
+    "chapters": 22,
+    "status": "coming-soon",
+    "releaseTag": null
+  }
+]
