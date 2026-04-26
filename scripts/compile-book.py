@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compile a complete book by stitching together all chapters"""
 
-import datetime
+from datetime import datetime
 import json
 import os
 import subprocess
@@ -244,8 +244,8 @@ def compile_book(book: str) -> bool:
             current_offset = 0.0
             
             # Track book title duration first
-            title_duration = get_audio_duration(title_path)
-            current_offset += title_duration
+            book_title_duration = get_audio_duration(title_path)
+            current_offset += book_title_duration
             
             for chapter_num, chapter_file in chapters:
                 # Chapter number title (e.g., "Chapter 1")
@@ -259,25 +259,15 @@ def compile_book(book: str) -> bool:
                 title_duration = get_audio_duration(chapter_title_file)
                 chapter_duration = get_audio_duration(chapter_file)
                 
-                # Chapter title
+                # One entry per chapter: start at title clip, end after content
                 chapter_data.append({
                     "number": chapter_num,
                     "title": f"Chapter {chapter_num}",
                     "start": current_offset,
-                    "end": current_offset + title_duration,
-                    "duration": title_duration
+                    "end": current_offset + title_duration + chapter_duration,
+                    "duration": title_duration + chapter_duration
                 })
-                current_offset += title_duration
-                
-                # Chapter content
-                chapter_data.append({
-                    "number": chapter_num,
-                    "title": f"Chapter {chapter_num}",
-                    "start": current_offset,
-                    "end": current_offset + chapter_duration,
-                    "duration": chapter_duration
-                })
-                current_offset += chapter_duration
+                current_offset += title_duration + chapter_duration
             
             # Write chapters JSON
             total_duration = get_audio_duration(output_path)
