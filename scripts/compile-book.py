@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Compile a complete book by stitching together all chapters"""
 
-from datetime import datetime
 import json
 import os
 import subprocess
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -255,19 +255,21 @@ def compile_book(book: str) -> bool:
                     print(f"  Warning: Chapter title file missing: {chapter_title_file}")
                     continue
                 
-                # Get duration of chapter title + chapter content
+                # One entry per chapter spanning both the spoken title clip and
+                # the content — podcast clients (Apple, Overcast) render the
+                # sidecar as a chapter list, so two entries with the same title
+                # would surface as duplicate rows to listeners.
                 title_duration = get_audio_duration(chapter_title_file)
                 chapter_duration = get_audio_duration(chapter_file)
-                
-                # One entry per chapter: start at title clip, end after content
+                chapter_start = current_offset
+                current_offset += title_duration + chapter_duration
                 chapter_data.append({
                     "number": chapter_num,
                     "title": f"Chapter {chapter_num}",
-                    "start": current_offset,
-                    "end": current_offset + title_duration + chapter_duration,
-                    "duration": title_duration + chapter_duration
+                    "start": chapter_start,
+                    "end": current_offset,
+                    "duration": title_duration + chapter_duration,
                 })
-                current_offset += title_duration + chapter_duration
             
             # Write chapters JSON
             total_duration = get_audio_duration(output_path)
