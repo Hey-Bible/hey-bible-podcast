@@ -18,7 +18,7 @@ const {
   canonical,
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString() ?? 'https://xn--pci.fm/';
+const siteUrl = Astro.site?.toString() ?? 'https://podcast.heybible.org/';
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
 ---
 <!DOCTYPE html>

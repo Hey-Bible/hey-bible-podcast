@@ -27,18 +27,16 @@ npm run preview    # serves dist locally
 
 ## Deploy
 
-GitHub Pages via `.github/workflows/deploy-web.yml`. One-time setup:
+Cloudflare Pages, building directly from the GitHub repo. One-time setup:
 
-1. **Repo Settings → Pages → Source = "GitHub Actions"**
-2. **Custom domain**: `xn--pci.fm` (the punycode form of `✝.fm`)
-3. **DNS**: point `xn--pci.fm` (and the apex `.fm`) at GitHub Pages —
-   ```
-   A     185.199.108.153
-   A     185.199.109.153
-   A     185.199.110.153
-   A     185.199.111.153
-   ```
-4. Push anything under `web/` to `master` and the workflow deploys.
+1. In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to Git**, select this repo.
+2. **Build configuration:**
+   - Framework preset: **Astro**
+   - Build command: `cd web && npm ci && npm run build`
+   - Build output directory: `web/dist`
+   - Root directory: leave blank (project root)
+3. **Custom domain:** add `podcast.heybible.org` to the Pages project (canonical). Brand domain `✝.fm` (`xn--pci.fm`) lives in a separate Cloudflare zone and 301-redirects here.
+4. Pushing to `master` rebuilds automatically; PRs get preview deployments.
 
 ## Data contract
 
@@ -61,18 +59,19 @@ Sidecar schema:
 }
 ```
 
-After publishing the GitHub release, `release-book.py` should:
+After uploading both assets to R2, `release-book.py` should:
 
 1. Edit `web/src/data/books.json`, set the book's `status: "available"`, `releaseTag`, `releaseSize` (in bytes).
 2. Commit & push — the deploy workflow rebuilds the site, which fetches the sidecar JSON at build time and bakes chapter offsets into the static HTML.
+
+The R2 base URL is hard-coded in `src/lib/books.ts` as `R2_PUBLIC_BASE`. Update it if the bucket's custom domain changes. Audio uploads must set `Content-Type: audio/mpeg` and `Content-Disposition: inline` — see the root README for the R2 credential setup.
 
 ## File map
 
 ```
 web/
-├── astro.config.mjs       site = https://xn--pci.fm
+├── astro.config.mjs       site = https://podcast.heybible.org
 ├── public/
-│   ├── CNAME              xn--pci.fm
 │   ├── favicon.svg
 │   └── robots.txt
 └── src/

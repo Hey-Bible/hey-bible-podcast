@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { availableBooks, bookAudioUrl, bookChaptersJsonUrl } from '~/lib/books';
 import { fetchChapters } from '~/lib/chapters';
 
-const SITE = 'https://xn--pci.fm';
+const SITE = 'https://podcast.heybible.org';
 const TITLE = 'The Hey Bible Podcast';
 const DESCRIPTION =
   'The whole Bible read aloud, one book at a time. A new book every month. World English Bible — public domain (https://worldenglish.bible).';
