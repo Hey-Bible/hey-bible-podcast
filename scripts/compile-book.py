@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Compile a complete book by stitching together all chapters"""
 
-import datetime
 import json
 import os
 import subprocess
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
