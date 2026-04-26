@@ -6,7 +6,7 @@ const SITE = 'https://xn--pci.fm';
 const TITLE = 'The Hey Bible Podcast';
 const DESCRIPTION =
   'The whole Bible read aloud, one book at a time. A new book every month. World English Bible — public domain (https://worldenglish.bible).';
-const AUTHOR = "Working Dev's Hero";
+const AUTHOR = 'Hey Bible';
 const EMAIL = 'bobby@heybible.org';
 const IMAGE = `${SITE}/og-image.png`;
 
