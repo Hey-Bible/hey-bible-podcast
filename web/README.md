@@ -27,15 +27,15 @@ npm run preview    # serves dist locally
 
 ## Deploy
 
-Cloudflare Pages, building directly from the GitHub repo. One-time setup:
+Cloudflare Workers Static Assets, building directly from the GitHub repo. Config lives in `wrangler.jsonc` (Worker name, `dist` as the asset directory) — CF reads it automatically. One-time setup:
 
-1. In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to Git**, select this repo.
+1. In the Cloudflare dashboard: **Workers & Pages → Create → Workers → Import a repository**, select this repo.
 2. **Build configuration:**
    - Framework preset: **Astro**
-   - Build command: `cd web && npm ci && npm run build`
-   - Build output directory: `web/dist`
-   - Root directory: leave blank (project root)
-3. **Custom domain:** add `podcast.heybible.org` to the Pages project (canonical). Brand domain `✝.fm` (`xn--pci.fm`) lives in a separate Cloudflare zone and 301-redirects here.
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Root directory: `web`
+3. **Custom domain:** add `podcast.heybible.org` to the Worker (canonical). Brand domain `✝.fm` (`xn--pci.fm`) lives in a separate Cloudflare zone and 301-redirects here.
 4. Pushing to `master` rebuilds automatically; PRs get preview deployments.
 
 ## Data contract
@@ -71,6 +71,7 @@ The R2 base URL is hard-coded in `src/lib/books.ts` as `R2_PUBLIC_BASE`. Update 
 ```
 web/
 ├── astro.config.mjs       site = https://podcast.heybible.org
+├── wrangler.jsonc         Cloudflare Workers Static Assets config
 ├── public/
 │   ├── favicon.svg
 │   └── robots.txt

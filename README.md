@@ -26,7 +26,7 @@ hey-bible-podcast/
 │   └── run-daily.sh                # Cron wrapper
 ├── state/
 │   └── progress.json       # Current book/chapter/verse, completed chapters
-└── web/                    # Astro site (deployed by Cloudflare Pages) — see web/README.md
+└── web/                    # Astro site (deployed by Cloudflare Workers Static Assets) — see web/README.md
 ```
 
 ## Stats
@@ -57,7 +57,7 @@ hey-bible-podcast/
 ### Monthly 1st — `scripts/release-book.py`
 - Upload `intermediate/{book}-complete.mp3` and `intermediate/{book}-chapters.json` to Cloudflare R2 via `boto3` (S3-compatible API), with `Content-Type: audio/mpeg` / `application/json` and `Content-Disposition: inline` so iOS Safari will stream the MP3 instead of trying to download it
 - Patch `web/src/data/books.json`: set the book's `status: "available"`, `releaseTag`, and `releaseSize` (bytes)
-- Commit and push — that push triggers a Cloudflare Pages build, which rebuilds the site with the new release
+- Commit and push — that push triggers a Cloudflare Workers build, which rebuilds the site with the new release
 
 ## Audio hosting (Cloudflare R2)
 
