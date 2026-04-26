@@ -20,7 +20,7 @@ Thumbs.db
 intermediate/
 releases/
 verses/**/*.mp3
-chapter-titles/*.mp3
+assets/titles/*.mp3
 chapters/**/*.mp3
 intermediate/*.mp3
 releases/*.mp3

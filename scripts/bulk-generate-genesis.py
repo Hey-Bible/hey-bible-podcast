@@ -20,7 +20,7 @@ STATE_DIR = BASE_DIR / "state"
 BOOKS_DIR = BASE_DIR / "books"
 CHAPTERS_DIR = BASE_DIR / "chapters"
 INTERMEDIATE_DIR = BASE_DIR / "intermediate"
-CHAPTER_TITLES_DIR = BASE_DIR / "chapter-titles"
+CHAPTER_TITLES_DIR = BASE_DIR / "assets" / "titles"
 STATE_FILE = STATE_DIR / "progress.json"
 
 TTS_VOICE = "Bill"
