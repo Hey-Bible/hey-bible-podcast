@@ -15,7 +15,7 @@ from bible_data import BIBLE_STRUCTURE, BOOK_ORDER
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
 CHAPTERS_DIR = BASE_DIR / "chapters"
-CHAPTER_TITLES_DIR = BASE_DIR / "chapter-titles"
+CHAPTER_TITLES_DIR = BASE_DIR / "assets" / "titles"
 INTERMEDIATE_DIR = BASE_DIR / "intermediate"
 STATE_FILE = BASE_DIR / "state" / "progress.json"
 

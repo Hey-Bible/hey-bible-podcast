@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
-CHAPTER_TITLES_DIR = BASE_DIR / "chapter-titles"
+CHAPTER_TITLES_DIR = BASE_DIR / "assets" / "titles"
 
 # TTS Configuration
 TTS_VOICE = "Bill"
