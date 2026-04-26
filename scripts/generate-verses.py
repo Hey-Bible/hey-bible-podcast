@@ -207,15 +207,12 @@ def stitch_chapter(book: str, chapter: int) -> bool:
         
         # Verify the output file
         if output_path.exists() and output_path.stat().st_size > 1000:
-            # Delete individual verse files after successful stitch
-            for vf in verse_files:
-                vf.unlink()
+            # Keep individual verse files for backup/reference
+            # (commented out deletion code - we want to preserve verses)
+            # for vf in verse_files:
+            #     vf.unlink()
             
-            # Remove empty chapter directory
-            if chapter_dir.exists() and not any(chapter_dir.iterdir()):
-                chapter_dir.rmdir()
-            
-            print(f"  ✓ Deleted {len(verse_files)} individual verse files")
+            print(f"  ✓ Kept {len(verse_files)} individual verse files")
             return True
         else:
             print(f"  Output file too small or missing")
