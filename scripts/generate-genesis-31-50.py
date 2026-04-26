@@ -40,20 +40,34 @@ def get_api_key():
     
     raise ValueError("VENICE_API_KEY not found")
 
-def get_verse_text(book: str, chapter: int, verse: int) -> str:
-    """Fetch verse text from bible-api.com"""
+def get_verse_text(book: str, chapter: int, verse: int, retries=3, delay=2) -> str:
+    """Fetch verse text from bible-api.com with retries"""
     book_api = book.replace("-", "+")
     url = f"https://bible-api.com/{book_api}+{chapter}:{verse}?translation={TRANSLATION}"
     
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "WEB-Bible-Audio/1.0"})
-        with urllib.request.urlopen(req, timeout=30) as response:
-            data = json.loads(response.read().decode())
-            text = data.get("text", "").strip()
-            return text
-    except Exception as e:
-        print(f"    Error fetching {book} {chapter}:{verse}: {e}")
-        return None
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "WEB-Bible-Audio/1.0"})
+            with urllib.request.urlopen(req, timeout=30) as response:
+                data = json.loads(response.read().decode())
+                text = data.get("text", "").strip()
+                return text
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                wait_time = delay * (2 ** attempt) + (attempt * 0.5)
+                print(f"    Rate limited (429), waiting {wait_time:.1f}s before retry {attempt+1}/{retries}...")
+                time.sleep(wait_time)
+                continue
+            else:
+                print(f"    HTTP Error {e.code}: {e.read().decode()[:100]}")
+                return None
+        except Exception as e:
+            print(f"    Error fetching {book} {chapter}:{verse}: {e}")
+            time.sleep(delay)
+            continue
+    
+    print(f"    Failed to fetch {book} {chapter}:{verse} after {retries} retries")
+    return None
 
 def generate_tts(text: str, output_path: Path, api_key: str) -> bool:
     """Generate TTS using Venice API"""
@@ -175,9 +189,12 @@ def generate_chapter(chapter: int, api_key: str) -> int:
         
         if generate_tts(verse_text, output_path, api_key):
             generated += 1
-            time.sleep(0.3)  # Small delay between requests
+            time.sleep(0.5)  # Small delay between TTS requests
         else:
             print(f"    Failed to generate Genesis {chapter}:{verse}")
+        
+        # Delay between verse fetches to avoid rate limiting
+        time.sleep(0.3)
     
     return generated
 
@@ -212,6 +229,8 @@ def main():
         for chapter in batch_chapters:
             count = generate_chapter(chapter, api_key)
             batch_count += count
+            # Small delay between chapters
+            time.sleep(1)
         
         total_generated += batch_count
         
