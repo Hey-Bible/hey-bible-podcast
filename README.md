@@ -5,7 +5,7 @@ Complete audio Bible using ElevenLabs Bill voice via Venice AI TTS.
 ## Project Structure
 
 ```
-web-bible-audio/
+hey-bible-podcast/
 ├── books/                  # Individual verse audio files (deleted after chapter stitch)
 │   └── {book}/
 │       └── {chapter}/
@@ -71,25 +71,25 @@ web-bible-audio/
 
 ### Generate verses (daily task)
 ```bash
-cd ~/.openclaw/workspace-claudius/web-bible-audio
+cd ~/.openclaw/workspace-claudius/hey-bible-podcast
 python3 scripts/generate-verses.py
 ```
 
 ### Compile book (monthly 25th)
 ```bash
-cd ~/.openclaw/workspace-claudius/web-bible-audio
+cd ~/.openclaw/workspace-claudius/hey-bible-podcast
 python3 scripts/compile-book.py
 ```
 
 ### Release book (monthly 1st)
 ```bash
-cd ~/.openclaw/workspace-claudius/web-bible-audio
+cd ~/.openclaw/workspace-claudius/hey-bible-podcast
 python3 scripts/release-book.py
 ```
 
 ### Generate chapter title clips (one-time setup)
 ```bash
-cd ~/.openclaw/workspace-claudius/web-bible-audio
+cd ~/.openclaw/workspace-claudius/hey-bible-podcast
 python3 scripts/generate-chapter-titles.py
 ```
 
