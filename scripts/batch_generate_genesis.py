@@ -48,20 +48,32 @@ def get_api_key():
     
     raise ValueError("VENICE_API_KEY not found in environment or config")
 
-def get_verse_text(book: str, chapter: int, verse: int) -> str:
-    """Fetch verse text from bible-api.com"""
+def get_verse_text(book: str, chapter: int, verse: int, max_retries: int = 3) -> str:
+    """Fetch verse text from bible-api.com with retry logic"""
     book_api = book.replace("-", "+")
     url = f"https://bible-api.com/{book_api}+{chapter}:{verse}?translation={TRANSLATION}"
     
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "WEB-Bible-Audio/1.0"})
-        with urllib.request.urlopen(req, timeout=30) as response:
-            data = json.loads(response.read().decode())
-            text = data.get("text", "").strip()
-            return text
-    except Exception as e:
-        print(f"  Error fetching {book} {chapter}:{verse}: {e}")
-        return None
+    for attempt in range(max_retries):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "WEB-Bible-Audio/1.0"})
+            with urllib.request.urlopen(req, timeout=30) as response:
+                data = json.loads(response.read().decode())
+                text = data.get("text", "").strip()
+                return text
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                wait_time = 2 ** attempt  # Exponential backoff: 1, 2, 4 seconds
+                print(f"  Rate limited (429), waiting {wait_time}s before retry {attempt+1}/{max_retries}...")
+                time.sleep(wait_time)
+                continue
+            print(f"  Error fetching {book} {chapter}:{verse}: HTTP {e.code}")
+            return None
+        except Exception as e:
+            print(f"  Error fetching {book} {chapter}:{verse}: {e}")
+            return None
+    
+    print(f"  Failed to fetch {book} {chapter}:{verse} after {max_retries} retries")
+    return None
 
 def generate_tts(text: str, output_path: Path, api_key: str) -> bool:
     """Generate TTS using Venice API"""
@@ -212,7 +224,8 @@ def generate_chapter(chapter: int, api_key: str, progress: dict) -> int:
             generated += 1
             continue
         
-        # Fetch verse text
+        # Fetch verse text (with delay to avoid rate limits)
+        time.sleep(0.5)  # 500ms delay between Bible API requests
         verse_text = get_verse_text("genesis", chapter, verse)
         if not verse_text:
             print(f"  [{verse}] ✗ Failed to fetch text")
