@@ -1,6 +1,6 @@
 {
-  "book": "genesis",
-  "chapter": 41,
+  "book": "exodus",
+  "chapter": 1,
   "verse": 1,
   "completed_count": 1196,
   "last_run": "2026-04-26 18:58:23",
@@ -45,5 +45,8 @@
     "genesis-38",
     "genesis-39",
     "genesis-40"
+  ],
+  "released_books": [
+    "genesis"
   ]
 }
