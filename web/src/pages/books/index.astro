@@ -1,0 +1,30 @@
+---
+import Base from '~/layouts/Base.astro';
+import BookCard from '~/components/BookCard.astro';
+import { oldTestament, newTestament } from '~/lib/books';
+
+const ot = oldTestament();
+const nt = newTestament();
+---
+<Base title="All Books — The Hey Bible Podcast" description="All 66 books of the Bible, with audio releases as they become available.">
+  <section class="text-center py-6">
+    <h1 class="text-3xl md:text-4xl font-extrabold">All 66 Books</h1>
+    <p class="opacity-80 mt-2">
+      A new book is released the 1st of every month.
+    </p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="text-2xl font-extrabold mb-4">Old Testament</h2>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {ot.map((book) => <BookCard book={book} />)}
+    </div>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-2xl font-extrabold mb-4">New Testament</h2>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {nt.map((book) => <BookCard book={book} />)}
+    </div>
+  </section>
+</Base>

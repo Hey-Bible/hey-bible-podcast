@@ -1,0 +1,110 @@
+---
+import type { Chapter } from '~/lib/chapters';
+import { formatTime } from '~/lib/chapters';
+
+interface Props {
+  audioSrc: string;
+  chapters: Chapter[] | null;
+  totalDuration?: number;
+  downloadHref?: string | null;
+}
+
+const { audioSrc, chapters, totalDuration, downloadHref } = Astro.props;
+const playerId = `player-${Math.random().toString(36).slice(2, 8)}`;
+---
+<div class="surface-card" data-chapter-player data-player-id={playerId}>
+  <audio
+    id={playerId}
+    controls
+    preload="metadata"
+    src={audioSrc}
+    class="w-full"
+  >
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="flex flex-wrap items-center justify-between gap-2 mt-3 text-sm opacity-70">
+    {totalDuration && (
+      <span>Total: {formatTime(totalDuration)}</span>
+    )}
+    {downloadHref && (
+      <a
+        href={downloadHref}
+        download
+        class="font-semibold"
+        style="color: var(--color-retro-primary);"
+      >
+        Download MP3 ↓
+      </a>
+    )}
+  </div>
+
+  {chapters && chapters.length > 0 ? (
+    <div class="mt-6">
+      <h3 class="font-extrabold mb-3">Chapters</h3>
+      <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+        {chapters.map((c) => (
+          <button
+            type="button"
+            class="chapter-row"
+            data-chapter-seek={c.start}
+            data-chapter-end={c.end}
+            data-chapter-number={c.number}
+          >
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <span class="flex-1">{c.title}</span>
+            <span class="text-xs opacity-70">{formatTime(c.duration)}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  ) : (
+    <p class="mt-4 text-sm opacity-70">
+      Chapter markers are still being generated for this release.
+    </p>
+  )}
+</div>
+
+<script>
+  function initChapterPlayers() {
+    const players = document.querySelectorAll<HTMLElement>('[data-chapter-player]');
+    players.forEach((root) => {
+      const id = root.getAttribute('data-player-id');
+      if (!id) return;
+      const audio = document.getElementById(id) as HTMLAudioElement | null;
+      if (!audio) return;
+
+      const buttons = root.querySelectorAll<HTMLButtonElement>('[data-chapter-seek]');
+
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const start = Number(btn.getAttribute('data-chapter-seek'));
+          if (Number.isFinite(start)) {
+            audio.currentTime = start;
+            audio.play().catch(() => {
+              // Autoplay can be blocked; user already clicked so it should be allowed,
+              // but ignore the rejection if it isn't.
+            });
+          }
+        });
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        const t = audio.currentTime;
+        let activeIdx = -1;
+        buttons.forEach((btn, i) => {
+          const start = Number(btn.getAttribute('data-chapter-seek'));
+          const end = Number(btn.getAttribute('data-chapter-end'));
+          if (t >= start && t < end) activeIdx = i;
+        });
+        buttons.forEach((btn, i) => {
+          btn.classList.toggle('is-active', i === activeIdx);
+        });
+      });
+    });
+  }
+  initChapterPlayers();
+  document.addEventListener('astro:after-swap', initChapterPlayers);
+</script>
