@@ -33,7 +33,7 @@ Whether you're a lifelong believer, a curious seeker, or someone who's always wa
 
 Subscribe now and experience the Bible as a podcast.
 
-🌐 https://✝️.fm (xn--pci.fm)
+🌐 https://podcast.heybible.org (also https://✝️.fm)
 
 ---
 
@@ -64,7 +64,7 @@ Each episode features a full chapter of Scripture, read with care and intention.
 
 The Bible was meant to be heard. Start listening today.
 
-🌐 https://✝️.fm (xn--pci.fm)
+🌐 https://podcast.heybible.org (also https://✝️.fm)
 
 ---
 

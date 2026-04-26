@@ -20,7 +20,7 @@ export interface ChaptersManifest {
 const cache = new Map<string, ChaptersManifest | null>();
 
 export async function fetchChapters(book: Book): Promise<ChaptersManifest | null> {
-  if (book.status !== 'available' || !book.releaseTag) return null;
+  if (book.status !== 'available') return null;
   const url = bookChaptersJsonUrl(book);
   if (cache.has(url)) return cache.get(url) ?? null;
 

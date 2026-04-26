@@ -33,7 +33,7 @@
 - **Show Name:** Hey Bible Podcast
 - **Author:** Working Dev's Hero LLC (or host name)
 - **Description:** Use Option A from marketing-copy.md
-- **Website:** https://✝️.fm (xn--pci.fm)
+- **Website:** https://podcast.heybible.org (brand alias: https://✝️.fm)
 - **Copyright:** © 2026 Working Dev's Hero LLC
 
 ### Submission Steps
@@ -155,13 +155,13 @@ Ensure your RSS feed includes:
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
     <title>Hey Bible Podcast</title>
-    <link>https://✝️.fm</link>
+    <link>https://podcast.heybible.org</link>
     <language>en</language>
     <itunes:author>Working Dev's Hero LLC</itunes:author>
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Christianity"/>
     </itunes:category>
-    <itunes:image href="https://✝️.fm/podcast-cover.png"/>
+    <itunes:image href="https://podcast.heybible.org/podcast-cover.png"/>
     <itunes:explicit>clean</itunes:explicit>
     <description>The Bible as a podcast. One book each month.</description>
     <!-- Episodes -->

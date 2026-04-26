@@ -11,6 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from bible_data import BIBLE_STRUCTURE, BOOK_ORDER
+import r2
 
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
@@ -362,15 +363,24 @@ def main():
         return
     
     # Compile the book
-    if compile_book(current_book):
-        print()
-        print("Committing intermediate release...")
-        git_commit_intermediate(current_book)
-        print()
-        print(f"✓ Book '{current_book.title()}' ready for release on the 1st!")
-    else:
+    if not compile_book(current_book):
         print(f"\n✗ Failed to compile book '{current_book}'")
         sys.exit(1)
+
+    print()
+    print("Uploading to R2 for review...")
+    mp3_file = INTERMEDIATE_DIR / f"{current_book}-complete.mp3"
+    json_file = INTERMEDIATE_DIR / f"{current_book}-chapters.json"
+    if not r2.upload(mp3_file, json_file):
+        print(f"\n✗ Failed to upload book '{current_book}' to R2")
+        sys.exit(1)
+
+    print()
+    print("Committing intermediate release...")
+    git_commit_intermediate(current_book)
+    print()
+    print(f"✓ Book '{current_book.title()}' ready for release on the 1st!")
+    r2.print_review_links(current_book, include_site=False)
 
 if __name__ == "__main__":
     main()
