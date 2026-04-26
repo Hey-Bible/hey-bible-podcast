@@ -5,15 +5,9 @@
     "testament": "old",
     "chapters": 50,
     "totalVerses": 1533,
-    "status": "in-progress",
-    "releaseTag": null,
-    "releaseSize": null,
-    "progress": {
-      "chapter": 31,
-      "verse": 1,
-      "completedVerses": 874,
-      "completedChapters": 30
-    }
+    "status": "available",
+    "releaseTag": "genesis-2026-04",
+    "releaseSize": null
   },
   {
     "slug": "exodus",

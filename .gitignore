@@ -15,3 +15,10 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Audio files (released via GitHub Releases, not git)
+intermediate/
+releases/
+verses/**/*.mp3
+chapter-titles/*.mp3
+chapters/**/*.mp3
