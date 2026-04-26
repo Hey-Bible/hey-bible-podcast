@@ -9,7 +9,7 @@ The whole Bible read aloud, one book at a time. Audio generated with the ElevenL
 
 ```
 hey-bible-podcast/
-├── books/                  # Individual verse audio files (deleted after chapter stitch)
+├── verses/                 # Individual verse audio files (deleted after chapter stitch)
 │   └── {book}/{chapter}/{book}-{chapter}-{verse}-web.mp3
 ├── chapters/               # Stitched chapter audio files
 │   └── {book}/chapter-{N}.mp3

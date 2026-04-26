@@ -12,7 +12,7 @@ import urllib.error
 
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
-BOOKS_DIR = BASE_DIR / "books"
+BOOKS_DIR = BASE_DIR / "verses"
 TRANSLATION = "web"
 TTS_VOICE = "Bill"
 TTS_MODEL = "tts-elevenlabs-turbo-v2-5"
@@ -132,7 +132,7 @@ def git_commit(chapters_done, verses_generated):
     """Commit changes"""
     try:
         os.chdir(BASE_DIR)
-        subprocess.run(["git", "add", "books/genesis/"], check=True, capture_output=True)
+        subprocess.run(["git", "add", "verses/genesis/"], check=True, capture_output=True)
         
         result = subprocess.run(["git", "diff", "--cached", "--quiet"], capture_output=True)
         if result.returncode != 0:

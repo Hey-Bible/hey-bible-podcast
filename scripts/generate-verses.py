@@ -19,7 +19,7 @@ from bible_data import BIBLE_STRUCTURE, BOOK_ORDER, get_next_book_chapter_verse
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
 STATE_DIR = BASE_DIR / "state"
-BOOKS_DIR = BASE_DIR / "books"
+BOOKS_DIR = BASE_DIR / "verses"
 CHAPTERS_DIR = BASE_DIR / "chapters"
 STATE_FILE = STATE_DIR / "progress.json"
 
