@@ -323,11 +323,11 @@ def git_commit_intermediate(book: str) -> bool:
             )
             
             subprocess.run(
-                ["git", "push", "origin", "main"],
+                ["git", "push", "origin", "master"],
                 check=True,
                 capture_output=True
             )
-            
+
             print(f"  Committed and pushed: {commit_msg}")
             return True
             

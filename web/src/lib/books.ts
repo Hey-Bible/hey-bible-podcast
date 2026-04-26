@@ -50,7 +50,7 @@ export function newTestament(): Book[] {
 
 export function releaseUrl(book: Book, asset: string): string {
   const tag = book.releaseTag ?? `${book.slug}-latest`;
-  return `https://github.com/wdh-claudius/web-bible-audio/releases/download/${tag}/${asset}`;
+  return `https://github.com/hey-bible/hey-bible-podcast/releases/download/${tag}/${asset}`;
 }
 
 export function bookAudioUrl(book: Book): string {
