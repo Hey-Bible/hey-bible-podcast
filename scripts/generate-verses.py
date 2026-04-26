@@ -50,10 +50,11 @@ def get_api_key():
 
 def get_verse_text(book: str, chapter: int, verse: int) -> str:
     """Fetch verse text from bible-api.com"""
-    # Convert book name to API format
-    book_display = book.replace("-", " ").title()
+    # Convert book name to API format (spaces become + for URL)
+    book_api = book.replace("-", "+")
     
-    url = f"https://bible-api.com/{book} {chapter}:{verse}?translation={TRANSLATION}"
+    # Build URL with proper encoding
+    url = f"https://bible-api.com/{book_api}+{chapter}:{verse}?translation={TRANSLATION}"
     
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "WEB-Bible-Audio/1.0"})
