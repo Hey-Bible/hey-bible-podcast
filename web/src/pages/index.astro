@@ -1,0 +1,76 @@
+---
+import Base from '~/layouts/Base.astro';
+import ChapterPlayer from '~/components/ChapterPlayer.astro';
+import SubscribeLinks from '~/components/SubscribeLinks.astro';
+import { latestRelease, inProgressBook, bookAudioUrl } from '~/lib/books';
+import { fetchChapters } from '~/lib/chapters';
+
+const featured = latestRelease();
+const inProgress = inProgressBook();
+
+const chapters = featured ? await fetchChapters(featured) : null;
+const featuredAudio = featured ? bookAudioUrl(featured) : null;
+
+const inProgressPct =
+  inProgress?.progress
+    ? Math.min(100, Math.round((inProgress.progress.completedVerses / inProgress.totalVerses) * 100))
+    : 0;
+---
+<Base>
+  <section class="text-center py-8 sm:py-12">
+    <h1 class="text-3xl md:text-5xl font-extrabold">The Hey Bible Podcast</h1>
+    <p class="text-xl mt-3 opacity-80">
+      <span class="font-bold" style="color: var(--color-retro-primary);">✝️.fm</span>
+      &middot; The whole Bible, read aloud, one book at a time.
+    </p>
+    <p class="max-w-[640px] mx-auto mt-4 opacity-80">
+      A new book every month. Free. Public domain
+      (<a href="https://worldenglish.bible" target="_blank" rel="noopener noreferrer">World English Bible</a>).
+      Supports local churches and food banks.
+    </p>
+  </section>
+
+  {featured && featuredAudio ? (
+    <section class="mt-8">
+      <div class="flex items-baseline justify-between mb-3">
+        <h2 class="text-2xl font-extrabold">Latest release: {featured.name}</h2>
+        <a href={`/books/${featured.slug}/`} class="text-sm font-semibold">View book →</a>
+      </div>
+      <ChapterPlayer
+        audioSrc={featuredAudio}
+        chapters={chapters?.chapters ?? null}
+        totalDuration={chapters?.duration}
+        downloadHref={featuredAudio}
+      />
+    </section>
+  ) : inProgress ? (
+    <section class="surface-card mt-8 text-center">
+      <h2 class="text-2xl font-extrabold mb-2">First release coming soon</h2>
+      <p class="opacity-80 mb-4">
+        We're currently recording <strong>{inProgress.name}</strong>.
+        Right now we're on chapter {inProgress.progress?.chapter}, verse {inProgress.progress?.verse}.
+      </p>
+      <div
+        class="w-full max-w-[480px] mx-auto h-3 rounded-full overflow-hidden"
+        style="background: var(--color-retro-secondary);"
+      >
+        <div
+          class="h-full"
+          style={`background: var(--color-retro-primary); width: ${inProgressPct}%;`}
+        />
+      </div>
+      <p class="text-sm opacity-70 mt-2">
+        {inProgress.progress?.completedVerses.toLocaleString()} of {inProgress.totalVerses.toLocaleString()} verses ({inProgressPct}%)
+      </p>
+      <a href={`/books/${inProgress.slug}/`} class="cta-button mt-6 inline-block">
+        Track progress →
+      </a>
+    </section>
+  ) : null}
+
+  <SubscribeLinks />
+
+  <section class="text-center mt-8">
+    <a href="/books/" class="cta-button">Browse all 66 books</a>
+  </section>
+</Base>
