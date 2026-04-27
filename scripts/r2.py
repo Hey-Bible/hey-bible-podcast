@@ -79,7 +79,7 @@ def print_review_links(book: str, *, include_site: bool) -> None:
     """
     print()
     print("Review links:")
-    print(f"  🎧 Audio:   {PUBLIC_AUDIO_BASE}/{book}-complete.mp3")
+    print(f"  🎧 Audio:   {PUBLIC_AUDIO_BASE}/{book}.mp3")
     print(f"  📑 Sidecar: {PUBLIC_AUDIO_BASE}/{book}-chapters.json")
     if include_site:
         print(f"  🌐 Page:    {SITE_URL}/books/{book}/")
