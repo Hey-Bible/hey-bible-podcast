@@ -77,7 +77,7 @@ def release_book(book: str) -> bool:
     print("=" * 60)
 
     mp3_file = INTERMEDIATE_DIR / f"{book}.mp3"
-    json_file = INTERMEDIATE_DIR / f"{book}-chapters.json"
+    json_file = INTERMEDIATE_DIR / f"{book}.json"
 
     if not mp3_file.exists():
         print(f"  Error: Intermediate file not found: {mp3_file}")
