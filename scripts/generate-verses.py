@@ -337,8 +337,9 @@ def main():
     for i in range(DAILY_BATCH_SIZE):
         print(f"[{i+1}/{DAILY_BATCH_SIZE}] {current_book.title()} {current_chapter}:{current_verse}")
         
-        # Get verse text
+        # Get verse text (with rate limiting)
         verse_text = get_verse_text(current_book, current_chapter, current_verse)
+        time.sleep(0.5)  # Rate limit: 2 req/sec to bible-api.com
         if not verse_text:
             print(f"  Failed to fetch text, skipping...")
             failed.append((current_book, current_chapter, current_verse))
