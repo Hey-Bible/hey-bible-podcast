@@ -1,9 +1,9 @@
 {
-  "book": "exodus",
-  "chapter": 1,
+  "book": "genesis",
+  "chapter": 50,
   "verse": 1,
-  "completed_count": 1196,
-  "last_run": "2026-04-26 18:58:23",
+  "completed_count": 1533,
+  "last_run": "2026-04-26 23:00:00",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -44,9 +44,17 @@
     "genesis-37",
     "genesis-38",
     "genesis-39",
-    "genesis-40"
+    "genesis-40",
+    "genesis-41",
+    "genesis-42",
+    "genesis-43",
+    "genesis-44",
+    "genesis-45",
+    "genesis-46",
+    "genesis-47",
+    "genesis-48",
+    "genesis-49",
+    "genesis-50"
   ],
-  "released_books": [
-    "genesis"
-  ]
+  "released_books": []
 }
