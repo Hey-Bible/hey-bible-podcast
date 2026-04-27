@@ -22,5 +22,5 @@ verses/**/*.mp3
 assets/titles/*.mp3
 chapters/**/*.mp3
 intermediate/*.mp3
-releases/*.mp3
+releases/
 test-backup/
