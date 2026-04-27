@@ -40,7 +40,7 @@ hey-bible-podcast/
 ## Cron Schedule
 
 ### Daily — `scripts/generate-verses.py`
-- Fetch 50 verses from bible-api.com, generate MP3s via Venice TTS
+- Read 50 verse texts from `scripts/data/web-bible.json` (pre-built from the WEB USFX XML in [seven1m/open-bibles](https://github.com/seven1m/open-bibles)), generate MP3s via Venice TTS
 - Detect chapters where every verse is now present, stitch with ffmpeg
 - Delete the per-verse files for completed chapters
 - Update `state/progress.json`
