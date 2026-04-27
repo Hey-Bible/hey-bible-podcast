@@ -8,7 +8,7 @@ const DESCRIPTION =
   'The whole Bible read aloud, one book at a time. A new book every month. Public domain — World English Bible.';
 const AUTHOR = 'Hey Bible';
 const EMAIL = 'bobby@heybible.org';
-const IMAGE = `${SITE}/podcast-cover.png`;
+const IMAGE = `${SITE}/podcast-cover.jpg`;
 const COPYRIGHT = `© ${new Date().getFullYear()} Working Dev’s Hero — Text from the World English Bible (public domain)`;
 
 function escapeXml(s: string): string {
