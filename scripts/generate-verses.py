@@ -149,7 +149,7 @@ def stitch_chapter(book: str, chapter: int) -> bool:
     chapter_dir = BOOKS_DIR / book / str(chapter)
     output_dir = CHAPTERS_DIR / book
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / f"chapter-{chapter}.mp3"
+    output_path = output_dir / f"{book}-{chapter}-web.mp3"
     
     if output_path.exists():
         print(f"  Chapter file already exists: {output_path}")

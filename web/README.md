@@ -42,8 +42,8 @@ Cloudflare Workers Static Assets, building directly from the GitHub repo. Config
 
 The Python pipeline (`scripts/compile-book.py`, `scripts/release-book.py`) is responsible for emitting two assets per release:
 
-- `{book}-complete.mp3` — full book audio
-- `{book}-chapters.json` — chapter offsets (sidecar)
+- `{book}-web.mp3` — full book audio
+- `{book}-web.json` — chapter offsets (sidecar)
 
 Sidecar schema:
 
@@ -52,7 +52,6 @@ Sidecar schema:
   "book": "genesis",
   "title": "Genesis",
   "duration": 12345.67,
-  "releaseTag": "genesis-2026-05",
   "chapters": [
     { "number": 1, "title": "Chapter 1", "start": 0, "end": 234.5, "duration": 234.5 }
   ]

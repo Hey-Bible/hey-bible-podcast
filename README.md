@@ -12,11 +12,11 @@ hey-bible-podcast/
 ├── verses/                 # Individual verse audio files (deleted after chapter stitch)
 │   └── {book}/{chapter}/{book}-{chapter}-{verse}-web.mp3
 ├── chapters/               # Stitched chapter audio files
-│   └── {book}/chapter-{N}.mp3
-├── chapter-titles/         # Pre-generated "Chapter N" audio clips (1–150)
+│   └── {book}/{book}-{N}-web.mp3
+├── assets/titles/          # Pre-generated "Chapter N" audio clips (1–150)
 ├── intermediate/           # Compiled book + chapter sidecar (monthly 25th, pre-release)
-│   ├── {book}-complete.mp3
-│   └── {book}-chapters.json
+│   ├── {book}-web.mp3
+│   └── {book}-web.json
 ├── scripts/                # Audio pipeline
 │   ├── generate-verses.py          # Daily: 50 verses + chapter stitch
 │   ├── generate-chapter-titles.py  # One-time: Chapter 1–150 clips
@@ -49,13 +49,13 @@ hey-bible-podcast/
 ### Monthly 25th — `scripts/compile-book.py`
 - Verify the current book has all chapters
 - Generate the spoken book-title audio ("The Book of Genesis")
-- Stitch: book-title + (chapter-title-N + chapter-N) for every chapter, into `intermediate/{book}-complete.mp3`
-- Emit `intermediate/{book}-chapters.json` — a chapter sidecar with start/end offsets in seconds
+- Stitch: book-title + (chapter-title-N + chapter-N) for every chapter, into `intermediate/{book}-web.mp3`
+- Emit `intermediate/{book}-web.json` — a chapter sidecar with start/end offsets in seconds
 - Upload the MP3 + sidecar to Cloudflare R2 so the file is reachable for preview before the 1st-of-month release. The website doesn't surface it yet (status is still `in-progress`), so the URL is "unlisted" — only an operator with the link can hear it.
-- Print the review URLs (`audio.heybible.org/{book}-complete.mp3` + `…-chapters.json`)
+- Print the review URLs (`audio.heybible.org/{book}-web.mp3` + `…-web.json`)
 
 ### Monthly 1st — `scripts/release-book.py`
-- Upload `intermediate/{book}-complete.mp3` and `intermediate/{book}-chapters.json` to Cloudflare R2 via `boto3` (S3-compatible API), with `Content-Type: audio/mpeg` / `application/json` and `Content-Disposition: inline` so iOS Safari will stream the MP3 instead of trying to download it
+- Upload `intermediate/{book}-web.mp3` and `intermediate/{book}-web.json` to Cloudflare R2 via `boto3` (S3-compatible API), with `Content-Type: audio/mpeg` / `application/json` and `Content-Disposition: inline` so iOS Safari will stream the MP3 instead of trying to download it
 - Patch `web/src/data/books.json`: set the book's `status: "available"`, `releaseTag`, and `releaseSize` (bytes)
 - Commit and push — that push triggers a Cloudflare Workers build, which rebuilds the site with the new release
 
@@ -77,14 +77,13 @@ One-time setup:
 
 ## Chapter sidecar JSON
 
-`{book}-chapters.json` is uploaded to R2 alongside `{book}-complete.mp3` and is used both by the web chapter player and by the `<podcast:chapters>` link in the RSS feed (Apple Podcasts / Overcast / Pocket Casts render it as the chapter list).
+`{book}-web.json` is uploaded to R2 alongside `{book}-web.mp3` and is used both by the web chapter player and by the `<podcast:chapters>` link in the RSS feed (Apple Podcasts / Overcast / Pocket Casts render it as the chapter list).
 
 ```json
 {
   "book": "genesis",
   "title": "Genesis",
   "duration": 12345.67,
-  "releaseTag": "genesis-2026-05",
   "chapters": [
     { "number": 1, "title": "Chapter 1", "start": 0,     "end": 240.5,  "duration": 240.5 },
     { "number": 2, "title": "Chapter 2", "start": 240.5, "end": 495.1,  "duration": 254.6 }
@@ -108,9 +107,9 @@ python3 scripts/generate-chapter-titles.py  # one-time setup
 | Kind             | Pattern                              | Example                  |
 |------------------|--------------------------------------|--------------------------|
 | Verse            | `{book}-{chapter}-{verse}-web.mp3`   | `genesis-1-1-web.mp3`    |
-| Chapter          | `chapter-{N}.mp3`                    | `chapter-1.mp3`          |
-| Book release     | `{book}-complete.mp3`                | `genesis-complete.mp3`   |
-| Chapter sidecar  | `{book}-chapters.json`               | `genesis-chapters.json`  |
+| Chapter          | `{book}-{N}-web.mp3`                 | `genesis-1-web.mp3`      |
+| Book release     | `{book}-web.mp3`                     | `genesis-web.mp3`        |
+| Chapter sidecar  | `{book}-web.json`                    | `genesis-web.json`       |
 
 ## Requirements
 
@@ -128,7 +127,7 @@ Lossless stitching via the concat demuxer:
 ffmpeg -f concat -safe 0 -i concat.txt -acodec copy chapter-N.mp3
 
 # Chapters → book
-ffmpeg -f concat -safe 0 -i concat.txt -acodec copy book-complete.mp3
+ffmpeg -f concat -safe 0 -i concat.txt -acodec copy book-web.mp3
 ```
 
 Per-verse files are deleted after a successful chapter stitch to save space.
