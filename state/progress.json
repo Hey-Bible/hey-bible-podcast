@@ -1,9 +1,9 @@
 {
   "book": "exodus",
-  "chapter": 9,
-  "verse": 15,
-  "completed_count": 1763,
-  "last_run": "2026-04-27 23:44:56",
+  "chapter": 11,
+  "verse": 1,
+  "completed_count": 1813,
+  "last_run": "2026-04-27 23:47:24",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -62,7 +62,9 @@
     "exodus-5",
     "exodus-6",
     "exodus-7",
-    "exodus-8"
+    "exodus-8",
+    "exodus-9",
+    "exodus-10"
   ],
   "released_books": []
 }
