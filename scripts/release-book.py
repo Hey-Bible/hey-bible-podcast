@@ -76,7 +76,7 @@ def release_book(book: str) -> bool:
     print(f"\nReleasing book: {book.title()}")
     print("=" * 60)
 
-    mp3_file = INTERMEDIATE_DIR / f"{book}-complete.mp3"
+    mp3_file = INTERMEDIATE_DIR / f"{book}.mp3"
     json_file = INTERMEDIATE_DIR / f"{book}-chapters.json"
 
     if not mp3_file.exists():
@@ -157,7 +157,7 @@ def main():
         print(f"  {', '.join(b.title() for b in released_books)}")
     print()
 
-    intermediate_file = INTERMEDIATE_DIR / f"{current_book}-complete.mp3"
+    intermediate_file = INTERMEDIATE_DIR / f"{current_book}.mp3"
 
     if not intermediate_file.exists():
         print(f"No intermediate file found for {current_book.title()}")

@@ -369,7 +369,7 @@ def main():
 
     print()
     print("Uploading to R2 for review...")
-    mp3_file = INTERMEDIATE_DIR / f"{current_book}-complete.mp3"
+    mp3_file = INTERMEDIATE_DIR / f"{current_book}.mp3"
     json_file = INTERMEDIATE_DIR / f"{current_book}-chapters.json"
     if not r2.upload(mp3_file, json_file):
         print(f"\n✗ Failed to upload book '{current_book}' to R2")
