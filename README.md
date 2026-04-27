@@ -35,7 +35,7 @@ hey-bible-podcast/
 - **Daily batch:** 50 verses
 - **Estimated completion:** ~1.7 years
 - **Voice:** ElevenLabs Bill (via Venice TTS)
-- **Translation:** [World English Bible](https://worldenglish.bible) (public domain)
+- **Translation:** [World English Bible](https://worldenglish.bible) — public domain
 
 ## Cron Schedule
 
