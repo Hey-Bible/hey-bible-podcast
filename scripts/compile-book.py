@@ -163,7 +163,7 @@ def compile_book(book: str) -> bool:
     
     INTERMEDIATE_DIR.mkdir(parents=True, exist_ok=True)
     output_path = INTERMEDIATE_DIR / f"{book}.mp3"
-    chapters_json_path = INTERMEDIATE_DIR / f"{book}-chapters.json"
+    chapters_json_path = INTERMEDIATE_DIR / f"{book}.json"
     
     if output_path.exists() and chapters_json_path.exists():
         print(f"  Book already compiled: {output_path}")
@@ -370,7 +370,7 @@ def main():
     print()
     print("Uploading to R2 for review...")
     mp3_file = INTERMEDIATE_DIR / f"{current_book}.mp3"
-    json_file = INTERMEDIATE_DIR / f"{current_book}-chapters.json"
+    json_file = INTERMEDIATE_DIR / f"{current_book}.json"
     if not r2.upload(mp3_file, json_file):
         print(f"\n✗ Failed to upload book '{current_book}' to R2")
         sys.exit(1)
