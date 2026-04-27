@@ -68,6 +68,12 @@ const playerId = `player-${Math.random().toString(36).slice(2, 8)}`;
 </div>
 
 <script>
+  function setChapterParam(number: string) {
+    const url = new URL(location.href);
+    url.searchParams.set('chapter', number);
+    history.replaceState(null, '', url);
+  }
+
   function initChapterPlayers() {
     const players = document.querySelectorAll<HTMLElement>('[data-chapter-player]');
     players.forEach((root) => {
@@ -81,12 +87,14 @@ const playerId = `player-${Math.random().toString(36).slice(2, 8)}`;
       buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
           const start = Number(btn.getAttribute('data-chapter-seek'));
+          const number = btn.getAttribute('data-chapter-number');
           if (Number.isFinite(start)) {
             audio.currentTime = start;
             audio.play().catch(() => {
               // Autoplay can be blocked; user already clicked so it should be allowed,
               // but ignore the rejection if it isn't.
             });
+            if (number) setChapterParam(number);
           }
         });
       });
@@ -103,6 +111,27 @@ const playerId = `player-${Math.random().toString(36).slice(2, 8)}`;
           btn.classList.toggle('is-active', i === activeIdx);
         });
       });
+
+      // Deep link via ?chapter=N — seek on load, scroll the row into view.
+      // Don't auto-play; browsers block it without prior user interaction.
+      const requested = new URLSearchParams(location.search).get('chapter');
+      if (requested) {
+        const target = root.querySelector<HTMLButtonElement>(
+          `[data-chapter-number="${CSS.escape(requested)}"]`,
+        );
+        if (target) {
+          const start = Number(target.getAttribute('data-chapter-seek'));
+          const seek = () => {
+            if (Number.isFinite(start)) audio.currentTime = start;
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          };
+          if (audio.readyState >= 1) {
+            seek();
+          } else {
+            audio.addEventListener('loadedmetadata', seek, { once: true });
+          }
+        }
+      }
     });
   }
   initChapterPlayers();
