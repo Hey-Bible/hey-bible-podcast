@@ -7,7 +7,6 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from urllib.parse import quote
 
 import urllib.request
 import urllib.error
@@ -15,6 +14,7 @@ import urllib.error
 # Add script directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 from bible_data import BIBLE_STRUCTURE, BOOK_ORDER, get_next_book_chapter_verse
+from bible_text import get_verse_text
 
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
@@ -48,21 +48,6 @@ def get_api_key():
             pass
     
     raise ValueError("VENICE_API_KEY not found in environment or config")
-
-def get_verse_text(book: str, chapter: int, verse: int) -> str:
-    """Fetch verse text from bible-api.com"""
-    book_api = book.replace("-", "+")
-    url = f"https://bible-api.com/{book_api}+{chapter}:{verse}?translation={TRANSLATION}"
-    
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "WEB-Bible-Audio/1.0"})
-        with urllib.request.urlopen(req, timeout=30) as response:
-            data = json.loads(response.read().decode())
-            text = data.get("text", "").strip()
-            return text
-    except Exception as e:
-        print(f"Error fetching {book} {chapter}:{verse}: {e}")
-        return None
 
 def generate_tts(text: str, output_path: Path, api_key: str) -> bool:
     """Generate TTS using Venice API"""
@@ -337,11 +322,9 @@ def main():
     for i in range(DAILY_BATCH_SIZE):
         print(f"[{i+1}/{DAILY_BATCH_SIZE}] {current_book.title()} {current_chapter}:{current_verse}")
         
-        # Get verse text (with rate limiting)
         verse_text = get_verse_text(current_book, current_chapter, current_verse)
-        time.sleep(0.5)  # Rate limit: 2 req/sec to bible-api.com
         if not verse_text:
-            print(f"  Failed to fetch text, skipping...")
+            print(f"  Verse text not found in local WEB JSON, skipping...")
             failed.append((current_book, current_chapter, current_verse))
             
             next_book, next_chapter, next_verse = get_next_book_chapter_verse(
