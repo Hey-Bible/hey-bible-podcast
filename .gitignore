@@ -16,11 +16,9 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Audio files (uploaded to Cloudflare R2, not git)
+# Audio files (intermediate only - verses and chapters go to git)
 intermediate/
-verses/**/*.mp3
 assets/titles/*.mp3
-chapters/**/*.mp3
 intermediate/*.mp3
 releases/
 test-backup/
