@@ -5,7 +5,7 @@ import { fetchChapters } from '~/lib/chapters';
 const SITE = 'https://podcast.heybible.org';
 const TITLE = 'The Hey Bible Podcast';
 const DESCRIPTION =
-  'The whole Bible read aloud, one book at a time. A new book every month. World English Bible — public domain (https://worldenglish.bible).';
+  'The whole Bible read aloud, one book at a time. A new book every month. Public domain — World English Bible.';
 const AUTHOR = 'Hey Bible';
 const EMAIL = 'bobby@heybible.org';
 const IMAGE = `${SITE}/podcast-cover.png`;
@@ -70,7 +70,7 @@ export const GET: APIRoute = async () => {
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
     <description>${escapeXml(DESCRIPTION)}</description>
     <language>en-us</language>
-    <copyright>Public domain — World English Bible (https://worldenglish.bible)</copyright>
+    <copyright>Public domain — World English Bible</copyright>
     <lastBuildDate>${now}</lastBuildDate>
     <itunes:author>${escapeXml(AUTHOR)}</itunes:author>
     <itunes:summary>${escapeXml(DESCRIPTION)}</itunes:summary>
