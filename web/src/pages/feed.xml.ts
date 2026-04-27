@@ -9,6 +9,7 @@ const DESCRIPTION =
 const AUTHOR = 'Hey Bible';
 const EMAIL = 'bobby@heybible.org';
 const IMAGE = `${SITE}/podcast-cover.png`;
+const COPYRIGHT = `© ${new Date().getFullYear()} Working Dev’s Hero — Text from the World English Bible (public domain)`;
 
 function escapeXml(s: string): string {
   return s
@@ -70,7 +71,7 @@ export const GET: APIRoute = async () => {
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
     <description>${escapeXml(DESCRIPTION)}</description>
     <language>en-us</language>
-    <copyright>Public domain — World English Bible</copyright>
+    <copyright>${escapeXml(COPYRIGHT)}</copyright>
     <lastBuildDate>${now}</lastBuildDate>
     <itunes:author>${escapeXml(AUTHOR)}</itunes:author>
     <itunes:summary>${escapeXml(DESCRIPTION)}</itunes:summary>
