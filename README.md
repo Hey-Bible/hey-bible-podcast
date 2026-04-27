@@ -37,6 +37,10 @@ hey-bible-podcast/
 - **Voice:** ElevenLabs Bill (via Venice TTS)
 - **Translation:** [World English Bible](https://worldenglish.bible) — public domain
 
+## Acknowledgments
+
+- **[bible-api.com](https://bible-api.com)** by [Tim Morgan](https://timmorgan.dev) — free API service providing WEB Bible verse text. Source code and open data available on [GitHub](https://github.com/seven1m/bible_api).
+
 ## Cron Schedule
 
 ### Daily — `scripts/generate-verses.py`
