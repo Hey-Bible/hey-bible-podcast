@@ -265,7 +265,7 @@ def git_commit_changes(book: str, chapter: int, count: int, stitched: list):
             )
             
             subprocess.run(
-                ["git", "push", "origin", "main"],
+                ["git", "push", "origin", "master"],
                 check=True,
                 capture_output=True
             )
