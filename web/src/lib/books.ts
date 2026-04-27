@@ -21,10 +21,13 @@ export interface Book {
   progress?: BookProgress;
 }
 
-// Public base URL for the R2 bucket that hosts {book}.mp3 and
-// {book}.json. Must be served with Content-Type: audio/mpeg and
+// Public base URL for the R2 bucket that hosts {book}-web.mp3 and
+// {book}-web.json. Must be served with Content-Type: audio/mpeg and
 // Content-Disposition: inline so iOS Safari will stream instead of trying to
 // download — see scripts/release-book.py for the upload-side headers.
+//
+// TODO: replace once the R2 bucket + custom domain are live (e.g.
+// "https://audio.heybible.org"). Until then, audio playback is broken.
 export const R2_PUBLIC_BASE = 'https://audio.heybible.org';
 
 export const books = booksData as Book[];
@@ -55,9 +58,9 @@ export function newTestament(): Book[] {
 }
 
 export function bookAudioUrl(book: Book): string {
-  return `${R2_PUBLIC_BASE}/${book.slug}.mp3`;
+  return `${R2_PUBLIC_BASE}/${book.slug}-web.mp3`;
 }
 
 export function bookChaptersJsonUrl(book: Book): string {
-  return `${R2_PUBLIC_BASE}/${book.slug}.json`;
+  return `${R2_PUBLIC_BASE}/${book.slug}-web.json`;
 }
