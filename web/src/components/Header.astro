@@ -31,6 +31,13 @@ const isActive = (href: string) =>
         Books
       </a>
       <a
+        href="/about/"
+        class="text-sm font-bold no-underline glow-hover hidden sm:inline"
+        style={`color: var(--color-retro-text); opacity: ${isActive('/about') ? 0.75 : 1};`}
+      >
+        About
+      </a>
+      <a
         href="/feed.xml"
         class="text-sm font-bold no-underline glow-hover hidden sm:inline"
         style="color: var(--color-retro-text);"
