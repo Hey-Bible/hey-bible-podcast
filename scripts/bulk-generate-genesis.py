@@ -134,7 +134,7 @@ def stitch_chapter(book: str, chapter: int) -> bool:
     chapter_dir = BOOKS_DIR / book / str(chapter)
     output_dir = CHAPTERS_DIR / book
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / f"chapter-{chapter}.mp3"
+    output_path = output_dir / f"{book}-{chapter}-web.mp3"
     
     if output_path.exists():
         return True
@@ -212,8 +212,8 @@ def compile_full_book(book: str) -> bool:
     
     expected_chapters = len(BIBLE_STRUCTURE[book]["chapters"])
     chapter_files = sorted(
-        chapters_dir.glob("chapter-*.mp3"),
-        key=lambda p: int(p.stem.split("-")[1])
+        chapters_dir.glob(f"{book}-*-web.mp3"),
+        key=lambda p: int(p.stem.split("-")[-2])
     )
     
     if len(chapter_files) < expected_chapters:
@@ -221,7 +221,7 @@ def compile_full_book(book: str) -> bool:
         return False
     
     INTERMEDIATE_DIR.mkdir(parents=True, exist_ok=True)
-    output_path = INTERMEDIATE_DIR / f"{book}-complete.mp3"
+    output_path = INTERMEDIATE_DIR / f"{book}-web.mp3"
     
     if output_path.exists():
         print(f"Complete book already exists: {output_path}")
@@ -474,7 +474,7 @@ def main():
         print(f"{'='*60}")
         print(f"Total verses: {total_verses}")
         print(f"Chapters: 50")
-        print(f"Output: {INTERMEDIATE_DIR / 'genesis-complete.mp3'}")
+        print(f"Output: {INTERMEDIATE_DIR / 'genesis-web.mp3'}")
     else:
         print("\n✗ Book compilation failed")
         sys.exit(1)
