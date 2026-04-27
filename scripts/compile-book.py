@@ -5,8 +5,6 @@ import json
 import os
 import subprocess
 import sys
-import time
-from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -96,28 +94,42 @@ def get_chapter_count(book: str) -> int:
     """Get total chapters in a book"""
     return len(BIBLE_STRUCTURE[book]["chapters"])
 
+def parse_chapter_number(filename: str, book: str) -> int | None:
+    """Extract the chapter number from a per-book chapter mp3 filename.
+
+    Accepts both the new convention (`{book}-{N}-web.mp3`, written by
+    generate-verses.py) and the legacy `chapter-{N}.mp3` form so existing files
+    on the cron machine keep working without a rename.
+    """
+    name = filename.removesuffix(".mp3")
+    if name.startswith(f"{book}-") and name.endswith("-web"):
+        middle = name[len(book) + 1 : -len("-web")]
+        if middle.isdigit():
+            return int(middle)
+    if name.startswith("chapter-"):
+        rest = name[len("chapter-"):]
+        if rest.isdigit():
+            return int(rest)
+    return None
+
+
 def check_book_complete(book: str) -> bool:
     """Check if all chapters in a book have been generated"""
-    book_chapters_dir = CHAPTERS_DIR / book
-    if not book_chapters_dir.exists():
-        return False
-    
-    expected_chapters = get_chapter_count(book)
-    existing_files = list(book_chapters_dir.glob("chapter-*.mp3"))
-    
-    return len(existing_files) >= expected_chapters
+    return len(get_existing_chapters(book)) >= get_chapter_count(book)
+
 
 def get_existing_chapters(book: str) -> list:
     """Get list of existing chapter files sorted by number"""
     book_chapters_dir = CHAPTERS_DIR / book
     if not book_chapters_dir.exists():
         return []
-    
+
     chapters = []
-    for f in book_chapters_dir.glob("chapter-*.mp3"):
-        chapter_num = int(f.stem.split("-")[1])
-        chapters.append((chapter_num, f))
-    
+    for f in book_chapters_dir.glob("*.mp3"):
+        n = parse_chapter_number(f.name, book)
+        if n is not None:
+            chapters.append((n, f))
+
     return sorted(chapters)
 
 def get_audio_duration(file_path: Path) -> float:
@@ -162,8 +174,8 @@ def compile_book(book: str) -> bool:
     print(f"  Found {len(chapters)} chapters")
     
     INTERMEDIATE_DIR.mkdir(parents=True, exist_ok=True)
-    output_path = INTERMEDIATE_DIR / f"{book}.mp3"
-    chapters_json_path = INTERMEDIATE_DIR / f"{book}.json"
+    output_path = INTERMEDIATE_DIR / f"{book}-web.mp3"
+    chapters_json_path = INTERMEDIATE_DIR / f"{book}-web.json"
     
     if output_path.exists() and chapters_json_path.exists():
         print(f"  Book already compiled: {output_path}")
@@ -274,13 +286,11 @@ def compile_book(book: str) -> bool:
             
             # Write chapters JSON
             total_duration = get_audio_duration(output_path)
-            release_tag = f"{book}-{datetime.now().strftime('%Y-%m')}"
-            
+
             chapters_data = {
                 "book": book,
                 "title": book.replace("-", " ").title(),
                 "duration": total_duration,
-                "releaseTag": release_tag,
                 "chapters": chapter_data
             }
             
@@ -369,8 +379,8 @@ def main():
 
     print()
     print("Uploading to R2 for review...")
-    mp3_file = INTERMEDIATE_DIR / f"{current_book}.mp3"
-    json_file = INTERMEDIATE_DIR / f"{current_book}.json"
+    mp3_file = INTERMEDIATE_DIR / f"{current_book}-web.mp3"
+    json_file = INTERMEDIATE_DIR / f"{current_book}-web.json"
     if not r2.upload(mp3_file, json_file):
         print(f"\n✗ Failed to upload book '{current_book}' to R2")
         sys.exit(1)

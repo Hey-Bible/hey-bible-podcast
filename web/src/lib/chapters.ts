@@ -13,7 +13,6 @@ export interface ChaptersManifest {
   book: string;
   title: string;
   duration: number;
-  releaseTag: string;
   chapters: Chapter[];
 }
 
