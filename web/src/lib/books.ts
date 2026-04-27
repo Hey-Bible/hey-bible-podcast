@@ -58,7 +58,7 @@ export function newTestament(): Book[] {
 }
 
 export function bookAudioUrl(book: Book): string {
-  return `${R2_PUBLIC_BASE}/${book.slug}-complete.mp3`;
+  return `${R2_PUBLIC_BASE}/${book.slug}.mp3`;
 }
 
 export function bookChaptersJsonUrl(book: Book): string {

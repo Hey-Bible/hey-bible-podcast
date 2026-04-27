@@ -162,7 +162,7 @@ def compile_book(book: str) -> bool:
     print(f"  Found {len(chapters)} chapters")
     
     INTERMEDIATE_DIR.mkdir(parents=True, exist_ok=True)
-    output_path = INTERMEDIATE_DIR / f"{book}-complete.mp3"
+    output_path = INTERMEDIATE_DIR / f"{book}.mp3"
     chapters_json_path = INTERMEDIATE_DIR / f"{book}-chapters.json"
     
     if output_path.exists() and chapters_json_path.exists():
