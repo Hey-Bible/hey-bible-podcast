@@ -1,9 +1,9 @@
 {
   "book": "leviticus",
-  "chapter": 6,
-  "verse": 8,
-  "completed_count": 2799,
-  "last_run": "2026-04-29 16:10:44",
+  "chapter": 7,
+  "verse": 28,
+  "completed_count": 2849,
+  "last_run": "2026-04-29 21:04:34",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -97,6 +97,7 @@
     "leviticus-2",
     "leviticus-3",
     "leviticus-4",
-    "leviticus-5"
+    "leviticus-5",
+    "leviticus-6"
   ]
 }
