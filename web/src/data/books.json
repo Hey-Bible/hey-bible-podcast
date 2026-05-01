@@ -25,9 +25,9 @@
     "testament": "old",
     "chapters": 27,
     "totalVerses": 859,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "leviticus-2026-05",
+    "releaseSize": 132118627
   },
   {
     "slug": "numbers",
