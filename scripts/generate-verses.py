@@ -29,6 +29,12 @@ TTS_MODEL = "tts-elevenlabs-turbo-v2-5"
 TRANSLATION = "web"
 DAILY_BATCH_SIZE = 50  # verses per day
 
+# Rate limiting: Venice Audio API = 120 requests/minute = 2/sec
+# Use 1.5s min delay to stay well under limit (40 req/min)
+MIN_REQUEST_DELAY = 1.5
+MAX_RETRIES = 3
+RETRY_BACKOFF = 2  # seconds
+
 def get_api_key():
     """Get Venice API key from environment or config"""
     key = os.environ.get("VENICE_API_KEY", "").strip()
@@ -49,8 +55,8 @@ def get_api_key():
     
     raise ValueError("VENICE_API_KEY not found in environment or config")
 
-def generate_tts(text: str, output_path: Path, api_key: str) -> bool:
-    """Generate TTS using Venice API"""
+def generate_tts(text: str, output_path: Path, api_key: str, retry_count: int = 0) -> bool:
+    """Generate TTS using Venice API with rate limit handling"""
     url = "https://api.venice.ai/api/v1/audio/speech"
     
     payload = {
@@ -76,6 +82,11 @@ def generate_tts(text: str, output_path: Path, api_key: str) -> bool:
         with urllib.request.urlopen(req, timeout=120) as response:
             audio_data = response.read()
             
+            # Check rate limit headers
+            remaining = response.headers.get('x-ratelimit-remaining-requests')
+            if remaining and int(remaining) < 10:
+                print(f"  Rate limit warning: {remaining} requests remaining")
+            
             if len(audio_data) < 1000:
                 print(f"  Warning: Response too small ({len(audio_data)} bytes)")
                 return False
@@ -87,7 +98,16 @@ def generate_tts(text: str, output_path: Path, api_key: str) -> bool:
             return True
             
     except urllib.error.HTTPError as e:
-        print(f"  HTTP Error {e.code}: {e.read().decode()[:200]}")
+        error_body = e.read().decode()[:200]
+        if e.code == 429:
+            if retry_count < MAX_RETRIES:
+                wait = RETRY_BACKOFF * (2 ** retry_count)
+                print(f"  Rate limited (429), waiting {wait}s before retry...")
+                time.sleep(wait)
+                return generate_tts(text, output_path, api_key, retry_count + 1)
+            else:
+                print(f"  Rate limited (429), max retries exceeded")
+        print(f"  HTTP Error {e.code}: {error_body}")
         return False
     except Exception as e:
         print(f"  Error: {e}")
@@ -289,6 +309,14 @@ def generate_filename(book: str, chapter: int, verse: int) -> str:
 def main():
     """Main generation loop"""
     
+    # Random startup delay (0-10s) to stagger concurrent runs
+    # This prevents thundering herd when multiple instances start together
+    import random
+    startup_delay = random.uniform(0, 10)
+    if startup_delay > 1:
+        print(f"Staggering start: waiting {startup_delay:.1f}s...")
+        time.sleep(startup_delay)
+    
     print("=" * 60)
     print("WEB Bible Audio Generator")
     print("Voice: ElevenLabs Bill via Venice TTS")
@@ -354,10 +382,16 @@ def main():
             if generate_tts(verse_text, output_path, api_key):
                 print(f"  ✓ Saved: {output_path}")
                 generated.append(output_path)
-                time.sleep(0.5)
+                # Rate limiting: stay well under 120 req/min (2/sec)
+                # Add jitter to prevent thundering herd with concurrent runs
+                import random
+                sleep_time = MIN_REQUEST_DELAY + random.uniform(0, 0.5)
+                time.sleep(sleep_time)
             else:
                 print(f"  ✗ Failed to generate")
                 failed.append((current_book, current_chapter, current_verse))
+                # Still delay on failure to avoid hammering
+                time.sleep(1.0)
         
         # Move to next verse
         next_book, next_chapter, next_verse = get_next_book_chapter_verse(
