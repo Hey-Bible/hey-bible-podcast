@@ -1,9 +1,9 @@
 {
   "book": "numbers",
-  "chapter": 32,
-  "verse": 37,
-  "completed_count": 4549,
-  "last_run": "2026-05-06 23:03:12",
+  "chapter": 33,
+  "verse": 45,
+  "completed_count": 4599,
+  "last_run": "2026-05-07 23:02:25",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -146,7 +146,8 @@
     "numbers-28",
     "numbers-29",
     "numbers-30",
-    "numbers-31"
+    "numbers-31",
+    "numbers-32"
   ],
   "released_books": [
     "leviticus"
