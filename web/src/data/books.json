@@ -15,9 +15,9 @@
     "testament": "old",
     "chapters": 40,
     "totalVerses": 1213,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "exodus-2026-05",
+    "releaseSize": 175727467
   },
   {
     "slug": "leviticus",
