@@ -1,9 +1,9 @@
 {
   "book": "deuteronomy",
-  "chapter": 11,
-  "verse": 8,
-  "completed_count": 5009,
-  "last_run": "2026-05-08 00:00:03",
+  "chapter": 12,
+  "verse": 26,
+  "completed_count": 5059,
+  "last_run": "2026-05-08 00:04:09",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -159,7 +159,8 @@
     "deuteronomy-7",
     "deuteronomy-8",
     "deuteronomy-9",
-    "deuteronomy-10"
+    "deuteronomy-10",
+    "deuteronomy-11"
   ],
   "released_books": [
     "leviticus"
