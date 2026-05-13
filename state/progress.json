@@ -1,9 +1,9 @@
 {
   "book": "joshua",
-  "chapter": 6,
-  "verse": 17,
-  "completed_count": 5754,
-  "last_run": "2026-05-13 23:42:25",
+  "chapter": 8,
+  "verse": 14,
+  "completed_count": 6016,
+  "last_run": "2026-05-13 23:57:54",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -105,6 +105,8 @@
     "leviticus-10",
     "leviticus-11",
     "leviticus-12",
+    "leviticus-13",
+    "leviticus-14",
     "leviticus-15",
     "leviticus-16",
     "leviticus-17",
@@ -114,8 +116,10 @@
     "leviticus-21",
     "leviticus-22",
     "leviticus-23",
-    "leviticus-13",
     "leviticus-24",
+    "leviticus-25",
+    "leviticus-26",
+    "leviticus-27",
     "numbers-1",
     "numbers-2",
     "numbers-3",
@@ -186,7 +190,9 @@
     "joshua-2",
     "joshua-3",
     "joshua-4",
-    "joshua-5"
+    "joshua-5",
+    "joshua-6",
+    "joshua-7"
   ],
   "released_books": [
     "leviticus"
