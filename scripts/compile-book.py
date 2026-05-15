@@ -348,6 +348,24 @@ def git_commit_intermediate(book: str) -> bool:
     
     return False
 
+def find_next_book_to_compile():
+    """Find the first complete book that hasn't been compiled yet"""
+    for book in BOOK_ORDER:
+        # Check if book is complete (all chapters generated)
+        if not check_book_complete(book):
+            continue
+        
+        # Check if already compiled
+        output_path = INTERMEDIATE_DIR / f"{book}-web.mp3"
+        json_path = INTERMEDIATE_DIR / f"{book}-web.json"
+        if output_path.exists() and json_path.exists():
+            continue
+        
+        # This book is complete but not compiled
+        return book
+    
+    return None
+
 def main():
     """Main compilation loop"""
     print("=" * 60)
@@ -358,39 +376,39 @@ def main():
     progress = load_progress()
     current_book = progress["book"]
     
-    print(f"Current book: {current_book.title()}")
+    print(f"Current verse generation: {current_book.title()}")
     print()
     
-    # Check if current book is complete
-    if not check_book_complete(current_book):
-        print(f"Book '{current_book}' is not yet complete.")
-        print(f"Waiting for all chapters to be generated...")
-        print()
-        print("Chapters completed:")
-        chapters = get_existing_chapters(current_book)
-        expected = get_chapter_count(current_book)
-        print(f"  {len(chapters)}/{expected} chapters")
+    # Find the next book that needs compiling
+    book_to_compile = find_next_book_to_compile()
+    
+    if book_to_compile is None:
+        print("No books ready for compilation.")
+        print("All complete books have been compiled or none are complete yet.")
         return
     
+    print(f"Next book to compile: {book_to_compile.title()}")
+    print()
+    
     # Compile the book
-    if not compile_book(current_book):
-        print(f"\n✗ Failed to compile book '{current_book}'")
+    if not compile_book(book_to_compile):
+        print(f"\n✗ Failed to compile book '{book_to_compile}'")
         sys.exit(1)
 
     print()
     print("Uploading to R2 for review...")
-    mp3_file = INTERMEDIATE_DIR / f"{current_book}-web.mp3"
-    json_file = INTERMEDIATE_DIR / f"{current_book}-web.json"
+    mp3_file = INTERMEDIATE_DIR / f"{book_to_compile}-web.mp3"
+    json_file = INTERMEDIATE_DIR / f"{book_to_compile}-web.json"
     if not r2.upload(mp3_file, json_file):
-        print(f"\n✗ Failed to upload book '{current_book}' to R2")
+        print(f"\n✗ Failed to upload book '{book_to_compile}' to R2")
         sys.exit(1)
 
     print()
     print("Committing intermediate release...")
-    git_commit_intermediate(current_book)
+    git_commit_intermediate(book_to_compile)
     print()
-    print(f"✓ Book '{current_book.title()}' ready for release on the 1st!")
-    r2.print_review_links(current_book, include_site=False)
+    print(f"✓ Book '{book_to_compile.title()}' ready for release on the 1st!")
+    r2.print_review_links(book_to_compile, include_site=False)
 
 if __name__ == "__main__":
     main()

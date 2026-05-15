@@ -3,7 +3,7 @@
   "chapter": 11,
   "verse": 9,
   "completed_count": 6116,
-  "last_run": "2026-05-14 23:04:02",
+  "last_run": "2026-05-14 23:04:03",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -198,6 +198,8 @@
     "joshua-10"
   ],
   "released_books": [
+    "genesis",
+    "exodus",
     "leviticus"
   ]
 }
