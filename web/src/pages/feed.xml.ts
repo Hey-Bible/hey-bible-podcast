@@ -20,6 +20,17 @@ function escapeXml(s: string): string {
     .replace(/'/g, '&apos;');
 }
 
+function formatTime(seconds: number): string {
+  if (!Number.isFinite(seconds)) return '0:00';
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  if (h > 0) {
+    return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
 function formatDuration(seconds: number): string {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
@@ -42,10 +53,18 @@ export const GET: APIRoute = async () => {
       // Stagger pubDates so podcast clients order books canonically
       const pubDate = new Date(Date.now() - (books.length - idx) * 86400000).toUTCString();
 
+      const chapters = manifest?.chapters ?? [];
+      const chapterTimestamps = chapters
+        .map((ch) => `Ch. ${ch.number}: ${formatTime(ch.start)}`)
+        .join('\n');
+      const descriptionWithTimestamps = chapterTimestamps
+        ? `The complete book of ${book.name} from the World English Bible.\n\nChapters:\n${chapterTimestamps}`
+        : `The complete book of ${book.name} from the World English Bible.`;
+
       return `
     <item>
       <title>${escapeXml(`The Book of ${book.name}`)}</title>
-      <description>${escapeXml(`The complete book of ${book.name} from the World English Bible.`)}</description>
+      <description>${escapeXml(descriptionWithTimestamps)}</description>
       <link>${SITE}/books/${book.slug}/</link>
       <guid isPermaLink="false">heybible-fm-${book.slug}</guid>
       <pubDate>${pubDate}</pubDate>
