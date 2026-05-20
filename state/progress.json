@@ -1,9 +1,9 @@
 {
   "book": "joshua",
-  "chapter": 19,
-  "verse": 45,
-  "completed_count": 6366,
-  "last_run": "2026-05-19 23:03:52",
+  "chapter": 21,
+  "verse": 35,
+  "completed_count": 6416,
+  "last_run": "2026-05-20 23:04:01",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -203,7 +203,9 @@
     "joshua-15",
     "joshua-16",
     "joshua-17",
-    "joshua-18"
+    "joshua-18",
+    "joshua-19",
+    "joshua-20"
   ],
   "released_books": [
     "genesis",
