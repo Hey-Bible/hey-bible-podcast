@@ -59,6 +59,13 @@ def generate_tts(text: str, output_path: Path, api_key: str, retry_count: int = 
     """Generate TTS using Venice API with rate limit handling"""
     url = "https://api.venice.ai/api/v1/audio/speech"
     
+    # Normalize smart quotes to straight quotes before TTS
+    text = (text
+        .replace("\u201c", '"')   # left double quotation mark
+        .replace("\u201d", '"')   # right double quotation mark
+        .replace("\u2018", "'")    # left single quotation mark
+        .replace("\u2019", "'"))  # right single quotation mark
+    
     payload = {
         "model": TTS_MODEL,
         "voice": TTS_VOICE,
