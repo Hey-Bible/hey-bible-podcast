@@ -348,9 +348,14 @@ def git_commit_intermediate(book: str) -> bool:
     
     return False
 
-def find_next_book_to_compile():
-    """Find the first complete book that hasn't been compiled yet"""
+def find_next_book_to_compile(progress):
+    """Find the first complete book that hasn't been compiled/released yet"""
+    released = progress.get("released_books", [])
     for book in BOOK_ORDER:
+        # Skip already released books
+        if book in released:
+            continue
+        
         # Check if book is complete (all chapters generated)
         if not check_book_complete(book):
             continue
@@ -380,7 +385,7 @@ def main():
     print()
     
     # Find the next book that needs compiling
-    book_to_compile = find_next_book_to_compile()
+    book_to_compile = find_next_book_to_compile(progress)
     
     if book_to_compile is None:
         print("No books ready for compilation.")
