@@ -141,6 +141,18 @@ def advance_to_next_book(progress, current_book: str):
         save_progress(progress)
 
 
+def find_compiled_unreleased_book(released_books):
+    """Find the earliest book that has been compiled but not released"""
+    for book in BOOK_ORDER:
+        if book in released_books:
+            continue
+        mp3_file = INTERMEDIATE_DIR / f"{book}-web.mp3"
+        json_file = INTERMEDIATE_DIR / f"{book}-web.json"
+        if mp3_file.exists() and json_file.exists():
+            return book
+    return None
+
+
 def main():
     print("=" * 60)
     print("WEB Bible Book Release")
@@ -151,39 +163,47 @@ def main():
     current_book = progress["book"]
     released_books = progress.get("released_books", [])
 
-    print(f"Current book: {current_book.title()}")
+    print(f"Current book (in generation): {current_book.title()}")
     print(f"Previously released: {len(released_books)} books")
     if released_books:
         print(f"  {', '.join(b.title() for b in released_books)}")
     print()
 
-    intermediate_file = INTERMEDIATE_DIR / f"{current_book}-web.mp3"
+    # Find compiled-but-unreleased books (may be earlier than current generation)
+    book_to_release = find_compiled_unreleased_book(released_books)
 
-    if not intermediate_file.exists():
-        print(f"No intermediate file found for {current_book.title()}")
-        print(f"The book may not be complete yet, or compile-book.py hasn't run.")
+    if not book_to_release:
+        print("No compiled books ready for release.")
+        print(f"The current book '{current_book.title()}' may not be complete yet,")
+        print("or compile-book.py hasn't run on any completed books.")
         return
 
-    if current_book in released_books:
-        print(f"Book '{current_book.title()}' is already released.")
+    # Warn if releasing a book that's not the current generation book
+    if book_to_release != current_book:
+        print(f"Note: Releasing '{book_to_release.title()}' (compiled) rather than")
+        print(f"      '{current_book.title()}' (current generation book — not yet complete).")
+        print()
+
+    if book_to_release in released_books:
+        print(f"Book '{book_to_release.title()}' is already released.")
         return
 
-    if release_book(current_book):
+    if release_book(book_to_release):
         print()
         print("Committing release...")
-        git_commit_release(current_book)
+        git_commit_release(book_to_release)
 
         print()
         print("Advancing to next book...")
-        advance_to_next_book(progress, current_book)
+        advance_to_next_book(progress, book_to_release)
 
         print()
         print("=" * 60)
-        print(f"✓ SUCCESSFULLY RELEASED: {get_book_title(current_book)}")
+        print(f"✓ SUCCESSFULLY RELEASED: {get_book_title(book_to_release)}")
         print("=" * 60)
-        r2.print_review_links(current_book, include_site=True)
+        r2.print_review_links(book_to_release, include_site=True)
     else:
-        print(f"\n✗ Failed to release book '{current_book}'")
+        print(f"\n✗ Failed to release book '{book_to_release}'")
         sys.exit(1)
 
 
