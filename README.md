@@ -9,52 +9,72 @@ The whole Bible read aloud, one book at a time. Audio generated with the ElevenL
 
 ```
 hey-bible-podcast/
-├── verses/                 # Individual verse audio files (deleted after chapter stitch)
+├── verses/                 # Individual verse audio files
 │   └── {book}/{chapter}/{book}-{chapter}-{verse}-web.mp3
 ├── chapters/               # Stitched chapter audio files
 │   └── {book}/{book}-{N}-web.mp3
 ├── assets/titles/          # Pre-generated "Chapter N" audio clips (1–150)
-├── intermediate/           # Compiled book + chapter sidecar (monthly 25th, pre-release)
+├── intermediate/           # Compiled book + chapter sidecar (monthly 15th, pre-release)
 │   ├── {book}-web.mp3
 │   └── {book}-web.json
 ├── scripts/                # Audio pipeline
-│   ├── generate-verses.py          # Daily: 50 verses + chapter stitch
-│   ├── generate-chapter-titles.py  # One-time: Chapter 1–150 clips
-│   ├── compile-book.py             # Monthly 25th: stitch chapters → book + sidecar JSON
+│   ├── generate-verses.py          # Daily: 200 verses + chapter stitch
+│   ├── compile-book.py             # Monthly 15th: stitch chapters → book + sidecar JSON
 │   ├── release-book.py             # Monthly 1st: upload to R2, patch books.json
 │   ├── bible_data.py               # 66-book chapter/verse counts
+│   ├── bible_text.py               # WEB verse text retrieval
+│   ├── r2.py                       # Cloudflare R2 upload helper
+│   ├── verify_verses.py            # Verify chapter completeness
+│   ├── build-bible-json.py         # Build WEB bible JSON from source
 │   └── run-daily.sh                # Cron wrapper
 ├── state/
 │   └── progress.json       # Current book/chapter/verse, completed chapters
-└── web/                    # Astro site (deployed by Cloudflare Workers Static Assets) — see web/README.md
+└── web/                    # Astro site — see web/README.md
 ```
 
 ## Stats
 
 - **Total verses:** 31,417
-- **Daily batch:** 50 verses
-- **Estimated completion:** ~1.7 years
+- **Daily batch:** 200 verses
+- **Estimated completion:** ~1.6 years from inception (4 books released)
 - **Voice:** ElevenLabs Bill (via Venice TTS)
 - **Translation:** [World English Bible](https://worldenglish.bible) — public domain
 
+## Current Progress
+
+| Book | Status |
+|------|--------|
+| Genesis | ✅ Released |
+| Exodus | ✅ Released |
+| Leviticus | ✅ Released |
+| Numbers | ✅ Released |
+| Deuteronomy | ✅ Complete (compiled, awaiting release) |
+| Joshua | ✅ Complete (compiled, awaiting release) |
+| **Judges** | 🔄 **In progress** — currently at **Judges 21:14** |
+
+See [`state/progress.json`](state/progress.json) — book, chapter, verse pointer plus the list of completed chapters.
+
 ## Cron Schedule
 
-### Daily — `scripts/generate-verses.py`
-- Read 50 verse texts from `scripts/data/web-bible.json` (pre-built from the WEB USFX XML in [seven1m/open-bibles](https://github.com/seven1m/open-bibles)), generate MP3s via Venice TTS
+All jobs run on this host via the Hermes agent (Moses) and post status notifications to Discord.
+
+### Daily — `scripts/generate-verses.py` (midnight UTC)
+- Read verse texts from `scripts/data/web-bible.json` (pre-built from the WEB USFX XML in [seven1m/open-bibles](https://github.com/seven1m/open-bibles))
+- Generate MP3s via Venice TTS (ElevenLabs Bill voice, `tts-elevenlabs-turbo-v2-5`)
 - Detect chapters where every verse is now present, stitch with ffmpeg
-- Delete the per-verse files for completed chapters
 - Update `state/progress.json`
 - Commit and push
 
-### Monthly 25th — `scripts/compile-book.py`
-- Verify the current book has all chapters
+### Monthly 15th — `scripts/compile-book.py` (3 PM UTC)
+- Find the earliest completed book that hasn't been released yet
 - Generate the spoken book-title audio ("The Book of Genesis")
 - Stitch: book-title + (chapter-title-N + chapter-N) for every chapter, into `intermediate/{book}-web.mp3`
 - Emit `intermediate/{book}-web.json` — a chapter sidecar with start/end offsets in seconds
-- Upload the MP3 + sidecar to Cloudflare R2 so the file is reachable for preview before the 1st-of-month release. The website doesn't surface it yet (status is still `in-progress`), so the URL is "unlisted" — only an operator with the link can hear it.
+- Upload the MP3 + sidecar to Cloudflare R2 for preview. The website doesn't surface it yet (status is still `in-progress`), so the URL is "unlisted" — only an operator with the link can hear it.
 - Print the review URLs (`audio.heybible.org/{book}-web.mp3` + `…-web.json`)
 
-### Monthly 1st — `scripts/release-book.py`
+### Monthly 1st — `scripts/release-book.py` (3 PM UTC)
+- Find the earliest compiled-but-unreleased book independently of the current generation book
 - Upload `intermediate/{book}-web.mp3` and `intermediate/{book}-web.json` to Cloudflare R2 via `boto3` (S3-compatible API), with `Content-Type: audio/mpeg` / `application/json` and `Content-Disposition: inline` so iOS Safari will stream the MP3 instead of trying to download it
 - Patch `web/src/data/books.json`: set the book's `status: "available"`, `releaseTag`, and `releaseSize` (bytes)
 - Commit and push — that push triggers a Cloudflare Workers build, which rebuilds the site with the new release
@@ -96,10 +116,10 @@ One entry per chapter — `start` is the offset of the spoken "Chapter N" intro,
 ## Manual Commands
 
 ```bash
-python3 scripts/generate-verses.py          # daily
-python3 scripts/compile-book.py             # monthly 25th
-python3 scripts/release-book.py             # monthly 1st
-python3 scripts/generate-chapter-titles.py  # one-time setup
+python3 scripts/generate-verses.py    # daily
+python3 scripts/compile-book.py       # monthly 15th
+python3 scripts/release-book.py       # monthly 1st
+python3 scripts/verify_verses.py      # verify chapter completeness
 ```
 
 ## File naming convention
@@ -115,8 +135,8 @@ python3 scripts/generate-chapter-titles.py  # one-time setup
 
 - Python 3.8+
 - ffmpeg (for the concat demuxer)
-- Venice API key (env `VENICE_API_KEY` or `~/.openclaw/openclaw.json`)
-- `boto3` (`pip install boto3`) and Cloudflare R2 credentials (used by `release-book.py`)
+- Venice API key (env `VENICE_API_KEY` or `~/.openclaw/openclaw.json` for legacy fallback)
+- `boto3` and Cloudflare R2 credentials (used by `compile-book.py` and `release-book.py`)
 
 ## ffmpeg concatenation
 
@@ -130,12 +150,6 @@ ffmpeg -f concat -safe 0 -i concat.txt -acodec copy chapter-N.mp3
 ffmpeg -f concat -safe 0 -i concat.txt -acodec copy book-web.mp3
 ```
 
-Per-verse files are deleted after a successful chapter stitch to save space.
-
 ## Web player
 
-The Astro static site lives in `web/` and deploys to GitHub Pages at [podcast.heybible.org](https://podcast.heybible.org) (also reachable at the brand URL [✝.fm](https://xn--pci.fm)). It reads `web/src/data/books.json` for the index, fetches the chapter sidecar at build time for each released book, and exposes the podcast RSS at `/feed.xml`. See [`web/README.md`](web/README.md) for local dev, deploy, and the data contract.
-
-## Current progress
-
-See [`state/progress.json`](state/progress.json) — book, chapter, verse pointer plus the list of completed chapters. The web home page mirrors this in real time once the daily commit triggers a Pages rebuild.
+The Astro static site lives in `web/` and deploys via Cloudflare Workers at [podcast.heybible.org](https://podcast.heybible.org) (also reachable at the brand URL [✝.fm](https://xn--pci.fm)). It reads `web/src/data/books.json` for the index, fetches the chapter sidecar at build time for each released book, and exposes the podcast RSS at `/feed.xml`. See [`web/README.md`](web/README.md) for local dev, deploy, and the data contract.
