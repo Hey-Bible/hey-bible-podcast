@@ -16,6 +16,16 @@ venv/
 .DS_Store
 Thumbs.db
 
+# Temporary/one-off scripts
+generate_*.py
+generate_*.sh
+batch_generate_*.py
+bulk-generate-*.py
+build-*.py
+fill_gaps.py
+recompile-*.py
+regenerate-*.py
+
 # Audio files (intermediate only - verses and chapters go to git)
 intermediate/
 assets/titles/*.mp3
