@@ -123,22 +123,16 @@ def git_commit_release(book: str) -> bool:
     return False
 
 
-def advance_to_next_book(progress, current_book: str):
-    next_book = get_next_book(current_book)
-
-    if next_book:
-        progress["book"] = next_book
-        progress["chapter"] = 1
-        progress["verse"] = 1
-        if "released_books" not in progress:
-            progress["released_books"] = []
-        progress["released_books"].append(current_book)
+def advance_released_books(progress, released_book: str):
+    """Add book to released_books without changing the current generation position."""
+    if "released_books" not in progress:
+        progress["released_books"] = []
+    if released_book not in progress["released_books"]:
+        progress["released_books"].append(released_book)
         save_progress(progress)
-        print(f"\n✓ Advanced to next book: {next_book.title()}")
+        print(f"\n✓ Added '{released_book.title()}' to released books.")
     else:
-        print(f"\n🎉 END OF BIBLE REACHED!")
-        progress["completed"] = True
-        save_progress(progress)
+        print(f"\nBook '{released_book.title()}' was already released.")
 
 
 def find_compiled_unreleased_book(released_books):
@@ -194,8 +188,8 @@ def main():
         git_commit_release(book_to_release)
 
         print()
-        print("Advancing to next book...")
-        advance_to_next_book(progress, book_to_release)
+        print("Recording release...")
+        advance_released_books(progress, book_to_release)
 
         print()
         print("=" * 60)
