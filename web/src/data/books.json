@@ -35,9 +35,9 @@
     "testament": "old",
     "chapters": 36,
     "totalVerses": 1288,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "numbers-2026-05",
+    "releaseSize": 183366906
   },
   {
     "slug": "deuteronomy",
