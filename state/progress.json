@@ -1,9 +1,9 @@
 {
   "book": "2-samuel",
-  "chapter": 3,
-  "verse": 35,
-  "completed_count": 8116,
-  "last_run": "2026-05-26 23:34:36",
+  "chapter": 12,
+  "verse": 30,
+  "completed_count": 8316,
+  "last_run": "2026-05-26 23:50:34",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -254,7 +254,16 @@
     "1-samuel-24",
     "1-samuel-25",
     "2-samuel-1",
-    "2-samuel-2"
+    "2-samuel-2",
+    "2-samuel-3",
+    "2-samuel-4",
+    "2-samuel-5",
+    "2-samuel-6",
+    "2-samuel-7",
+    "2-samuel-8",
+    "2-samuel-9",
+    "2-samuel-10",
+    "2-samuel-11"
   ],
   "released_books": [
     "genesis",
