@@ -27,7 +27,7 @@ STATE_FILE = STATE_DIR / "progress.json"
 TTS_VOICE = "Bill"
 TTS_MODEL = "tts-elevenlabs-turbo-v2-5"
 TRANSLATION = "web"
-DAILY_BATCH_SIZE = 200  # verses per day
+DAILY_BATCH_SIZE = 500  # verses per day
 
 # Rate limiting: Venice Audio API = 120 requests/minute = 2/sec
 # Use 1.5s min delay to stay well under limit (40 req/min)
