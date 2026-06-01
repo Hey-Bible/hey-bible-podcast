@@ -53,7 +53,7 @@ export const GET: APIRoute = async () => {
       // Stagger pubDates so podcast clients order books canonically
       const pubDate = new Date(Date.now() - (books.length - idx) * 86400000).toUTCString();
 
-      const chapters = manifest?.chapters ?? [];
+      const chapters = Array.isArray(manifest?.chapters) ? manifest.chapters : [];
       const chapterTimestamps = chapters
         .map((ch) => `Ch. ${ch.number}: ${formatTime(ch.start)}`)
         .join('\n');
