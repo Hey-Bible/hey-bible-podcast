@@ -5,7 +5,7 @@ import { fetchChapters } from '~/lib/chapters';
 const SITE = 'https://podcast.heybible.org';
 const TITLE = 'The Hey Bible Podcast';
 const DESCRIPTION =
-  'The whole Bible read aloud, one book at a time. A new book every month. Public domain — World English Bible. Brought to you by Hey Bible (heybible.org).';
+  'The whole Bible read aloud, one book at a time. A new book every month. Public domain — World English Bible. Brought to you by Hey Bible — search verses, save favorites, and create beautiful verse art.';
 const AUTHOR = 'Hey Bible';
 const EMAIL = 'bobby@heybible.org';
 const IMAGE = `${SITE}/podcast-cover.jpg`;
