@@ -2,43 +2,41 @@
 
 The whole Bible read aloud, one book at a time. Audio generated with the ElevenLabs Bill voice via Venice AI TTS, published as a monthly podcast at [podcast.heybible.org](https://podcast.heybible.org) (also reachable at the brand URL [✝.fm](https://xn--pci.fm)).
 
-- **Audio pipeline** (Python) — generates verses daily, stitches chapters as they fill in, compiles each book monthly, uploads each release to Cloudflare R2 on the 1st.
+- **Audio pipeline** (Python) — generates one permanent audio file per verse daily (stored in `verses/`). Chapter and book compilations are generated locally as needed for R2 releases but are not committed to this repo.
 - **Web player** (Astro + Tailwind v4 in `web/`) — static site at ✝.fm with per-book pages, chapter seek, and a Podcasting 2.0 RSS feed.
 
 ## Project Structure
 
 ```
 hey-bible-podcast/
-├── verses/                 # Individual verse audio files
+├── verses/                 # Permanent library — one audio file per verse (the source of truth)
 │   └── {book}/{chapter}/{book}-{chapter}-{verse}-web.mp3
-├── chapters/               # Stitched chapter audio files
-│   └── {book}/{book}-{N}-web.mp3
-├── assets/titles/          # Pre-generated "Chapter N" audio clips (1–150)
-├── intermediate/           # Compiled book + chapter sidecar (monthly 15th, pre-release)
+├── assets/titles/          # Pre-generated "Chapter N" audio clips (for releases)
+├── intermediate/           # Compiled book + chapter sidecar (generated locally for R2 releases; not committed to git)
 │   ├── {book}-web.mp3
 │   └── {book}-web.json
 ├── scripts/                # Audio pipeline
-│   ├── generate-verses.py          # Daily: 200 verses + chapter stitch
-│   ├── compile-book.py             # Monthly 15th: stitch chapters → book + sidecar JSON
+│   ├── generate-verses.py          # Daily: generate individual verses (500/day). Only verses are committed.
+│   ├── compile-book.py             # Monthly: stitch from verses → full book + sidecar JSON (for R2)
 │   ├── release-book.py             # Monthly 1st: upload to R2, patch books.json
 │   ├── bible_data.py               # 66-book chapter/verse counts
 │   ├── bible_text.py               # WEB verse text retrieval
 │   ├── r2.py                       # Cloudflare R2 upload helper
-│   ├── verify_verses.py            # Verify chapter completeness
 │   ├── build-bible-json.py         # Build WEB bible JSON from source
 │   └── run-daily.sh                # Cron wrapper
 ├── state/
-│   └── progress.json       # Current book/chapter/verse, completed chapters
+│   └── progress.json       # Current book/chapter/verse pointer + completed chapters list
 └── web/                    # Astro site — see web/README.md
 ```
 
 ## Stats
 
-- **Total verses:** 31,417
-- **Daily batch:** 200 verses
-- **Estimated completion:** ~1.6 years from inception (4 books released)
+- **Total verses:** 31,098 (WEB)
+- **Daily batch:** 500 verses
 - **Voice:** ElevenLabs Bill (via Venice TTS)
 - **Translation:** [World English Bible](https://worldenglish.bible) — public domain
+
+**Note:** Only the individual verse files are committed to this repository. Chapter and full-book audio are generated on demand for releases and uploaded to R2.
 
 ## Current Progress
 
@@ -60,10 +58,10 @@ All jobs run on this host via the Hermes agent (Moses) and post status notificat
 
 ### Daily — `scripts/generate-verses.py` (midnight UTC)
 - Read verse texts from `scripts/data/web-bible.json` (pre-built from the WEB USFX XML in [seven1m/open-bibles](https://github.com/seven1m/open-bibles))
-- Generate MP3s via Venice TTS (ElevenLabs Bill voice, `tts-elevenlabs-turbo-v2-5`)
-- Detect chapters where every verse is now present, stitch with ffmpeg
+- Generate one MP3 per verse via Venice TTS (ElevenLabs Bill voice, `tts-elevenlabs-turbo-v2-5`)
+- Write files to `verses/{book}/{chapter}/` (one permanent file per verse — this is the library)
 - Update `state/progress.json`
-- Commit and push
+- Commit and push the new verse files only
 
 ### Monthly 15th — `scripts/compile-book.py` (3 PM UTC)
 - Find the earliest completed book that hasn't been released yet
