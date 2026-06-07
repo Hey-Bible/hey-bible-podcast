@@ -117,7 +117,6 @@ One entry per chapter — `start` is the offset of the spoken "Chapter N" intro,
 python3 scripts/generate-verses.py    # daily
 python3 scripts/compile-book.py       # monthly 15th
 python3 scripts/release-book.py       # monthly 1st
-python3 scripts/verify_verses.py      # verify chapter completeness
 ```
 
 ## File naming convention
