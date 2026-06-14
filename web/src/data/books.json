@@ -45,9 +45,9 @@
     "testament": "old",
     "chapters": 34,
     "totalVerses": 959,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "deuteronomy-2026-06",
+    "releaseSize": 153926016
   },
   {
     "slug": "joshua",
