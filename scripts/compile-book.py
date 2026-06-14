@@ -152,10 +152,49 @@ def get_audio_duration(file_path: Path) -> float:
     
     return 0.0
 
+
+def ensure_chapters_stitched(book: str) -> None:
+    """Backfill chapter MP3s from verses/ if the chapters/ dir for this book is missing or incomplete.
+    This supports the verse-only permanent library policy for backlog books.
+    """
+    from bible_data import BIBLE_STRUCTURE
+    VERSES_DIR = BASE_DIR / "verses"
+    chapters = BIBLE_STRUCTURE.get(book, {}).get("chapters", [])
+    if not chapters:
+        return
+    book_chapters_dir = CHAPTERS_DIR / book
+    existing = len(list(book_chapters_dir.glob("*.mp3"))) if book_chapters_dir.exists() else 0
+    if existing >= len(chapters):
+        return  # already good
+    print(f"  Auto-stitching missing chapters for {book} from verses/ ...")
+    for ch_num, vcount in enumerate(chapters, 1):
+        ch_dir = VERSES_DIR / book / str(ch_num)
+        out_path = book_chapters_dir / f"{book}-{ch_num}-web.mp3"
+        if out_path.exists():
+            continue
+        if not ch_dir.exists():
+            continue
+        verse_files = sorted(ch_dir.glob("*.mp3"), key=lambda p: int(p.stem.split("-")[-2]))
+        if len(verse_files) < vcount:
+            continue
+        book_chapters_dir.mkdir(parents=True, exist_ok=True)
+        concat_list = book_chapters_dir / f"concat-{ch_num}.txt"
+        with open(concat_list, "w") as f:
+            for vf in verse_files:
+                escaped = str(vf).replace(", \\")
+                f.write(f"file {escaped}\n")
+        cmd = ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(concat_list), "-acodec", "copy", str(out_path)]
+        subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+        concat_list.unlink(missing_ok=True)
+    print(f"  Chapters backfilled for {book}.")
+
 def compile_book(book: str) -> bool:
     """Compile all chapters into a complete book audio file"""
     print(f"\nCompiling book: {book.title()}")
     print("=" * 60)
+    
+    # Auto backfill chapters from verses if needed (verse-only library support)
+    ensure_chapters_stitched(book)
     
     # Check if book is complete
     if not check_book_complete(book):

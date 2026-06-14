@@ -46,8 +46,8 @@ hey-bible-podcast/
 | Exodus | ✅ Released |
 | Leviticus | ✅ Released |
 | Numbers | ✅ Released |
-| Deuteronomy | ✅ Complete (compiled, awaiting release) |
-| Joshua | ✅ Complete (compiled, awaiting release) |
+| Deuteronomy | ✅ Released (June 2026, first-Sunday cadence) |
+| Joshua | ✅ Complete (verses + chapters ready; next first Sunday) |
 | **Judges** | 🔄 **In progress** — currently at **Judges 21:14** |
 
 See [`state/progress.json`](state/progress.json) — book, chapter, verse pointer plus the list of completed chapters.
@@ -63,19 +63,12 @@ All jobs run on this host via the Hermes agent (Moses) and post status notificat
 - Update `state/progress.json`
 - Commit and push the new verse files only
 
-### Monthly 15th — `scripts/compile-book.py` (3 PM UTC)
-- Find the earliest completed book that hasn't been released yet
-- Generate the spoken book-title audio ("The Book of Genesis")
-- Stitch: book-title + (chapter-title-N + chapter-N) for every chapter, into `intermediate/{book}-web.mp3`
-- Emit `intermediate/{book}-web.json` — a chapter sidecar with start/end offsets in seconds
-- Upload the MP3 + sidecar to Cloudflare R2 for preview. The website doesn't surface it yet (status is still `in-progress`), so the URL is "unlisted" — only an operator with the link can hear it.
-- Print the review URLs (`audio.heybible.org/{book}-web.mp3` + `…-web.json`)
-
-### Monthly 1st — `scripts/release-book.py` (3 PM UTC)
-- Find the earliest compiled-but-unreleased book independently of the current generation book
-- Upload `intermediate/{book}-web.mp3` and `intermediate/{book}-web.json` to Cloudflare R2 via `boto3` (S3-compatible API), with `Content-Type: audio/mpeg` / `application/json` and `Content-Disposition: inline` so iOS Safari will stream the MP3 instead of trying to download it
-- Patch `web/src/data/books.json`: set the book's `status: "available"`, `releaseTag`, and `releaseSize` (bytes)
-- Commit and push — that push triggers a Cloudflare Workers build, which rebuilds the site with the new release
+### First Sunday of the month — Book Publish (compile + release, ~8 AM NY / 12:00 UTC)
+- The dedicated "Hey Bible First Sunday Book Publish" Hermes cron (no_agent script) runs every Sunday but only acts on the first Sunday of the month.
+- Finds the earliest completed (verses + chapters) but unreleased book.
+- Runs compile-book.py: stitches full book audio from permanent verses/ (backfills chapters if needed), generates spoken book title via Venice "Bill", concatenates with chapter title clips, produces intermediate/{book}-web.mp3 + sidecar JSON, uploads unlisted preview to R2.
+- Immediately runs release-book.py (review step skipped per 2026-06 policy): re-uploads with streaming headers, patches web/src/data/books.json to status=available + releaseTag + size, git commits/pushes (triggers web deploy).
+- No separate review listening step — quality has been consistently high.
 
 ## Audio hosting (Cloudflare R2)
 
@@ -115,8 +108,8 @@ One entry per chapter — `start` is the offset of the spoken "Chapter N" intro,
 
 ```bash
 python3 scripts/generate-verses.py    # daily
-python3 scripts/compile-book.py       # monthly 15th
-python3 scripts/release-book.py       # monthly 1st
+python3 scripts/compile-book.py       # (called by first-Sunday cron)
+python3 scripts/release-book.py       # (called by first-Sunday cron; direct publish, no review pause)
 ```
 
 ## File naming convention
