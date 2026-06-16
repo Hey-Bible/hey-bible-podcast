@@ -1,9 +1,9 @@
 {
-  "book": "job",
-  "chapter": 28,
-  "verse": 12,
-  "completed_count": 13516,
-  "last_run": "2026-06-15 23:36:37",
+  "book": "psalms",
+  "chapter": 8,
+  "verse": 4,
+  "completed_count": 14016,
+  "last_run": "2026-06-16 23:37:28",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -405,7 +405,14 @@
     "job-24",
     "job-25",
     "job-26",
-    "job-27"
+    "job-27",
+    "psalms-1",
+    "psalms-2",
+    "psalms-3",
+    "psalms-4",
+    "psalms-5",
+    "psalms-6",
+    "psalms-7"
   ],
   "released_books": [
     "genesis",
