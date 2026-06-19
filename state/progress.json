@@ -1,9 +1,9 @@
 {
-  "book": "psalms",
-  "chapter": 119,
-  "verse": 118,
-  "completed_count": 16016,
-  "last_run": "2026-06-18 23:32:39",
+  "book": "proverbs",
+  "chapter": 4,
+  "verse": 26,
+  "completed_count": 16516,
+  "last_run": "2026-06-19 23:31:39",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -523,7 +523,10 @@
     "psalms-115",
     "psalms-116",
     "psalms-117",
-    "psalms-118"
+    "psalms-118",
+    "proverbs-1",
+    "proverbs-2",
+    "proverbs-3"
   ],
   "released_books": [
     "genesis",
