@@ -1,3 +1,7 @@
+<p align="center">
+  <img alt="Hey Bible" src="assets/og-image.png" width="1200" />
+</p>
+
 # Hey Bible Podcast
 
 The whole Bible read aloud, one book at a time. Audio generated with the ElevenLabs Bill voice via Venice AI TTS, published as a monthly podcast at [podcast.heybible.org](https://podcast.heybible.org) (also reachable at the brand URL [✝.fm](https://xn--pci.fm)).
