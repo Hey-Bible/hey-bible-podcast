@@ -1,9 +1,9 @@
 {
   "book": "matthew",
-  "chapter": 13,
-  "verse": 30,
-  "completed_count": 23563,
-  "last_run": "2026-06-29 23:42:07",
+  "chapter": 26,
+  "verse": 15,
+  "completed_count": 24063,
+  "last_run": "2026-06-30 23:37:06",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -713,7 +713,20 @@
     "matthew-9",
     "matthew-10",
     "matthew-11",
-    "matthew-12"
+    "matthew-12",
+    "matthew-13",
+    "matthew-14",
+    "matthew-15",
+    "matthew-16",
+    "matthew-17",
+    "matthew-18",
+    "matthew-19",
+    "matthew-20",
+    "matthew-21",
+    "matthew-22",
+    "matthew-23",
+    "matthew-24",
+    "matthew-25"
   ],
   "released_books": [
     "genesis",
