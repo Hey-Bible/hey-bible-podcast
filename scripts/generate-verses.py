@@ -31,7 +31,7 @@ DAILY_BATCH_SIZE = 500  # verses per day
 
 # Rate limiting: Venice Audio API = 120 requests/minute = 2/sec
 # Use 1.5s min delay to stay well under limit (40 req/min)
-MIN_REQUEST_DELAY = 1.5
+MIN_REQUEST_DELAY = 0.5
 MAX_RETRIES = 3
 RETRY_BACKOFF = 2  # seconds
 
