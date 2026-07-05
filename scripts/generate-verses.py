@@ -267,14 +267,33 @@ def process_completed_chapters(progress):
     return newly_stitched
 
 def git_commit_changes(book: str, chapter: int, count: int, stitched: list):
-    """Commit and push generated verses and chapter files"""
+    """Commit and push generated verses and chapter files.
+    
+    Now robustly pulls/rebase from origin first (per request), then commits
+    new verses, then pushes with retry. This ensures pushes succeed after
+    every run even if remote has drifted.
+    """
     try:
         os.chdir(BASE_DIR)
         
-        # Add new files
+        # Always pull latest from origin first using rebase (keeps linear history)
+        # This incorporates any remote changes (README updates, etc.) before our new work
+        print("  Pulling latest from origin (rebase to integrate remote)...")
+        pull_result = subprocess.run(
+            ["git", "pull", "--rebase", "origin", "master"],
+            capture_output=True,
+            text=True
+        )
+        if pull_result.returncode != 0:
+            print(f"  Warning: pull --rebase returned {pull_result.returncode}")
+            if pull_result.stderr:
+                print(f"    {pull_result.stderr.strip()[:250]}")
+            # Continue; push may still succeed or will surface the issue
+        
+        # Add new files (verses + any stitched chapters + progress)
         subprocess.run(["git", "add", "-A"], check=True, capture_output=True)
         
-        # Check if there are changes
+        # Check if there are changes to commit
         result = subprocess.run(
             ["git", "diff", "--cached", "--quiet"],
             capture_output=True
@@ -291,13 +310,29 @@ def git_commit_changes(book: str, chapter: int, count: int, stitched: list):
                 capture_output=True
             )
             
-            subprocess.run(
-                ["git", "push", "origin", "master"],
-                check=True,
-                capture_output=True
-            )
+            # Push with simple retry for transient network issues
+            print("  Pushing to origin/master...")
+            pushed = False
+            last_err = None
+            for attempt in range(3):
+                try:
+                    subprocess.run(
+                        ["git", "push", "origin", "master"],
+                        check=True,
+                        capture_output=True
+                    )
+                    pushed = True
+                    break
+                except subprocess.CalledProcessError as push_err:
+                    last_err = push_err
+                    if attempt < 2:
+                        print(f"  Push attempt {attempt + 1} failed, retrying in 5s...")
+                        time.sleep(5)
+                    else:
+                        raise
             
-            print(f"  Committed and pushed: {commit_msg}")
+            if pushed:
+                print(f"  Committed and pushed: {commit_msg}")
             return True
             
     except subprocess.CalledProcessError as e:
