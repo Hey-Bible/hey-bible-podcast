@@ -1,9 +1,9 @@
 {
-  "book": "john",
-  "chapter": 11,
-  "verse": 47,
-  "completed_count": 26560,
-  "last_run": "2026-07-04 23:24:28",
+  "book": "acts",
+  "chapter": 5,
+  "verse": 11,
+  "completed_count": 27060,
+  "last_run": "2026-07-05 23:27:52",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -756,7 +756,11 @@
     "john-7",
     "john-8",
     "john-9",
-    "john-10"
+    "john-10",
+    "acts-1",
+    "acts-2",
+    "acts-3",
+    "acts-4"
   ],
   "released_books": [
     "genesis",
