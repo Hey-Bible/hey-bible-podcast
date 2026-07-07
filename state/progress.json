@@ -1,9 +1,9 @@
 {
-  "book": "acts",
-  "chapter": 18,
-  "verse": 15,
-  "completed_count": 27558,
-  "last_run": "2026-07-06 23:28:23",
+  "book": "romans",
+  "chapter": 6,
+  "verse": 5,
+  "completed_count": 28062,
+  "last_run": "2026-07-07 23:22:39",
   "completed_chapters": [
     "genesis-1",
     "genesis-2",
@@ -771,7 +771,15 @@
     "acts-13",
     "acts-14",
     "acts-16",
-    "acts-17"
+    "acts-17",
+    "luke-17",
+    "acts-8",
+    "acts-15",
+    "romans-1",
+    "romans-2",
+    "romans-3",
+    "romans-4",
+    "romans-5"
   ],
   "released_books": [
     "genesis",
