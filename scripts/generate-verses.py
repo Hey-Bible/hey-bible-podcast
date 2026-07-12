@@ -237,33 +237,68 @@ def stitch_chapter(book: str, chapter: int) -> bool:
         print(f"  Error during stitch: {e}")
         return False
 
+def chapter_mp3_path(book: str, chapter: int) -> Path:
+    """Canonical per-chapter stitched file path."""
+    return CHAPTERS_DIR / book / f"{book}-{chapter}-web.mp3"
+
+
 def process_completed_chapters(progress):
-    """Check for and process any newly completed chapters"""
+    """Stitch any complete chapters that are missing a chapter MP3.
+
+    Runs after each daily verse batch. Scope:
+    - Current book: all chapters up through the cursor chapter
+    - Plus any earlier book that is fully verse-complete but still missing
+      chapter files (so we don't strand e.g. Joshua after the cursor moved on)
+
+    Also re-stitches when a chapter is listed in completed_chapters but the
+    on-disk chapter MP3 is gone (previously we skipped forever once marked).
+    """
     completed = progress.get("completed_chapters", [])
+    completed_set = set(completed)
     newly_stitched = []
-    
-    # Check current book chapters
+
+    def maybe_stitch(book: str, chapter_num: int) -> None:
+        chapter_key = f"{book}-{chapter_num}"
+        out = chapter_mp3_path(book, chapter_num)
+        # Skip only if already on disk
+        if out.exists():
+            if chapter_key not in completed_set:
+                completed.append(chapter_key)
+                completed_set.add(chapter_key)
+            return
+        if not check_chapter_complete(book, chapter_num):
+            return
+        print(f"\nDetected complete chapter needing stitch: {book.title()} {chapter_num}")
+        if stitch_chapter(book, chapter_num):
+            if chapter_key not in completed_set:
+                completed.append(chapter_key)
+                completed_set.add(chapter_key)
+            newly_stitched.append(chapter_key)
+
+    # 1) Current book through cursor chapter (normal daily path)
     current_book = progress["book"]
     current_chapter = progress["chapter"]
-    
-    # Check all chapters up to current for completion
-    for chapter_num in range(1, current_chapter + 1):
-        chapter_key = f"{current_book}-{chapter_num}"
-        
-        if chapter_key in completed:
-            continue
-        
-        if check_chapter_complete(current_book, chapter_num):
-            print(f"\nDetected complete chapter: {current_book.title()} {chapter_num}")
-            if stitch_chapter(current_book, chapter_num):
-                completed.append(chapter_key)
-                newly_stitched.append(chapter_key)
-    
-    if newly_stitched:
+    if current_book in BIBLE_STRUCTURE:
+        for chapter_num in range(1, current_chapter + 1):
+            maybe_stitch(current_book, chapter_num)
+
+    # 2) Backfill earlier books: any verse-complete chapter missing its MP3
+    #    (cursor may have moved on, leaving e.g. Joshua stranded)
+    try:
+        current_idx = BOOK_ORDER.index(current_book)
+    except ValueError:
+        current_idx = len(BOOK_ORDER)
+    for book in BOOK_ORDER[:current_idx]:
+        chapter_counts = BIBLE_STRUCTURE[book]["chapters"]
+        for chapter_num in range(1, len(chapter_counts) + 1):
+            maybe_stitch(book, chapter_num)
+
+    if newly_stitched or len(completed) != len(progress.get("completed_chapters", [])):
         progress["completed_chapters"] = completed
         save_progress(progress)
-        print(f"\nNewly stitched chapters: {len(newly_stitched)}")
-    
+        if newly_stitched:
+            print(f"\nNewly stitched chapters: {len(newly_stitched)}")
+
     return newly_stitched
 
 def git_commit_changes(book: str, chapter: int, count: int, stitched: list):
