@@ -55,9 +55,9 @@
     "testament": "old",
     "chapters": 24,
     "totalVerses": 658,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "joshua-2026-07",
+    "releaseSize": 105951535
   },
   {
     "slug": "judges",
