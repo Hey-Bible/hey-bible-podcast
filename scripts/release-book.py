@@ -47,8 +47,8 @@ def get_next_book(book: str) -> str | None:
     return None
 
 
-def update_book_metadata(book: str, status: str, release_tag: str | None, release_size: int | None):
-    """Update a book's status, release tag, and release size in books.json."""
+def update_book_metadata(book: str, status: str, release_tag: str | None, release_size: int | None, pub_date: str | None = None):
+    """Update a book's status, release tag, size, and stable pubDate in books.json."""
     if not BOOKS_JSON_FILE.exists():
         print(f"  Error: {BOOKS_JSON_FILE} not found")
         return
@@ -61,12 +61,16 @@ def update_book_metadata(book: str, status: str, release_tag: str | None, releas
             b["status"] = status
             b["releaseTag"] = release_tag
             b["releaseSize"] = release_size
+            # Stamp pubDate once; never overwrite an existing stamp (analytics / client identity)
+            if pub_date and not b.get("pubDate"):
+                b["pubDate"] = pub_date
             if status == "available":
                 b.pop("progress", None)
             break
 
     with open(BOOKS_JSON_FILE, "w") as f:
         json.dump(books, f, indent=2)
+        f.write("\n")
 
     print(f"  ✓ Updated {book} status to '{status}'")
 
@@ -89,7 +93,9 @@ def release_book(book: str) -> bool:
 
     release_tag = f"{book}-{datetime.now().strftime('%Y-%m')}"
     release_size = mp3_file.stat().st_size
-    update_book_metadata(book, "available", release_tag, release_size)
+    # RFC 2822 UTC — stamped once at first release
+    pub_date = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
+    update_book_metadata(book, "available", release_tag, release_size, pub_date=pub_date)
 
     return True
 

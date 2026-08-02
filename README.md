@@ -176,3 +176,7 @@ Manual / recovery checklist:
 4. Spotify may lag; refresh the feed in Spotify for Podcasters if needed
 
 Do **not** point Cloudflare production at `master` with root `web/` unless the monorepo is slimmed down first.
+
+### Stable episode pubDates
+Each released book gets a one-time `pubDate` in `web/src/data/books.json` (RFC 2822). The RSS feed uses that field and **never** recomputes dates from `Date.now()`. `release-book.py` stamps it on first release and will not overwrite an existing stamp.
+

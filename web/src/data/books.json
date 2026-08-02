@@ -7,7 +7,8 @@
     "totalVerses": 1533,
     "status": "available",
     "releaseTag": "genesis-2026-04",
-    "releaseSize": 211519660
+    "releaseSize": 211519660,
+    "pubDate": "Tue, 07 Jul 2026 19:45:25 GMT"
   },
   {
     "slug": "exodus",
@@ -17,7 +18,8 @@
     "totalVerses": 1213,
     "status": "available",
     "releaseTag": "exodus-2026-05",
-    "releaseSize": 175727467
+    "releaseSize": 175727467,
+    "pubDate": "Wed, 08 Jul 2026 19:45:25 GMT"
   },
   {
     "slug": "leviticus",
@@ -27,7 +29,8 @@
     "totalVerses": 859,
     "status": "available",
     "releaseTag": "leviticus-2026-05",
-    "releaseSize": 132118627
+    "releaseSize": 132118627,
+    "pubDate": "Thu, 09 Jul 2026 19:45:25 GMT"
   },
   {
     "slug": "numbers",
@@ -37,7 +40,8 @@
     "totalVerses": 1288,
     "status": "available",
     "releaseTag": "numbers-2026-05",
-    "releaseSize": 183366906
+    "releaseSize": 183366906,
+    "pubDate": "Fri, 10 Jul 2026 19:45:25 GMT"
   },
   {
     "slug": "deuteronomy",
@@ -47,7 +51,8 @@
     "totalVerses": 959,
     "status": "available",
     "releaseTag": "deuteronomy-2026-06",
-    "releaseSize": 153926016
+    "releaseSize": 153926016,
+    "pubDate": "Sat, 11 Jul 2026 19:45:25 GMT"
   },
   {
     "slug": "joshua",
@@ -57,7 +62,8 @@
     "totalVerses": 658,
     "status": "available",
     "releaseTag": "joshua-2026-07",
-    "releaseSize": 105951535
+    "releaseSize": 105951535,
+    "pubDate": "Sun, 26 Jul 2026 14:00:00 GMT"
   },
   {
     "slug": "judges",
@@ -67,7 +73,8 @@
     "totalVerses": 1078,
     "status": "available",
     "releaseTag": "judges-2026-08",
-    "releaseSize": 103399922
+    "releaseSize": 103399922,
+    "pubDate": "Sun, 02 Aug 2026 14:00:00 GMT"
   },
   {
     "slug": "ruth",
