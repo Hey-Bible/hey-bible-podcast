@@ -71,8 +71,8 @@ All jobs run on this host via the Hermes agent (Moses) and post status notificat
 - The dedicated "Hey Bible First Sunday Book Publish" Hermes cron (no_agent script) runs every Sunday but only acts on the first Sunday of the month.
 - Finds the earliest completed (verses + chapters) but unreleased book.
 - Runs compile-book.py: stitches full book audio from permanent verses/ (backfills chapters if needed), generates spoken book title via Venice "Bill", concatenates with chapter title clips, produces intermediate/{book}-web.mp3 + sidecar JSON, uploads unlisted preview to R2.
-- Immediately runs release-book.py (review step skipped per 2026-06 policy): re-uploads with streaming headers, patches web/src/data/books.json to status=available + releaseTag + size, git commits/pushes (triggers web deploy).
-- No separate review listening step — quality has been consistently high.
+- Immediately runs release-book.py (review step skipped per 2026-06 policy): re-uploads with streaming headers, patches web/src/data/books.json to status=available + releaseTag + size, git commits/pushes **master**, then syncs the lightweight **`cf-deploy-web`** branch so Cloudflare can build (see Web deploy below).
+- Accelerated cadence: Sunday Hermes job runs `RELEASE_COUNT=2 bash scripts/run-next-book-release.sh` (up to two books per Sunday) + Automate It social announces in review.
 
 ## Audio hosting (Cloudflare R2)
 
@@ -147,3 +147,32 @@ ffmpeg -f concat -safe 0 -i concat.txt -acodec copy book-web.mp3
 ## Web player
 
 The Astro static site lives in `web/` and deploys via Cloudflare Workers at [podcast.heybible.org](https://podcast.heybible.org) (also reachable at the brand URL [✝.fm](https://xn--pci.fm)). It reads `web/src/data/books.json` for the index, fetches the chapter sidecar at build time for each released book, and exposes the podcast RSS at `/feed.xml`. See [`web/README.md`](web/README.md) for local dev, deploy, and the data contract.
+
+### Web deploy (Cloudflare) — important
+
+The monorepo git pack is multi‑GB (verse/chapter MP3s tracked on `master`). Cloudflare **times out cloning `master`**, so production builds from a **tiny branch that contains only the Astro site**:
+
+| | |
+|--|--|
+| **Branch** | `cf-deploy-web` |
+| **Root directory in CF** | *(empty)* — site is at branch root, **not** `web/` |
+| **Build** | `npm run build` → output `dist` |
+
+**After every book release** (when `books.json` changes), the lightweight branch must be updated:
+
+```bash
+# Prefer the automatic path — release-book.py already runs this after push:
+bash scripts/sync-cf-deploy-web.sh
+
+# Or with a custom commit message:
+bash scripts/sync-cf-deploy-web.sh "deploy: after releasing Ruth"
+```
+
+Manual / recovery checklist:
+
+1. `python3 scripts/release-book.py` (or `RELEASE_COUNT=2 bash scripts/run-next-book-release.sh`)
+2. Confirm `scripts/sync-cf-deploy-web.sh` ran (or run it yourself)
+3. Cloudflare builds `cf-deploy-web` → verify https://podcast.heybible.org/feed.xml lists the new book(s)
+4. Spotify may lag; refresh the feed in Spotify for Podcasters if needed
+
+Do **not** point Cloudflare production at `master` with root `web/` unless the monorepo is slimmed down first.

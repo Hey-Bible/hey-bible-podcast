@@ -27,16 +27,33 @@ npm run preview    # serves dist locally
 
 ## Deploy
 
-Cloudflare Workers Static Assets, building directly from the GitHub repo. Config lives in `wrangler.jsonc` (Worker name, `dist` as the asset directory) — CF reads it automatically. One-time setup:
+Cloudflare Workers Static Assets, built from GitHub. **Production does not build from `master`.**
 
-1. In the Cloudflare dashboard: **Workers & Pages → Create → Workers → Import a repository**, select this repo.
-2. **Build configuration:**
-   - Framework preset: **Astro**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Root directory: `web`
-3. **Custom domain:** add `podcast.heybible.org` to the Worker (canonical). Brand domain `✝.fm` (`xn--pci.fm`) lives in a separate Cloudflare zone and 301-redirects here.
-4. Pushing to `master` rebuilds automatically; PRs get preview deployments.
+The full monorepo is multi‑GB (verse/chapter audio in git), so Cloudflare clone/build of `master` times out. Production uses a **web-only branch**:
+
+| Setting | Value |
+|--------|--------|
+| Production branch | `cf-deploy-web` |
+| Root directory | *(empty / repo root of that branch)* — **not** `web` |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+
+### Syncing the deploy branch
+
+From the monorepo root after `books.json` / site changes:
+
+```bash
+bash scripts/sync-cf-deploy-web.sh
+```
+
+`scripts/release-book.py` calls this automatically after committing a release to `master`. If a CF build is stale, re-run the script (or push an empty commit on `cf-deploy-web`).
+
+### One-time CF project setup
+
+1. **Workers & Pages →** podcast worker → **Settings → Build**
+2. Production branch `cf-deploy-web`, root directory blank, build `npm run build`, output `dist`
+3. Custom domain: `podcast.heybible.org` (canonical). Brand domain `✝.fm` (`xn--pci.fm`) 301-redirects here.
+4. Pushing to `cf-deploy-web` rebuilds; do not rely on `master` pushes for deploys.
 
 ## Data contract
 
