@@ -115,6 +115,21 @@ def git_commit_release(book: str) -> bool:
                 check=True, capture_output=True,
             )
             print(f"  Committed and pushed: {commit_msg}")
+            # Full monorepo is multi‑GB (verse/chapter audio); CF times out cloning it.
+            # Keep a tiny branch with only web/ for the Workers build.
+            sync = BASE_DIR / "scripts" / "sync-cf-deploy-web.sh"
+            if sync.exists():
+                try:
+                    subprocess.run(
+                        ["bash", str(sync), f"deploy: web after Release {get_book_title(book)}"],
+                        check=False,
+                        capture_output=True,
+                        text=True,
+                        timeout=180,
+                    )
+                    print("  Synced cf-deploy-web branch for Cloudflare")
+                except Exception as se:
+                    print(f"  Warning: cf-deploy-web sync failed: {se}")
             return True
     except Exception as e:
         print(f"  Git error: {e}")
