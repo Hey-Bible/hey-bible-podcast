@@ -1,0 +1,17 @@
+{
+  "ts": "2026-07-26T14:00:55.225594+00:00",
+  "status": "released",
+  "released_book": "joshua",
+  "title": "Joshua",
+  "reason": null,
+  "compile_rc": 0,
+  "release_rc": 0,
+  "released_books_after": [
+    "genesis",
+    "exodus",
+    "leviticus",
+    "numbers",
+    "deuteronomy",
+    "joshua"
+  ]
+}
