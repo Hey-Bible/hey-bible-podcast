@@ -50,8 +50,13 @@ export const GET: APIRoute = async () => {
       const sizeBytes = book.releaseSize ?? 0;
       const duration = manifest?.duration ?? 0;
 
-      // Stagger pubDates so podcast clients order books canonically
-      const pubDate = new Date(Date.now() - (books.length - idx) * 86400000).toUTCString();
+      // pubDate is stamped once in books.json at release time (stable forever).
+      // Never recompute from Date.now() — that rewrote history on every CF deploy.
+      const pubDate =
+        (book.pubDate && String(book.pubDate).trim()) ||
+        // Fallback only for misconfigured data: freeze at a deterministic past slot by episode index
+        // so a rebuild still won't slide dates day-to-day (uses fixed epoch, not now).
+        new Date(Date.UTC(2026, 6, 7, 19, 45, 25) + idx * 86400000).toUTCString();
 
       const chapters = Array.isArray(manifest?.chapters) ? manifest.chapters : [];
       const chapterTimestamps = chapters

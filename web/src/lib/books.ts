@@ -18,6 +18,8 @@ export interface Book {
   status: BookStatus;
   releaseTag: string | null;
   releaseSize: number | null;
+  /** RFC 2822 pubDate stamped once at release — never recompute on build */
+  pubDate?: string | null;
   progress?: BookProgress;
 }
 
