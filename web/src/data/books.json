@@ -65,9 +65,9 @@
     "testament": "old",
     "chapters": 39,
     "totalVerses": 1078,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "judges-2026-08",
+    "releaseSize": 103399922
   },
   {
     "slug": "ruth",
