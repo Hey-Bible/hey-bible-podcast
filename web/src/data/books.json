@@ -82,9 +82,10 @@
     "testament": "old",
     "chapters": 4,
     "totalVerses": 85,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "ruth-2026-08",
+    "releaseSize": 14028800,
+    "pubDate": "Sun, 09 Aug 2026 14:01:22 GMT"
   },
   {
     "slug": "1-samuel",
