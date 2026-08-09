@@ -93,9 +93,10 @@
     "testament": "old",
     "chapters": 31,
     "totalVerses": 805,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "1-samuel-2026-08",
+    "releaseSize": 137603915,
+    "pubDate": "Sun, 09 Aug 2026 14:01:28 GMT"
   },
   {
     "slug": "2-samuel",
