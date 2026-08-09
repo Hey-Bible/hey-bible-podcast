@@ -1,8 +1,8 @@
 {
-  "ts": "2026-07-26T14:00:55.225594+00:00",
+  "ts": "2026-08-02T14:00:31.521953+00:00",
   "status": "released",
-  "released_book": "joshua",
-  "title": "Joshua",
+  "released_book": "judges",
+  "title": "Judges",
   "reason": null,
   "compile_rc": 0,
   "release_rc": 0,
@@ -12,6 +12,7 @@
     "leviticus",
     "numbers",
     "deuteronomy",
-    "joshua"
+    "joshua",
+    "judges"
   ]
 }
