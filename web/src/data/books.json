@@ -115,9 +115,10 @@
     "testament": "old",
     "chapters": 22,
     "totalVerses": 816,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "1-kings-2026-08",
+    "releaseSize": 134005301,
+    "pubDate": "Sun, 16 Aug 2026 14:15:20 GMT"
   },
   {
     "slug": "2-kings",
