@@ -1,11 +1,16 @@
 {
-  "ts": "2026-08-02T14:00:31.521953+00:00",
+  "ts": "2026-08-09T14:01:31.710348+00:00",
   "status": "released",
-  "released_book": "judges",
-  "title": "Judges",
+  "released_book": "ruth",
+  "released_books": [
+    "ruth",
+    "1-samuel"
+  ],
+  "title": "Ruth, 1 Samuel",
   "reason": null,
   "compile_rc": 0,
   "release_rc": 0,
+  "release_count_requested": 2,
   "released_books_after": [
     "genesis",
     "exodus",
@@ -13,6 +18,8 @@
     "numbers",
     "deuteronomy",
     "joshua",
-    "judges"
+    "judges",
+    "ruth",
+    "1-samuel"
   ]
 }
