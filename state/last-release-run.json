@@ -1,15 +1,12 @@
 {
-  "ts": "2026-08-09T14:01:31.710348+00:00",
-  "status": "released",
-  "released_book": "ruth",
-  "released_books": [
-    "ruth",
-    "1-samuel"
-  ],
-  "title": "Ruth, 1 Samuel",
-  "reason": null,
-  "compile_rc": 0,
-  "release_rc": 0,
+  "ts": "2026-08-23T14:04:12.938840+00:00",
+  "status": "error",
+  "released_book": null,
+  "released_books": [],
+  "title": null,
+  "reason": "release_failed_rc_1",
+  "compile_rc": 1,
+  "release_rc": 1,
   "release_count_requested": 2,
   "released_books_after": [
     "genesis",
@@ -20,6 +17,8 @@
     "joshua",
     "judges",
     "ruth",
-    "1-samuel"
+    "1-samuel",
+    "2-samuel",
+    "1-kings"
   ]
 }
