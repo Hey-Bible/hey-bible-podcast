@@ -137,9 +137,10 @@
     "testament": "old",
     "chapters": 29,
     "totalVerses": 942,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "1-chronicles-2026-08",
+    "releaseSize": 124452367,
+    "pubDate": "Sun, 23 Aug 2026 14:07:23 GMT"
   },
   {
     "slug": "2-chronicles",
