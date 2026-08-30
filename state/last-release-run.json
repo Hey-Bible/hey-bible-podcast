@@ -1,5 +1,5 @@
 {
-  "ts": "2026-08-23T14:04:12.938840+00:00",
+  "ts": "2026-08-30T14:01:44.304559+00:00",
   "status": "error",
   "released_book": null,
   "released_books": [],
@@ -19,6 +19,8 @@
     "ruth",
     "1-samuel",
     "2-samuel",
-    "1-kings"
+    "1-kings",
+    "2-kings",
+    "1-chronicles"
   ]
 }
