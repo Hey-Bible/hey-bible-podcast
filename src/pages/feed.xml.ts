@@ -1,0 +1,120 @@
+import type { APIRoute } from 'astro';
+import { availableBooks, bookAudioUrl, bookChaptersJsonUrl } from '~/lib/books';
+import { fetchChapters } from '~/lib/chapters';
+
+const SITE = 'https://podcast.heybible.org';
+const TITLE = 'The Hey Bible Podcast';
+const DESCRIPTION =
+  'The whole Bible read aloud, one book at a time. Two new books every Sunday. Public domain — World English Bible. Brought to you by Hey Bible — search verses, save favorites, and create beautiful verse art.';
+const AUTHOR = 'Hey Bible';
+const EMAIL = 'bobby@heybible.org';
+const IMAGE = `${SITE}/podcast-cover.jpg`;
+const COPYRIGHT = `© ${new Date().getFullYear()} Working Dev’s Hero — Text from the World English Bible (public domain)`;
+
+function escapeXml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function formatTime(seconds: number): string {
+  if (!Number.isFinite(seconds)) return '0:00';
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  if (h > 0) {
+    return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+function formatDuration(seconds: number): string {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  return [h, m, s].map((n) => n.toString().padStart(2, '0')).join(':');
+}
+
+export const GET: APIRoute = async () => {
+  const books = availableBooks();
+  const now = new Date().toUTCString();
+
+  const items = await Promise.all(
+    books.map(async (book, idx) => {
+      const audioUrl = bookAudioUrl(book);
+      const chaptersUrl = bookChaptersJsonUrl(book);
+      const manifest = await fetchChapters(book);
+      const sizeBytes = book.releaseSize ?? 0;
+      const duration = manifest?.duration ?? 0;
+
+      // pubDate is stamped once in books.json at release time (stable forever).
+      // Never recompute from Date.now() — that rewrote history on every CF deploy.
+      const pubDate =
+        (book.pubDate && String(book.pubDate).trim()) ||
+        // Fallback only for misconfigured data: freeze at a deterministic past slot by episode index
+        // so a rebuild still won't slide dates day-to-day (uses fixed epoch, not now).
+        new Date(Date.UTC(2026, 6, 7, 19, 45, 25) + idx * 86400000).toUTCString();
+
+      const chapters = Array.isArray(manifest?.chapters) ? manifest.chapters : [];
+      const chapterTimestamps = chapters
+        .map((ch) => `Ch. ${ch.number}: ${formatTime(ch.start)}`)
+        .join('\n');
+      const descriptionWithTimestamps = chapterTimestamps
+        ? `The complete book of ${book.name} from the World English Bible.\n\nChapters:\n${chapterTimestamps}`
+        : `The complete book of ${book.name} from the World English Bible.`;
+
+      return `
+    <item>
+      <title>${escapeXml(`The Book of ${book.name}`)}</title>
+      <description>${escapeXml(descriptionWithTimestamps)}</description>
+      <link>${SITE}/books/${book.slug}/</link>
+      <guid isPermaLink="false">heybible-fm-${book.slug}</guid>
+      <pubDate>${pubDate}</pubDate>
+      <enclosure url="${audioUrl}" length="${sizeBytes}" type="audio/mpeg" />
+      <itunes:author>${escapeXml(AUTHOR)}</itunes:author>
+      <itunes:duration>${formatDuration(duration)}</itunes:duration>
+      <itunes:episode>${idx + 1}</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <podcast:chapters url="${chaptersUrl}" type="application/json+chapters" />
+    </item>`;
+    })
+  );
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:podcast="https://podcastindex.org/namespace/1.0"
+  xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${escapeXml(TITLE)}</title>
+    <link>${SITE}/</link>
+    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
+    <description>${escapeXml(DESCRIPTION)}</description>
+    <language>en-us</language>
+    <copyright>${escapeXml(COPYRIGHT)}</copyright>
+    <lastBuildDate>${now}</lastBuildDate>
+    <itunes:author>${escapeXml(AUTHOR)}</itunes:author>
+    <itunes:summary>${escapeXml(DESCRIPTION)}</itunes:summary>
+    <itunes:owner>
+      <itunes:name>${escapeXml(AUTHOR)}</itunes:name>
+      <itunes:email>${escapeXml(EMAIL)}</itunes:email>
+    </itunes:owner>
+    <itunes:image href="${IMAGE}" />
+    <itunes:category text="Religion &amp; Spirituality">
+      <itunes:category text="Christianity" />
+    </itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>serial</itunes:type>${items.join('')}
+  </channel>
+</rss>`;
+
+  return new Response(xml, {
+    headers: {
+      'Content-Type': 'application/rss+xml; charset=utf-8',
+    },
+  });
+};

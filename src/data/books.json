@@ -1,0 +1,677 @@
+[
+  {
+    "slug": "genesis",
+    "name": "Genesis",
+    "testament": "old",
+    "chapters": 50,
+    "totalVerses": 1533,
+    "status": "available",
+    "releaseTag": "genesis-2026-04",
+    "releaseSize": 211519660,
+    "pubDate": "Tue, 07 Jul 2026 19:45:25 GMT"
+  },
+  {
+    "slug": "exodus",
+    "name": "Exodus",
+    "testament": "old",
+    "chapters": 40,
+    "totalVerses": 1213,
+    "status": "available",
+    "releaseTag": "exodus-2026-05",
+    "releaseSize": 175727467,
+    "pubDate": "Wed, 08 Jul 2026 19:45:25 GMT"
+  },
+  {
+    "slug": "leviticus",
+    "name": "Leviticus",
+    "testament": "old",
+    "chapters": 27,
+    "totalVerses": 859,
+    "status": "available",
+    "releaseTag": "leviticus-2026-05",
+    "releaseSize": 132118627,
+    "pubDate": "Thu, 09 Jul 2026 19:45:25 GMT"
+  },
+  {
+    "slug": "numbers",
+    "name": "Numbers",
+    "testament": "old",
+    "chapters": 36,
+    "totalVerses": 1288,
+    "status": "available",
+    "releaseTag": "numbers-2026-05",
+    "releaseSize": 183366906,
+    "pubDate": "Fri, 10 Jul 2026 19:45:25 GMT"
+  },
+  {
+    "slug": "deuteronomy",
+    "name": "Deuteronomy",
+    "testament": "old",
+    "chapters": 34,
+    "totalVerses": 959,
+    "status": "available",
+    "releaseTag": "deuteronomy-2026-06",
+    "releaseSize": 153926016,
+    "pubDate": "Sat, 11 Jul 2026 19:45:25 GMT"
+  },
+  {
+    "slug": "joshua",
+    "name": "Joshua",
+    "testament": "old",
+    "chapters": 24,
+    "totalVerses": 658,
+    "status": "available",
+    "releaseTag": "joshua-2026-07",
+    "releaseSize": 105951535,
+    "pubDate": "Sun, 26 Jul 2026 14:00:00 GMT"
+  },
+  {
+    "slug": "judges",
+    "name": "Judges",
+    "testament": "old",
+    "chapters": 39,
+    "totalVerses": 1078,
+    "status": "available",
+    "releaseTag": "judges-2026-08",
+    "releaseSize": 103399922,
+    "pubDate": "Sun, 02 Aug 2026 14:00:00 GMT"
+  },
+  {
+    "slug": "ruth",
+    "name": "Ruth",
+    "testament": "old",
+    "chapters": 4,
+    "totalVerses": 85,
+    "status": "available",
+    "releaseTag": "ruth-2026-08",
+    "releaseSize": 14028800,
+    "pubDate": "Sun, 09 Aug 2026 14:01:22 GMT"
+  },
+  {
+    "slug": "1-samuel",
+    "name": "1 Samuel",
+    "testament": "old",
+    "chapters": 31,
+    "totalVerses": 805,
+    "status": "available",
+    "releaseTag": "1-samuel-2026-08",
+    "releaseSize": 137603915,
+    "pubDate": "Sun, 09 Aug 2026 14:01:28 GMT"
+  },
+  {
+    "slug": "2-samuel",
+    "name": "2 Samuel",
+    "testament": "old",
+    "chapters": 24,
+    "totalVerses": 695,
+    "status": "available",
+    "releaseTag": "2-samuel-2026-08",
+    "releaseSize": 113871008,
+    "pubDate": "Sun, 16 Aug 2026 14:14:00 GMT"
+  },
+  {
+    "slug": "1-kings",
+    "name": "1 Kings",
+    "testament": "old",
+    "chapters": 22,
+    "totalVerses": 816,
+    "status": "available",
+    "releaseTag": "1-kings-2026-08",
+    "releaseSize": 134005301,
+    "pubDate": "Sun, 16 Aug 2026 14:15:20 GMT"
+  },
+  {
+    "slug": "2-kings",
+    "name": "2 Kings",
+    "testament": "old",
+    "chapters": 25,
+    "totalVerses": 719,
+    "status": "available",
+    "releaseTag": "2-kings-2026-08",
+    "releaseSize": 128707717,
+    "pubDate": "Sun, 23 Aug 2026 14:07:17 GMT"
+  },
+  {
+    "slug": "1-chronicles",
+    "name": "1 Chronicles",
+    "testament": "old",
+    "chapters": 29,
+    "totalVerses": 942,
+    "status": "available",
+    "releaseTag": "1-chronicles-2026-08",
+    "releaseSize": 124452367,
+    "pubDate": "Sun, 23 Aug 2026 14:07:23 GMT"
+  },
+  {
+    "slug": "2-chronicles",
+    "name": "2 Chronicles",
+    "testament": "old",
+    "chapters": 36,
+    "totalVerses": 820,
+    "status": "available",
+    "releaseTag": "2-chronicles-2026-08",
+    "releaseSize": 146516894,
+    "pubDate": "Sun, 30 Aug 2026 14:07:09 GMT"
+  },
+  {
+    "slug": "ezra",
+    "name": "Ezra",
+    "testament": "old",
+    "chapters": 10,
+    "totalVerses": 280,
+    "status": "available",
+    "releaseTag": "ezra-2026-08",
+    "releaseSize": 43485214,
+    "pubDate": "Sun, 30 Aug 2026 14:07:15 GMT"
+  },
+  {
+    "slug": "nehemiah",
+    "name": "Nehemiah",
+    "testament": "old",
+    "chapters": 13,
+    "totalVerses": 406,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "esther",
+    "name": "Esther",
+    "testament": "old",
+    "chapters": 10,
+    "totalVerses": 167,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "job",
+    "name": "Job",
+    "testament": "old",
+    "chapters": 42,
+    "totalVerses": 1070,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "psalms",
+    "name": "Psalms",
+    "testament": "old",
+    "chapters": 150,
+    "totalVerses": 2327,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "proverbs",
+    "name": "Proverbs",
+    "testament": "old",
+    "chapters": 31,
+    "totalVerses": 915,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "ecclesiastes",
+    "name": "Ecclesiastes",
+    "testament": "old",
+    "chapters": 12,
+    "totalVerses": 222,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "song-of-solomon",
+    "name": "Song of Solomon",
+    "testament": "old",
+    "chapters": 8,
+    "totalVerses": 117,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "isaiah",
+    "name": "Isaiah",
+    "testament": "old",
+    "chapters": 66,
+    "totalVerses": 1292,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "jeremiah",
+    "name": "Jeremiah",
+    "testament": "old",
+    "chapters": 52,
+    "totalVerses": 1364,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "lamentations",
+    "name": "Lamentations",
+    "testament": "old",
+    "chapters": 5,
+    "totalVerses": 154,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "ezekiel",
+    "name": "Ezekiel",
+    "testament": "old",
+    "chapters": 48,
+    "totalVerses": 1273,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "daniel",
+    "name": "Daniel",
+    "testament": "old",
+    "chapters": 12,
+    "totalVerses": 357,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "hosea",
+    "name": "Hosea",
+    "testament": "old",
+    "chapters": 14,
+    "totalVerses": 197,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "joel",
+    "name": "Joel",
+    "testament": "old",
+    "chapters": 3,
+    "totalVerses": 73,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "amos",
+    "name": "Amos",
+    "testament": "old",
+    "chapters": 9,
+    "totalVerses": 146,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "obadiah",
+    "name": "Obadiah",
+    "testament": "old",
+    "chapters": 1,
+    "totalVerses": 21,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "jonah",
+    "name": "Jonah",
+    "testament": "old",
+    "chapters": 4,
+    "totalVerses": 48,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "micah",
+    "name": "Micah",
+    "testament": "old",
+    "chapters": 7,
+    "totalVerses": 105,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "nahum",
+    "name": "Nahum",
+    "testament": "old",
+    "chapters": 3,
+    "totalVerses": 47,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "habakkuk",
+    "name": "Habakkuk",
+    "testament": "old",
+    "chapters": 3,
+    "totalVerses": 56,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "zephaniah",
+    "name": "Zephaniah",
+    "testament": "old",
+    "chapters": 3,
+    "totalVerses": 53,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "haggai",
+    "name": "Haggai",
+    "testament": "old",
+    "chapters": 2,
+    "totalVerses": 38,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "zechariah",
+    "name": "Zechariah",
+    "testament": "old",
+    "chapters": 14,
+    "totalVerses": 210,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "malachi",
+    "name": "Malachi",
+    "testament": "old",
+    "chapters": 4,
+    "totalVerses": 55,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "matthew",
+    "name": "Matthew",
+    "testament": "new",
+    "chapters": 28,
+    "totalVerses": 1071,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "mark",
+    "name": "Mark",
+    "testament": "new",
+    "chapters": 16,
+    "totalVerses": 678,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "luke",
+    "name": "Luke",
+    "testament": "new",
+    "chapters": 24,
+    "totalVerses": 1151,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "john",
+    "name": "John",
+    "testament": "new",
+    "chapters": 21,
+    "totalVerses": 879,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "acts",
+    "name": "Acts",
+    "testament": "new",
+    "chapters": 28,
+    "totalVerses": 1007,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "romans",
+    "name": "Romans",
+    "testament": "new",
+    "chapters": 16,
+    "totalVerses": 433,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "1-corinthians",
+    "name": "1 Corinthians",
+    "testament": "new",
+    "chapters": 16,
+    "totalVerses": 437,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "2-corinthians",
+    "name": "2 Corinthians",
+    "testament": "new",
+    "chapters": 13,
+    "totalVerses": 252,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "galatians",
+    "name": "Galatians",
+    "testament": "new",
+    "chapters": 6,
+    "totalVerses": 149,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "ephesians",
+    "name": "Ephesians",
+    "testament": "new",
+    "chapters": 6,
+    "totalVerses": 155,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "philippians",
+    "name": "Philippians",
+    "testament": "new",
+    "chapters": 4,
+    "totalVerses": 104,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "colossians",
+    "name": "Colossians",
+    "testament": "new",
+    "chapters": 4,
+    "totalVerses": 95,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "1-thessalonians",
+    "name": "1 Thessalonians",
+    "testament": "new",
+    "chapters": 5,
+    "totalVerses": 89,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "2-thessalonians",
+    "name": "2 Thessalonians",
+    "testament": "new",
+    "chapters": 3,
+    "totalVerses": 47,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "1-timothy",
+    "name": "1 Timothy",
+    "testament": "new",
+    "chapters": 6,
+    "totalVerses": 113,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "2-timothy",
+    "name": "2 Timothy",
+    "testament": "new",
+    "chapters": 4,
+    "totalVerses": 83,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "titus",
+    "name": "Titus",
+    "testament": "new",
+    "chapters": 3,
+    "totalVerses": 46,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "philemon",
+    "name": "Philemon",
+    "testament": "new",
+    "chapters": 1,
+    "totalVerses": 25,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "hebrews",
+    "name": "Hebrews",
+    "testament": "new",
+    "chapters": 13,
+    "totalVerses": 303,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "james",
+    "name": "James",
+    "testament": "new",
+    "chapters": 5,
+    "totalVerses": 108,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "1-peter",
+    "name": "1 Peter",
+    "testament": "new",
+    "chapters": 5,
+    "totalVerses": 105,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "2-peter",
+    "name": "2 Peter",
+    "testament": "new",
+    "chapters": 3,
+    "totalVerses": 61,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "1-john",
+    "name": "1 John",
+    "testament": "new",
+    "chapters": 5,
+    "totalVerses": 105,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "2-john",
+    "name": "2 John",
+    "testament": "new",
+    "chapters": 1,
+    "totalVerses": 13,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "3-john",
+    "name": "3 John",
+    "testament": "new",
+    "chapters": 1,
+    "totalVerses": 15,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "jude",
+    "name": "Jude",
+    "testament": "new",
+    "chapters": 1,
+    "totalVerses": 25,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  },
+  {
+    "slug": "revelation",
+    "name": "Revelation",
+    "testament": "new",
+    "chapters": 22,
+    "totalVerses": 405,
+    "status": "coming-soon",
+    "releaseTag": null,
+    "releaseSize": null
+  }
+]
