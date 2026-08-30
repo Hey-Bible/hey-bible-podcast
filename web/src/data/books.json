@@ -148,9 +148,10 @@
     "testament": "old",
     "chapters": 36,
     "totalVerses": 820,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "2-chronicles-2026-08",
+    "releaseSize": 146516894,
+    "pubDate": "Sun, 30 Aug 2026 14:07:09 GMT"
   },
   {
     "slug": "ezra",
