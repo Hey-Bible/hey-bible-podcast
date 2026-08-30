@@ -159,9 +159,10 @@
     "testament": "old",
     "chapters": 10,
     "totalVerses": 280,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "ezra-2026-08",
+    "releaseSize": 43485214,
+    "pubDate": "Sun, 30 Aug 2026 14:07:15 GMT"
   },
   {
     "slug": "nehemiah",
