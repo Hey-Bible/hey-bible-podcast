@@ -170,9 +170,10 @@
     "testament": "old",
     "chapters": 13,
     "totalVerses": 406,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "nehemiah-2026-09",
+    "releaseSize": 62336362,
+    "pubDate": "Sun, 13 Sep 2026 20:09:22 GMT"
   },
   {
     "slug": "esther",
