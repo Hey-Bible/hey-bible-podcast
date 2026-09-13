@@ -181,9 +181,10 @@
     "testament": "old",
     "chapters": 10,
     "totalVerses": 167,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "esther-2026-09",
+    "releaseSize": 31372812,
+    "pubDate": "Sun, 13 Sep 2026 20:09:32 GMT"
   },
   {
     "slug": "job",
