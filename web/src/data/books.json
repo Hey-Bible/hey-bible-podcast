@@ -192,9 +192,10 @@
     "testament": "old",
     "chapters": 42,
     "totalVerses": 1070,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "job-2026-09",
+    "releaseSize": 101098427,
+    "pubDate": "Sun, 20 Sep 2026 14:08:30 GMT"
   },
   {
     "slug": "psalms",
