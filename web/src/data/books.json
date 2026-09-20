@@ -203,9 +203,10 @@
     "testament": "old",
     "chapters": 150,
     "totalVerses": 2327,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "psalms-2026-09",
+    "releaseSize": 248687438,
+    "pubDate": "Sun, 20 Sep 2026 14:08:41 GMT"
   },
   {
     "slug": "proverbs",
