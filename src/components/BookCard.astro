@@ -1,0 +1,54 @@
+---
+import type { Book } from '~/lib/books';
+
+interface Props {
+  book: Book;
+}
+const { book } = Astro.props;
+
+const isAvailable = book.status === 'available';
+const isInProgress = book.status === 'in-progress';
+const href = isAvailable || isInProgress ? `/books/${book.slug}/` : null;
+
+const completed = book.progress?.completedVerses ?? 0;
+const pct = Math.min(100, Math.round((completed / book.totalVerses) * 100));
+---
+{href ? (
+  <a
+    href={href}
+    class="surface-card no-underline transition-all hover:-translate-y-1 hover:shadow-lg block"
+    style="color: var(--color-retro-text);"
+  >
+    <div class="flex items-start justify-between gap-2 mb-2">
+      <h3 class="font-extrabold text-lg leading-tight">{book.name}</h3>
+      <span class={`badge badge-${book.status}`}>
+        {isAvailable ? 'Available' : 'In Progress'}
+      </span>
+    </div>
+    <p class="text-sm opacity-70">{book.chapters} chapters · {book.totalVerses.toLocaleString()} verses</p>
+    {isInProgress && book.progress && (
+      <div class="mt-3">
+        <div
+          class="w-full h-2 rounded-full overflow-hidden"
+          style="background: var(--color-retro-secondary);"
+        >
+          <div
+            class="h-full"
+            style={`background: var(--color-retro-primary); width: ${pct}%;`}
+          />
+        </div>
+        <p class="text-xs opacity-70 mt-1">
+          Chapter {book.progress.chapter}, verse {book.progress.verse} ({pct}%)
+        </p>
+      </div>
+    )}
+  </a>
+) : (
+  <div class="surface-card opacity-60" style="color: var(--color-retro-text);">
+    <div class="flex items-start justify-between gap-2 mb-2">
+      <h3 class="font-extrabold text-lg leading-tight">{book.name}</h3>
+      <span class="badge badge-coming-soon">Coming Soon</span>
+    </div>
+    <p class="text-sm opacity-70">{book.chapters} chapters · {book.totalVerses.toLocaleString()} verses</p>
+  </div>
+)}
