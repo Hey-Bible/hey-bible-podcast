@@ -214,9 +214,10 @@
     "testament": "old",
     "chapters": 31,
     "totalVerses": 915,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "proverbs-2026-09",
+    "releaseSize": 85770267,
+    "pubDate": "Sun, 27 Sep 2026 14:11:31 GMT"
   },
   {
     "slug": "ecclesiastes",

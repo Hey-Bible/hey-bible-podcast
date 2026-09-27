@@ -1,5 +1,5 @@
 {
-  "ts": "2026-09-20T14:07:29.388940+00:00",
+  "ts": "2026-09-27T14:09:06.588864+00:00",
   "status": "error",
   "released_book": null,
   "released_books": [],
@@ -25,6 +25,8 @@
     "2-chronicles",
     "ezra",
     "nehemiah",
-    "esther"
+    "esther",
+    "job",
+    "psalms"
   ]
 }
