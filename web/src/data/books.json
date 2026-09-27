@@ -225,9 +225,10 @@
     "testament": "old",
     "chapters": 12,
     "totalVerses": 222,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "ecclesiastes-2026-09",
+    "releaseSize": 31348966,
+    "pubDate": "Sun, 27 Sep 2026 14:11:42 GMT"
   },
   {
     "slug": "song-of-solomon",
