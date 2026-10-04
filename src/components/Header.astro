@@ -1,0 +1,119 @@
+---
+const { pathname } = Astro.url;
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+<header
+  class="sticky top-0 z-50 border-b backdrop-blur-md"
+  style="background-color: var(--color-retro-surface-bar); border-color: var(--color-retro-secondary);"
+>
+  <nav class="relative flex justify-between items-center w-full px-4 py-3 max-w-[1200px] mx-auto">
+    <a href="/" class="flex items-center gap-2 no-underline glow-hover">
+      <span class="text-2xl" aria-hidden="true">✝️</span>
+      <span class="text-lg font-extrabold" style="color: var(--color-retro-text);">
+        Hey Bible Podcast
+      </span>
+    </a>
+
+    <div class="flex gap-4 items-center">
+      <a
+        href="/"
+        class="text-sm font-bold no-underline glow-hover hidden sm:inline"
+        style={`color: var(--color-retro-text); opacity: ${isActive('/') ? 0.75 : 1};`}
+      >
+        Home
+      </a>
+      <a
+        href="/books/"
+        class="text-sm font-bold no-underline glow-hover hidden sm:inline"
+        style={`color: var(--color-retro-text); opacity: ${isActive('/books') ? 0.75 : 1};`}
+      >
+        Books
+      </a>
+      <a
+        href="/about/"
+        class="text-sm font-bold no-underline glow-hover hidden sm:inline"
+        style={`color: var(--color-retro-text); opacity: ${isActive('/about') ? 0.75 : 1};`}
+      >
+        About
+      </a>
+      <a
+        href="/feed.xml"
+        class="text-sm font-bold no-underline glow-hover hidden sm:inline"
+        style="color: var(--color-retro-text);"
+      >
+        RSS
+      </a>
+
+      <button
+        id="theme-toggle"
+        type="button"
+        class="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 hover:scale-110 cursor-pointer"
+        style="background: var(--color-retro-surface-card); border: 1px solid var(--color-retro-secondary);"
+        aria-label="Toggle theme"
+      >
+        <svg id="theme-icon-sun" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+        <svg id="theme-icon-system" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  function initThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    const sun = document.getElementById('theme-icon-sun');
+    const moon = document.getElementById('theme-icon-moon');
+    const system = document.getElementById('theme-icon-system');
+    if (!btn || !sun || !moon || !system) return;
+
+    const order = ['light', 'dark', 'system'] as const;
+    type ThemeMode = (typeof order)[number];
+
+    function read(): ThemeMode {
+      const v = localStorage.getItem('theme');
+      return (order as readonly string[]).includes(v ?? '') ? (v as ThemeMode) : 'system';
+    }
+    function apply(mode: ThemeMode) {
+      const resolved =
+        mode === 'system'
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+          : mode;
+      document.documentElement.setAttribute('data-theme', resolved);
+    }
+    function showIcon(mode: ThemeMode) {
+      sun!.classList.toggle('hidden', mode !== 'light');
+      moon!.classList.toggle('hidden', mode !== 'dark');
+      system!.classList.toggle('hidden', mode !== 'system');
+    }
+    function set(mode: ThemeMode) {
+      localStorage.setItem('theme', mode);
+      apply(mode);
+      showIcon(mode);
+    }
+
+    const current = read();
+    apply(current);
+    showIcon(current);
+
+    btn.addEventListener('click', () => {
+      const c = read();
+      set(order[(order.indexOf(c) + 1) % order.length]);
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (read() === 'system') apply('system');
+    });
+  }
+  initThemeToggle();
+  document.addEventListener('astro:after-swap', initThemeToggle);
+</script>
