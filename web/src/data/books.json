@@ -236,9 +236,10 @@
     "testament": "old",
     "chapters": 8,
     "totalVerses": 117,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "song-of-solomon-2026-10",
+    "releaseSize": 15725704,
+    "pubDate": "Sun, 04 Oct 2026 14:06:51 GMT"
   },
   {
     "slug": "isaiah",
