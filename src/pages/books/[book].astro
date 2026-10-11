@@ -1,0 +1,85 @@
+---
+import Base from '~/layouts/Base.astro';
+import ChapterPlayer from '~/components/ChapterPlayer.astro';
+import { books, bookAudioUrl } from '~/lib/books';
+import { fetchChapters } from '~/lib/chapters';
+import type { Book } from '~/lib/books';
+import type { ChaptersManifest } from '~/lib/chapters';
+
+export async function getStaticPaths() {
+  const { books } = await import('~/lib/books');
+  const { fetchChapters } = await import('~/lib/chapters');
+
+  const out = [];
+  for (const book of books) {
+    const chapters = book.status === 'available' ? await fetchChapters(book) : null;
+    out.push({ params: { book: book.slug }, props: { book, chapters } });
+  }
+  return out;
+}
+
+interface Props {
+  book: Book;
+  chapters: ChaptersManifest | null;
+}
+
+const { book, chapters } = Astro.props;
+const audioSrc = book.status === 'available' ? bookAudioUrl(book) : null;
+const isInProgress = book.status === 'in-progress';
+const isAvailable = book.status === 'available';
+
+const progressPct = book.progress
+  ? Math.min(100, Math.round((book.progress.completedVerses / book.totalVerses) * 100))
+  : 0;
+---
+<Base
+  title={`The Book of ${book.name} — The Hey Bible Podcast`}
+  description={`Listen to the entire book of ${book.name} from the World English Bible, free.`}
+>
+  <section class="py-6">
+    <p class="text-sm opacity-70 mb-1">
+      <a href="/books/">← All books</a>
+    </p>
+    <h1 class="text-3xl md:text-4xl font-extrabold">The Book of {book.name}</h1>
+    <p class="opacity-80 mt-1">
+      {book.chapters} chapters · {book.totalVerses.toLocaleString()} verses · {book.testament === 'old' ? 'Old' : 'New'} Testament
+    </p>
+  </section>
+
+  {isAvailable && audioSrc ? (
+    <ChapterPlayer
+      audioSrc={audioSrc}
+      chapters={chapters?.chapters ?? null}
+      totalDuration={chapters?.duration}
+      downloadHref={audioSrc}
+    />
+  ) : isInProgress ? (
+    <section class="surface-card text-center">
+      <p class="text-lg font-bold mb-2">In progress</p>
+      <p class="opacity-80 mb-4">
+        Currently recording chapter {book.progress?.chapter}, verse {book.progress?.verse}.
+        Full release coming the first Sunday of next month.
+      </p>
+      <div
+        class="w-full max-w-[480px] mx-auto h-3 rounded-full overflow-hidden"
+        style="background: var(--color-retro-secondary);"
+      >
+        <div
+          class="h-full"
+          style={`background: var(--color-retro-primary); width: ${progressPct}%;`}
+        />
+      </div>
+      <p class="text-sm opacity-70 mt-2">
+        {book.progress?.completedVerses.toLocaleString()} of {book.totalVerses.toLocaleString()} verses ({progressPct}%)
+      </p>
+    </section>
+  ) : (
+    <section class="surface-card text-center">
+      <p class="text-lg font-bold mb-2">Coming soon</p>
+      <p class="opacity-80">
+        {book.name} is on the schedule. Subscribe so you don't miss the release.
+      </p>
+      <a href="/" class="cta-button mt-6 inline-block">Subscribe</a>
+    </section>
+  )}
+</Base>

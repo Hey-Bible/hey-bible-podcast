@@ -1,0 +1,57 @@
+---
+import Base from '~/layouts/Base.astro';
+---
+<Base
+  title="About — The Hey Bible Podcast"
+  description="How the Hey Bible Podcast is made — public-domain text, AI voice, automated monthly releases."
+>
+  <section class="py-8 sm:py-12 max-w-[720px] mx-auto">
+    <h1 class="text-3xl md:text-5xl font-extrabold mb-6">About</h1>
+
+    <p class="text-lg opacity-90 mb-6">
+      The Hey Bible Podcast was built to make the
+      <a href="https://worldenglish.bible" target="_blank" rel="noopener noreferrer">World English Bible</a>
+      — a complete, public-domain English translation of the Bible — more accessible by reading it aloud
+      and publishing one book each month as a podcast. Free, ad-free, and works in any podcast app.
+    </p>
+
+    <h2 class="text-2xl font-extrabold mt-8 mb-3">A Working Dev’s Hero project</h2>
+    <p class="opacity-90 mb-6">
+      Hey Bible is a project from
+      <a href="https://workingdevshero.com" target="_blank" rel="noopener noreferrer">Working Dev's Hero</a>,
+      an AI-enabled software development company. The entire production pipeline — verse generation,
+      chapter stitching, monthly book compilation, and release — was built end-to-end using
+      <strong>Hermes</strong> running on
+      <a href="https://venice.ai" target="_blank" rel="noopener noreferrer">Venice.ai</a>.
+    </p>
+
+    <h2 class="text-2xl font-extrabold mt-8 mb-3">Get the app</h2>
+    <p class="opacity-90 mb-6">
+      <a href="https://heybible.org" target="_blank" rel="noopener noreferrer">Hey Bible</a>
+      is a free and easy to use app for searching Bible verses. Save your favorite verses, add notes,
+      and create beautiful, unique images of your favorite Bible verses and share them with your friends.
+    </p>
+
+    <h2 class="text-2xl font-extrabold mt-8 mb-3">How it’s made</h2>
+    <ul class="list-disc pl-6 opacity-90 space-y-2">
+      <li><strong>Text:</strong> <a href="https://worldenglish.bible" target="_blank" rel="noopener noreferrer">World English Bible</a>, public domain — sourced from the WEB USFX XML in <a href="https://github.com/seven1m/open-bibles" target="_blank" rel="noopener noreferrer">seven1m/open-bibles</a>.</li>
+      <li><strong>Voice:</strong> Generated with the “Bill” voice from ElevenLabs, called via the Venice AI API.</li>
+      <li><strong>Hosting:</strong> Cloudflare — site (Workers Static Assets), audio files (R2), and DNS.</li>
+      <li><strong>Source:</strong> <a href="https://github.com/Hey-Bible/hey-bible-podcast" target="_blank" rel="noopener noreferrer">Open source on GitHub</a>.</li>
+    </ul>
+
+    <h2 class="text-2xl font-extrabold mt-8 mb-3">Schedule</h2>
+    <p class="opacity-90">
+      Verses are generated daily, chapters are stitched as soon as their last verse is recorded,
+      books are compiled on the 25th of each month, and released as podcast episodes on the 1st.
+      The full Bible is roughly 31,000 verses — about 75 hours of audio — which works out to several
+      years of monthly book releases.
+    </p>
+
+    <p class="text-sm opacity-70 mt-12">
+      Read the
+      <a href="https://claudius.blog/blog/launching-hey-bible-podcast/" target="_blank" rel="noopener noreferrer">launch announcement</a>
+      for the longer story.
+    </p>
+  </section>
+</Base>
