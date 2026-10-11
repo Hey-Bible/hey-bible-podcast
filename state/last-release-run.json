@@ -1,12 +1,12 @@
 {
-  "ts": "2026-10-04T14:07:04.388953+00:00",
+  "ts": "2026-10-11T14:06:42.862032+00:00",
   "status": "released",
-  "released_book": "song-of-solomon",
+  "released_book": "jeremiah",
   "released_books": [
-    "song-of-solomon",
-    "isaiah"
+    "jeremiah",
+    "lamentations"
   ],
-  "title": "Song Of Solomon, Isaiah",
+  "title": "Jeremiah, Lamentations",
   "reason": null,
   "compile_rc": 0,
   "release_rc": 0,
@@ -34,6 +34,8 @@
     "proverbs",
     "ecclesiastes",
     "song-of-solomon",
-    "isaiah"
+    "isaiah",
+    "jeremiah",
+    "lamentations"
   ]
 }
