@@ -291,9 +291,10 @@
     "testament": "old",
     "chapters": 12,
     "totalVerses": 357,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "daniel-2026-10",
+    "releaseSize": 67027564,
+    "pubDate": "Sun, 18 Oct 2026 14:06:36 GMT"
   },
   {
     "slug": "hosea",
