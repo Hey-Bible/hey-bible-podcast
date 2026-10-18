@@ -1,12 +1,12 @@
 {
-  "ts": "2026-10-11T14:06:42.862032+00:00",
+  "ts": "2026-10-18T14:06:39.949151+00:00",
   "status": "released",
-  "released_book": "jeremiah",
+  "released_book": "ezekiel",
   "released_books": [
-    "jeremiah",
-    "lamentations"
+    "ezekiel",
+    "daniel"
   ],
-  "title": "Jeremiah, Lamentations",
+  "title": "Ezekiel, Daniel",
   "reason": null,
   "compile_rc": 0,
   "release_rc": 0,
@@ -36,6 +36,8 @@
     "song-of-solomon",
     "isaiah",
     "jeremiah",
-    "lamentations"
+    "lamentations",
+    "ezekiel",
+    "daniel"
   ]
 }
