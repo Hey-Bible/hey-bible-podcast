@@ -17,7 +17,12 @@
   --font-sans: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+html {
+  color-scheme: light;
+}
+
 html[data-theme="dark"] {
+  color-scheme: dark;
   --color-retro-bg: #000000;
   --color-retro-text: #ffffff;
   --color-retro-primary: #428cff;
@@ -138,12 +143,31 @@ h2 {
 }
 
 audio {
+  display: block;
   width: 100%;
+  border: 0;
   border-radius: var(--radius-md);
+  background-color: var(--color-retro-surface-card);
+  overflow: hidden;
+  outline: none;
 }
 
+html[data-theme="dark"] audio {
+  color-scheme: dark;
+  accent-color: #ffffff;
+}
+
+audio::-webkit-media-controls-enclosure,
 audio::-webkit-media-controls-panel {
   background-color: var(--color-retro-surface-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+html[data-theme="dark"] audio::-webkit-media-controls-enclosure,
+html[data-theme="dark"] audio::-webkit-media-controls-panel {
+  border: 0;
+  box-shadow: none;
 }
 
 .chapter-row {
