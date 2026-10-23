@@ -1,10 +1,12 @@
 ---
 import type { Book } from '~/lib/books';
+import { episodeArtThumbSrc } from '~/lib/episode-art';
 
 interface Props {
   book: Book;
 }
 const { book } = Astro.props;
+const art = episodeArtThumbSrc(book.slug);
 
 const isAvailable = book.status === 'available';
 const isInProgress = book.status === 'in-progress';
@@ -20,7 +22,20 @@ const pct = Math.min(100, Math.round((completed / book.totalVerses) * 100));
     style="color: var(--color-retro-text);"
   >
     <div class="flex items-start justify-between gap-2 mb-2">
-      <h3 class="font-extrabold text-lg leading-tight">{book.name}</h3>
+      <div class="flex items-start gap-2 min-w-0">
+        {art && (
+          <img
+            src={art}
+            alt=""
+            width="72"
+            height="40"
+            class="shrink-0 object-cover"
+            style="width: 72px; height: 40px; border-radius: var(--radius-md);"
+            loading="lazy"
+          />
+        )}
+        <h3 class="font-extrabold text-lg leading-tight">{book.name}</h3>
+      </div>
       <span class={`badge badge-${book.status}`}>
         {isAvailable ? 'Available' : 'In Progress'}
       </span>
@@ -46,7 +61,20 @@ const pct = Math.min(100, Math.round((completed / book.totalVerses) * 100));
 ) : (
   <div class="surface-card opacity-60" style="color: var(--color-retro-text);">
     <div class="flex items-start justify-between gap-2 mb-2">
-      <h3 class="font-extrabold text-lg leading-tight">{book.name}</h3>
+      <div class="flex items-start gap-2 min-w-0">
+        {art && (
+          <img
+            src={art}
+            alt=""
+            width="72"
+            height="40"
+            class="shrink-0 object-cover"
+            style="width: 72px; height: 40px; border-radius: var(--radius-md);"
+            loading="lazy"
+          />
+        )}
+        <h3 class="font-extrabold text-lg leading-tight">{book.name}</h3>
+      </div>
       <span class="badge badge-coming-soon">Coming Soon</span>
     </div>
     <p class="text-sm opacity-70">{book.chapters} chapters · {book.totalVerses.toLocaleString()} verses</p>
