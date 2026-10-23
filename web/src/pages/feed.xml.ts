@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { availableBooks, bookAudioUrl, bookChaptersJsonUrl } from '~/lib/books';
 import { fetchChapters } from '~/lib/chapters';
+import { episodeArtSquareHref } from '~/lib/episode-art';
 
 const SITE = 'https://podcast.heybible.org';
 const TITLE = 'The Hey Bible Podcast';
@@ -66,12 +67,14 @@ export const GET: APIRoute = async () => {
         ? `The complete book of ${book.name} from the World English Bible.\n\nChapters:\n${chapterTimestamps}`
         : `The complete book of ${book.name} from the World English Bible.`;
 
+      const art = episodeArtSquareHref(book.slug, SITE);
+      const artTag = art ? `\n      <itunes:image href="${art}" />` : '';
       return `
     <item>
       <title>${escapeXml(`The Book of ${book.name}`)}</title>
       <description>${escapeXml(descriptionWithTimestamps)}</description>
       <link>${SITE}/books/${book.slug}/</link>
-      <guid isPermaLink="false">heybible-fm-${book.slug}</guid>
+      <guid isPermaLink="false">heybible-fm-${book.slug}</guid>${artTag}
       <pubDate>${pubDate}</pubDate>
       <enclosure url="${audioUrl}" length="${sizeBytes}" type="audio/mpeg" />
       <itunes:author>${escapeXml(AUTHOR)}</itunes:author>

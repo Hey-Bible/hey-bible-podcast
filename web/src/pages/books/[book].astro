@@ -3,6 +3,7 @@ import Base from '~/layouts/Base.astro';
 import ChapterPlayer from '~/components/ChapterPlayer.astro';
 import { books, bookAudioUrl } from '~/lib/books';
 import { fetchChapters } from '~/lib/chapters';
+import { episodeArtSrc } from '~/lib/episode-art';
 import type { Book } from '~/lib/books';
 import type { ChaptersManifest } from '~/lib/chapters';
 
@@ -31,10 +32,12 @@ const isAvailable = book.status === 'available';
 const progressPct = book.progress
   ? Math.min(100, Math.round((book.progress.completedVerses / book.totalVerses) * 100))
   : 0;
+const artSrc = episodeArtSrc(book.slug);
 ---
 <Base
   title={`The Book of ${book.name} — The Hey Bible Podcast`}
   description={`Listen to the entire book of ${book.name} from the World English Bible, free.`}
+  ogImage={artSrc ?? '/og-image.png'}
 >
   <section class="py-6">
     <p class="text-sm opacity-70 mb-1">
@@ -45,6 +48,15 @@ const progressPct = book.progress
       {book.chapters} chapters · {book.totalVerses.toLocaleString()} verses · {book.testament === 'old' ? 'Old' : 'New'} Testament
     </p>
   </section>
+
+  {artSrc && (
+    <img
+      src={artSrc}
+      alt=""
+      class="w-full mb-6"
+      style="display: block; border-radius: var(--radius-md);"
+    />
+  )}
 
   {isAvailable && audioSrc ? (
     <ChapterPlayer
