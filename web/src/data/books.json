@@ -313,9 +313,10 @@
     "testament": "old",
     "chapters": 3,
     "totalVerses": 73,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "joel-2026-11",
+    "releaseSize": 11959075,
+    "pubDate": "Sun, 01 Nov 2026 14:09:40 GMT"
   },
   {
     "slug": "amos",
