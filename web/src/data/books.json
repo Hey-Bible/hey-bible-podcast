@@ -302,9 +302,10 @@
     "testament": "old",
     "chapters": 14,
     "totalVerses": 197,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "hosea-2026-11",
+    "releaseSize": 30646385,
+    "pubDate": "Sun, 01 Nov 2026 14:09:28 GMT"
   },
   {
     "slug": "joel",
