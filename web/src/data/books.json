@@ -335,9 +335,10 @@
     "testament": "old",
     "chapters": 1,
     "totalVerses": 21,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "obadiah-2026-11",
+    "releaseSize": 3622901,
+    "pubDate": "Sun, 08 Nov 2026 14:07:30 GMT"
   },
   {
     "slug": "jonah",
