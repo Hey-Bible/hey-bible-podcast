@@ -324,9 +324,10 @@
     "testament": "old",
     "chapters": 9,
     "totalVerses": 146,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "amos-2026-11",
+    "releaseSize": 23500570,
+    "pubDate": "Sun, 08 Nov 2026 14:07:16 GMT"
   },
   {
     "slug": "obadiah",
