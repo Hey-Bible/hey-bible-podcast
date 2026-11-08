@@ -1,12 +1,12 @@
 {
-  "ts": "2026-11-01T14:09:45.010692+00:00",
+  "ts": "2026-11-08T14:07:36.044506+00:00",
   "status": "released",
-  "released_book": "hosea",
+  "released_book": "amos",
   "released_books": [
-    "hosea",
-    "joel"
+    "amos",
+    "obadiah"
   ],
-  "title": "Hosea, Joel",
+  "title": "Amos, Obadiah",
   "reason": null,
   "compile_rc": 0,
   "release_rc": 0,
@@ -40,6 +40,8 @@
     "ezekiel",
     "daniel",
     "hosea",
-    "joel"
+    "joel",
+    "amos",
+    "obadiah"
   ]
 }
