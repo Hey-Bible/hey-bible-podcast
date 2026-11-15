@@ -357,9 +357,10 @@
     "testament": "old",
     "chapters": 7,
     "totalVerses": 105,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "micah-2026-11",
+    "releaseSize": 17726060,
+    "pubDate": "Sun, 15 Nov 2026 14:08:01 GMT"
   },
   {
     "slug": "nahum",
