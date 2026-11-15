@@ -346,9 +346,10 @@
     "testament": "old",
     "chapters": 4,
     "totalVerses": 48,
-    "status": "coming-soon",
-    "releaseTag": null,
-    "releaseSize": null
+    "status": "available",
+    "releaseTag": "jonah-2026-11",
+    "releaseSize": 7321827,
+    "pubDate": "Sun, 15 Nov 2026 14:07:47 GMT"
   },
   {
     "slug": "micah",
