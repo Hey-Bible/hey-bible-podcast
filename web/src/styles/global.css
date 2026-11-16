@@ -1,20 +1,83 @@
+/*
+ * Storybook Sticker theme. Element defaults live in @layer base and the
+ * component classes in @layer components, so Tailwind utilities on an element
+ * can still override them.
+ */
 @import "tailwindcss";
 
-@theme {
-  --color-retro-bg: #e8f6fa;
-  --color-retro-text: #1a2833;
-  --color-retro-primary: #7fcdeb;
-  --color-retro-secondary: #a8daed;
-  --color-retro-surface-bar: #f4fbfd;
-  --color-retro-surface-card: #ffffff;
-  --color-retro-glow-rgb: 127, 205, 235;
+/* Self-hosted fonts (latin subsets, SIL Open Font License) */
+@font-face {
+  font-family: "Fredoka";
+  font-style: normal;
+  font-weight: 300 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("/fonts/fredoka-variable-latin.woff2") format("woff2");
+}
 
-  --radius-md: 18px;
-  --radius-lg: 24px;
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/nunito-variable-latin.woff2") format("woff2");
+}
+
+@theme {
+  --color-retro-bg: #f3e8d6;
+  --color-retro-text: #43302a;
+  --color-retro-muted: #6b5347;
+  --color-retro-primary: #9c533b;
+  --color-retro-primary-shade: #8a4934;
+  --color-retro-primary-contrast: #ffffff;
+  /* Hairlines and progress tracks */
+  --color-retro-secondary: rgba(67, 48, 42, 0.14);
+  --color-retro-surface-bar: #f3e8d6;
+  --color-retro-surface-card: #fbf4e6;
+
+  --radius-sm: 14px;
+  --radius-md: 22px;
+  --radius-lg: 30px;
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
 
   --font-sans: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: Fredoka, Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  --sticker-ink: #43302a;
+  --sticker-edge: #ffffff;
+  --sticker-edge-width: 5px;
+  --sticker-shadow: 0 10px 22px rgba(67, 48, 42, 0.17);
+  --sticker-shadow-sm: 0 4px 10px rgba(67, 48, 42, 0.14);
+  --sticker-button-surface: #ffffff;
+  /* A plain surface set into a card: the audio bar and the chapter rows */
+  --sticker-inset: #ffffff;
+  --sticker-tint-rose: #f6ddd2;
+  --sticker-tint-wheat: #f5e3bb;
+  --sticker-tint-sage: #dce5d0;
+  --sticker-tint-sky: #cfe3ec;
+  --sticker-tab-active: #dce5d0;
+  --sticker-tab-active-contrast: #43302a;
+  --sticker-heading-accent: #43302a;
+  /* An outline that still reads against the page, 3:1 */
+  --sticker-outline: #968270;
+
+  /* Two olive sprigs tucked into the page edges */
+  --page-decor-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='72' viewBox='0 0 64 72' opacity='0.6'%3E %3Cpath d='M32 70 C32 50 30 30 34 6' fill='none' stroke='%239DB08A' stroke-width='2.5' stroke-linecap='round'/%3E %3Cellipse cx='22' cy='52' rx='10' ry='5' transform='rotate(35 22 52)' fill='%239DB08A'/%3E %3Cellipse cx='43' cy='44' rx='10' ry='5' transform='rotate(-35 43 44)' fill='%239DB08A'/%3E %3Cellipse cx='22' cy='32' rx='9' ry='4.5' transform='rotate(35 22 32)' fill='%239DB08A'/%3E %3Cellipse cx='43' cy='24' rx='9' ry='4.5' transform='rotate(-35 43 24)' fill='%239DB08A'/%3E %3Cellipse cx='34' cy='9' rx='4.5' ry='8' fill='%239DB08A'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='72' viewBox='0 0 64 72' opacity='0.6'%3E %3Cpath d='M32 70 C32 50 30 30 34 6' fill='none' stroke='%23C9A98F' stroke-width='2.5' stroke-linecap='round'/%3E %3Cellipse cx='22' cy='52' rx='10' ry='5' transform='rotate(35 22 52)' fill='%23E8B3A0'/%3E %3Cellipse cx='43' cy='44' rx='10' ry='5' transform='rotate(-35 43 44)' fill='%23E8B3A0'/%3E %3Cellipse cx='22' cy='32' rx='9' ry='4.5' transform='rotate(35 22 32)' fill='%23E8B3A0'/%3E %3Cellipse cx='43' cy='24' rx='9' ry='4.5' transform='rotate(-35 43 24)' fill='%23E8B3A0'/%3E %3Cellipse cx='34' cy='9' rx='4.5' ry='8' fill='%23E8B3A0'/%3E%3C/svg%3E");
+  /* On a narrow screen only the leaf tips peek in, clear of the text */
+  --page-decor-position: right -44px top 34%, left -40px top 66%;
+  --page-decor-size: 70px 80px, 60px 68px;
+}
+
+/* Wide enough for a gutter beside the content: the whole sprig shows */
+@media (min-width: 1280px) {
+  :root {
+    --page-decor-position: right -14px top 34%, left -16px top 66%;
+  }
 }
 
 html {
@@ -23,191 +86,532 @@ html {
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --color-retro-bg: #000000;
-  --color-retro-text: #ffffff;
-  --color-retro-primary: #428cff;
-  --color-retro-secondary: #ffffff1f;
-  --color-retro-surface-bar: #1a1a1a;
-  --color-retro-surface-card: #1c1c1d;
-  --color-retro-glow-rgb: 255, 255, 255;
+  --color-retro-bg: #232b3d;
+  --color-retro-text: #f3e8d6;
+  --color-retro-muted: #c9bfae;
+  --color-retro-primary: #e8b3a0;
+  --color-retro-primary-shade: #eabbaa;
+  --color-retro-primary-contrast: #232b3d;
+  --color-retro-secondary: rgba(243, 232, 214, 0.16);
+  --color-retro-surface-bar: #232b3d;
+  --color-retro-surface-card: #2e384e;
+
+  --sticker-edge: #f3e8d6;
+  --sticker-edge-width: 3px;
+  --sticker-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  --sticker-shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.3);
+  --sticker-button-surface: #2e384e;
+  --sticker-inset: #232b3d;
+  --sticker-tint-rose: #e8b3a0;
+  --sticker-tint-wheat: #e8c277;
+  --sticker-tint-sage: #b9cba5;
+  --sticker-tint-sky: #bcd9e6;
+  --sticker-tab-active: #b9cba5;
+  --sticker-tab-active-contrast: #232b3d;
+  --sticker-heading-accent: #e8c277;
+  --sticker-outline: #76777a;
+
+  /* Star speckles in the side gutters instead of olive sprigs */
+  --page-decor-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' opacity='0.8'%3E %3Cpath d='M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z' fill='%23E8C277'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' opacity='0.7'%3E %3Cpath d='M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z' fill='%23F3E8D6'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' opacity='0.6'%3E %3Cpath d='M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z' fill='%23E8B3A0'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' opacity='0.5'%3E %3Cpath d='M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z' fill='%23F3E8D6'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' opacity='0.6'%3E %3Cpath d='M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z' fill='%23E8C277'/%3E%3C/svg%3E");
+  --page-decor-position: left 3px top 9%, right 3px top 22%, left 2px top 46%, right 2px top 63%, left 3px top 84%;
+  --page-decor-size: 12px 12px, 10px 10px, 11px 11px, 10px 10px, 12px 12px;
 }
 
-* {
-  font-family: var(--font-sans);
-  color: var(--color-retro-text);
-  box-sizing: border-box;
+@layer base {
+  * {
+    font-family: var(--font-sans);
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--color-retro-bg);
+    color: var(--color-retro-text);
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  /* The page decoration stays put while the page scrolls under it */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--page-decor-image);
+    background-repeat: no-repeat;
+    background-position: var(--page-decor-position);
+    background-size: var(--page-decor-size);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-retro-primary);
+    outline-offset: 2px;
+  }
+
+  /* Links: terracotta by day, rose at night */
+  a {
+    color: var(--color-retro-primary);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-retro-primary-shade);
+  }
+
+  /* Text links are underlined, so colour is not the only cue */
+  main a:not(.cta-button, .pill-button, .book-card, .nav-link, .footer-link, .logo) {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+  }
+
+  /* Headings: rounded Fredoka, wheat at night */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--sticker-heading-accent);
+  }
+
+  h1 {
+    font-size: clamp(2.125rem, 1.6rem + 2vw, 3rem);
+    line-height: 1.15;
+    margin: 0.75rem 0;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
 }
 
-body {
-  background-color: var(--color-retro-bg);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='60' viewBox='0 0 100 60'%3E%3Cpath d='M0 30 Q25 10 50 30 T100 30' fill='none' stroke='%23B8D4F1' stroke-width='0.8' stroke-opacity='0.25'/%3E%3Cpath d='M0 45 Q25 25 50 45 T100 45' fill='none' stroke='%23A8DAED' stroke-width='0.6' stroke-opacity='0.18'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 200px;
-  margin: 0;
-  padding: 0;
-  font-size: 18px;
-  line-height: 1.6;
-}
+@layer components {
+  /* ── Logo lockup: the book-and-cross mark beside the Fredoka wordmark ──
+     --logo-size is the height of the mark. The wordmark and the gap are sized
+     from it so the lockup keeps the proportions of the brand board. */
+  .logo {
+    --logo-size: 26px;
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--logo-size) * 0.58);
+    color: var(--color-retro-text);
+  }
 
-html[data-theme="dark"] body {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='60' viewBox='0 0 100 60'%3E%3Cpath d='M0 30 Q25 10 50 30 T100 30' fill='none' stroke='%23808080' stroke-width='1' stroke-opacity='0.2'/%3E%3Cpath d='M0 45 Q25 25 50 45 T100 45' fill='none' stroke='%23999999' stroke-width='0.8' stroke-opacity='0.15'/%3E%3C/svg%3E");
-}
+  .logo:hover {
+    color: var(--color-retro-text);
+  }
 
-a {
-  color: var(--color-retro-primary);
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
+  /* The mark is 16 units wide and 19 tall */
+  .logo-mark {
+    flex: none;
+    width: calc(var(--logo-size) * 16 / 19);
+    height: var(--logo-size);
+  }
 
-a:hover {
-  opacity: 0.75;
-}
+  .logo-wordmark {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--logo-size);
+    line-height: 1;
+    white-space: nowrap;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  color: var(--color-retro-text);
-  font-weight: 800;
-}
+  /* The small pastel chip that names this site */
+  .logo-tag {
+    flex: none;
+    margin-left: calc(var(--logo-size) * -0.2);
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--sticker-tint-sage);
+    color: var(--sticker-ink);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
 
-h1 {
-  font-size: 2rem;
-  margin: 0.75rem 0;
-}
+  /* ── Header and footer links ── */
+  .nav-link {
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--color-retro-text);
+    font-size: 15px;
+    font-weight: 800;
+    transition: background-color 0.2s ease;
+  }
 
-h2 {
-  font-size: 1.6rem;
-}
+  .nav-link:hover {
+    background: var(--sticker-tint-sage);
+    color: var(--sticker-ink);
+  }
 
-.glow-hover {
-  transition: all 0.3s;
-}
+  .nav-link[aria-current="page"] {
+    background: var(--sticker-tab-active);
+    color: var(--sticker-tab-active-contrast);
+  }
 
-.glow-hover:hover {
-  text-shadow:
-    0 0 6px rgba(var(--color-retro-glow-rgb), 0.6),
-    0 0 12px rgba(var(--color-retro-glow-rgb), 0.3);
-  transform: translateY(-1px);
-}
+  .footer-link {
+    color: var(--color-retro-text);
+    font-size: 0.875rem;
+  }
 
-.cta-button {
-  background: var(--color-retro-primary);
-  border-radius: var(--radius-lg);
-  padding: 0.75rem 1.75rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.3s;
-  display: inline-block;
-  color: #fff !important;
-}
+  /* A round sticker button for a single line icon */
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--sticker-button-surface);
+    color: var(--color-retro-text);
+    box-shadow: var(--sticker-shadow-sm);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
 
-.cta-button:hover {
-  box-shadow:
-    0 0 15px rgba(var(--color-retro-glow-rgb), 0.5),
-    0 0 30px rgba(var(--color-retro-glow-rgb), 0.3);
-  opacity: 1;
-  transform: translateY(-2px);
-}
+  .icon-button:hover {
+    transform: scale(1.06);
+  }
 
-.surface-card {
-  background: var(--color-retro-surface-card);
-  border: 1px solid var(--color-retro-secondary);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-}
+  .icon-button:active {
+    transform: scale(0.96);
+  }
 
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
+  /* ── Buttons: terracotta pills cut out with the sticker edge ── */
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.5rem 1.5rem;
+    background: var(--color-retro-primary);
+    color: var(--color-retro-primary-contrast);
+    border: 4px solid var(--sticker-edge);
+    border-radius: 999px;
+    box-shadow: var(--sticker-shadow-sm);
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
 
-.badge-available {
-  background: var(--color-retro-primary);
-  color: #fff;
-}
+  .cta-button:hover {
+    background: var(--color-retro-primary-shade);
+    color: var(--color-retro-primary-contrast);
+    transform: translateY(-2px);
+  }
 
-.badge-in-progress {
-  background: transparent;
-  color: var(--color-retro-text);
-  border: 1px solid var(--color-retro-primary);
-}
+  .cta-button:active {
+    transform: scale(0.97);
+  }
 
-.badge-coming-soon {
-  background: transparent;
-  color: var(--color-retro-text);
-  opacity: 0.55;
-  border: 1px solid var(--color-retro-secondary);
-}
+  /* Pastel pills. The text is ink in both modes. */
+  .pill-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.5rem 1.4rem;
+    background: var(--sticker-tint-sage);
+    color: var(--sticker-ink);
+    border: 4px solid var(--sticker-edge);
+    border-radius: 999px;
+    box-shadow: var(--sticker-shadow-sm);
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
 
-audio {
-  display: block;
-  width: 100%;
-  border: 0;
-  border-radius: var(--radius-md);
-  background-color: var(--color-retro-surface-card);
-  overflow: hidden;
-  outline: none;
-}
+  .pill-button:hover {
+    color: var(--sticker-ink);
+    transform: translateY(-2px);
+  }
 
-html[data-theme="dark"] audio {
-  color-scheme: dark;
-  accent-color: #ffffff;
-}
+  .pill-button:active {
+    transform: scale(0.97);
+  }
 
-audio::-webkit-media-controls-enclosure,
-audio::-webkit-media-controls-panel {
-  background-color: var(--color-retro-surface-card);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
+  .pill-rose {
+    background: var(--sticker-tint-rose);
+  }
 
-html[data-theme="dark"] audio::-webkit-media-controls-enclosure,
-html[data-theme="dark"] audio::-webkit-media-controls-panel {
-  border: 0;
-  box-shadow: none;
-}
+  .pill-wheat {
+    background: var(--sticker-tint-wheat);
+  }
 
-.chapter-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.6rem 0.9rem;
-  background: var(--color-retro-surface-card);
-  border: 1px solid var(--color-retro-secondary);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-align: left;
-  transition: all 0.2s;
-}
+  .pill-sage {
+    background: var(--sticker-tint-sage);
+  }
 
-.chapter-row:hover:not(:disabled) {
-  border-color: var(--color-retro-primary);
-  transform: translateX(2px);
-}
+  .pill-sky {
+    background: var(--sticker-tint-sky);
+  }
 
-.chapter-row.is-active {
-  background: var(--color-retro-primary);
-  color: #fff;
-  border-color: var(--color-retro-primary);
-}
+  /* ── Cards: a pale fill, the die-cut edge and a soft shadow ── */
+  .surface-card {
+    background: var(--color-retro-surface-card);
+    border: var(--sticker-edge-width) solid var(--sticker-edge);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--sticker-shadow);
+    padding: 1.5rem;
+  }
 
-.chapter-row.is-active * {
-  color: #fff;
-}
+  /* A sticker peeking over the top edge of a card */
+  .has-sticker {
+    position: relative;
+  }
 
-.chapter-row:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
+  .card-sticker {
+    position: absolute;
+    top: -36px;
+    right: 14px;
+    z-index: 2;
+    transform: rotate(7deg);
+  }
 
-.chapter-row .play-icon {
-  width: 1rem;
-  height: 1rem;
-  flex-shrink: 0;
+  @media (min-width: 640px) {
+    .card-sticker {
+      top: -44px;
+      right: 22px;
+      --sticker-size: 112px;
+    }
+  }
+
+  /* A small sticker tucked beside a page heading */
+  .heading-sticker {
+    position: absolute;
+    top: -6px;
+    left: calc(100% + 12px);
+    line-height: 0;
+    transform: rotate(10deg);
+    --sticker-size: 54px;
+  }
+
+  /* Smaller on a phone, so the rotated sticker stays inside the page */
+  @media (max-width: 639px) {
+    .heading-sticker {
+      left: calc(100% + 6px);
+      --sticker-size: 42px;
+    }
+  }
+
+  /* Cards in a list are smaller and carry no stickers */
+  .book-card {
+    display: block;
+    border-radius: var(--radius-md);
+    padding: 1rem 1.1rem;
+    color: var(--color-retro-text);
+    font-weight: 400;
+  }
+
+  a.book-card {
+    transition: transform 0.2s ease;
+  }
+
+  a.book-card:hover {
+    color: var(--color-retro-text);
+    transform: translateY(-3px);
+  }
+
+  a.book-card:active {
+    transform: scale(0.985);
+  }
+
+  /* Not released yet: the outline of a sticker that is still to come */
+  .book-card.is-coming-soon {
+    background: transparent;
+    border: 2px dashed var(--sticker-outline);
+    box-shadow: none;
+    /* Keep the text where it sits on a released card */
+    padding: calc(1rem + var(--sticker-edge-width) - 2px) calc(1.1rem + var(--sticker-edge-width) - 2px);
+  }
+
+  .book-card.is-coming-soon h3 {
+    color: var(--color-retro-muted);
+  }
+
+  .book-thumb {
+    flex: none;
+    width: 72px;
+    height: 40px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  /* Pictures are cut out like the cards */
+  .sticker-frame {
+    display: block;
+    border: var(--sticker-edge-width) solid var(--sticker-edge);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--sticker-shadow);
+  }
+
+  /* ── Badges: pastel pills ── */
+  .badge {
+    display: inline-block;
+    flex: none;
+    padding: 3px 10px;
+    border-radius: 999px;
+    color: var(--sticker-ink);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .badge-available {
+    background: var(--sticker-tint-sage);
+  }
+
+  .badge-in-progress {
+    background: var(--sticker-tint-wheat);
+  }
+
+  .badge-coming-soon {
+    background: transparent;
+    color: var(--color-retro-muted);
+    box-shadow: inset 0 0 0 1.5px var(--color-retro-secondary);
+  }
+
+  /* Progress bars */
+  .progress-track {
+    border-radius: 999px;
+    background: var(--color-retro-secondary);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--color-retro-primary);
+  }
+
+  /* ── Audio player: a plain pill set into the card ── */
+  audio {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 999px;
+    background-color: var(--sticker-inset);
+    accent-color: var(--color-retro-primary);
+    overflow: hidden;
+  }
+
+  html[data-theme="dark"] audio {
+    color-scheme: dark;
+  }
+
+  audio::-webkit-media-controls-enclosure,
+  audio::-webkit-media-controls-panel {
+    background-color: var(--sticker-inset);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  html[data-theme="dark"] audio::-webkit-media-controls-enclosure,
+  html[data-theme="dark"] audio::-webkit-media-controls-panel {
+    border: 0;
+    box-shadow: none;
+  }
+
+  /* ── Chapter rows: calm pills, the playing one in the primary colour ── */
+  .chapter-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    background: var(--sticker-inset);
+    color: var(--color-retro-text);
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: left;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .chapter-row .play-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: var(--color-retro-primary);
+  }
+
+  .chapter-row .chapter-duration {
+    color: var(--color-retro-muted);
+    font-size: 0.75rem;
+  }
+
+  .chapter-row:hover:not(:disabled, .is-active) {
+    background: var(--sticker-tint-sage);
+    color: var(--sticker-ink);
+  }
+
+  .chapter-row:hover:not(:disabled, .is-active) .play-icon,
+  .chapter-row:hover:not(:disabled, .is-active) .chapter-duration {
+    color: var(--sticker-ink);
+  }
+
+  .chapter-row.is-active {
+    background: var(--color-retro-primary);
+    color: var(--color-retro-primary-contrast);
+  }
+
+  .chapter-row.is-active .play-icon,
+  .chapter-row.is-active .chapter-duration {
+    color: var(--color-retro-primary-contrast);
+  }
+
+  .chapter-row:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  /* ── Stickers: decoration only ──
+     The die-cut is a white edge all the way round the art, then a soft shadow.
+     The edge stays white at night, like a real sticker on a dark page. */
+  .sticker {
+    display: inline-block;
+    width: var(--sticker-size, 92px);
+    pointer-events: none;
+    filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff)
+      drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff)
+      drop-shadow(0 5px 5px rgba(67, 48, 42, 0.22));
+  }
+
+  .sticker svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* A pair of stickers that swap with the theme: the sun by day, the moon at night */
+  .sticker-night,
+  html[data-theme="dark"] .sticker-day {
+    display: none;
+  }
+
+  html[data-theme="dark"] .sticker-night {
+    display: inline-block;
+  }
 }

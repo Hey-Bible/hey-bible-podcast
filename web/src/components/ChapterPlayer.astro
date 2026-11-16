@@ -23,25 +23,18 @@ const playerId = `player-${Math.random().toString(36).slice(2, 8)}`;
     Your browser does not support the audio element.
   </audio>
 
-  <div class="flex flex-wrap items-center justify-between gap-2 mt-3 text-sm opacity-70">
+  <div class="flex flex-wrap items-center justify-between gap-2 mt-3 px-2 text-sm text-retro-muted">
     {totalDuration && (
       <span>Total: {formatTime(totalDuration)}</span>
     )}
     {downloadHref && (
-      <a
-        href={downloadHref}
-        download
-        class="font-semibold"
-        style="color: var(--color-retro-primary);"
-      >
-        Download MP3 ↓
-      </a>
+      <a href={downloadHref} download>Download MP3 ↓</a>
     )}
   </div>
 
   {chapters && chapters.length > 0 ? (
     <div class="mt-6">
-      <h3 class="font-extrabold mb-3">Chapters</h3>
+      <h3 class="text-xl mb-3">Chapters</h3>
       <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {chapters.map((c) => (
           <button
@@ -55,13 +48,13 @@ const playerId = `player-${Math.random().toString(36).slice(2, 8)}`;
               <path d="M8 5v14l11-7z" />
             </svg>
             <span class="flex-1">{c.title}</span>
-            <span class="text-xs opacity-70">{formatTime(c.duration)}</span>
+            <span class="chapter-duration">{formatTime(c.duration)}</span>
           </button>
         ))}
       </div>
     </div>
   ) : (
-    <p class="mt-4 text-sm opacity-70">
+    <p class="mt-4 text-sm text-retro-muted">
       Chapter markers are still being generated for this release.
     </p>
   )}

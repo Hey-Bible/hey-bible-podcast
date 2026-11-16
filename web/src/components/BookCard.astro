@@ -16,67 +16,41 @@ const completed = book.progress?.completedVerses ?? 0;
 const pct = Math.min(100, Math.round((completed / book.totalVerses) * 100));
 ---
 {href ? (
-  <a
-    href={href}
-    class="surface-card no-underline transition-all hover:-translate-y-1 hover:shadow-lg block"
-    style="color: var(--color-retro-text);"
-  >
+  <a href={href} class="surface-card book-card">
     <div class="flex items-start justify-between gap-2 mb-2">
       <div class="flex items-start gap-2 min-w-0">
         {art && (
-          <img
-            src={art}
-            alt=""
-            width="72"
-            height="40"
-            class="shrink-0 object-cover"
-            style="width: 72px; height: 40px; border-radius: var(--radius-md);"
-            loading="lazy"
-          />
+          <img src={art} alt="" width="72" height="40" class="book-thumb" loading="lazy" />
         )}
-        <h3 class="font-extrabold text-lg leading-tight">{book.name}</h3>
+        <h3 class="text-lg leading-tight">{book.name}</h3>
       </div>
       <span class={`badge badge-${book.status}`}>
         {isAvailable ? 'Available' : 'In Progress'}
       </span>
     </div>
-    <p class="text-sm opacity-70">{book.chapters} chapters · {book.totalVerses.toLocaleString()} verses</p>
+    <p class="text-sm text-retro-muted">{book.chapters} chapters · {book.totalVerses.toLocaleString()} verses</p>
     {isInProgress && book.progress && (
       <div class="mt-3">
-        <div
-          class="w-full h-2 rounded-full overflow-hidden"
-          style="background: var(--color-retro-secondary);"
-        >
-          <div
-            class="h-full"
-            style={`background: var(--color-retro-primary); width: ${pct}%;`}
-          />
+        <div class="progress-track w-full h-2">
+          <div class="progress-fill" style={`width: ${pct}%;`} />
         </div>
-        <p class="text-xs opacity-70 mt-1">
+        <p class="text-xs text-retro-muted mt-1">
           Chapter {book.progress.chapter}, verse {book.progress.verse} ({pct}%)
         </p>
       </div>
     )}
   </a>
 ) : (
-  <div class="surface-card opacity-60" style="color: var(--color-retro-text);">
+  <div class="surface-card book-card is-coming-soon">
     <div class="flex items-start justify-between gap-2 mb-2">
       <div class="flex items-start gap-2 min-w-0">
         {art && (
-          <img
-            src={art}
-            alt=""
-            width="72"
-            height="40"
-            class="shrink-0 object-cover"
-            style="width: 72px; height: 40px; border-radius: var(--radius-md);"
-            loading="lazy"
-          />
+          <img src={art} alt="" width="72" height="40" class="book-thumb" loading="lazy" />
         )}
-        <h3 class="font-extrabold text-lg leading-tight">{book.name}</h3>
+        <h3 class="text-lg leading-tight">{book.name}</h3>
       </div>
       <span class="badge badge-coming-soon">Coming Soon</span>
     </div>
-    <p class="text-sm opacity-70">{book.chapters} chapters · {book.totalVerses.toLocaleString()} verses</p>
+    <p class="text-sm text-retro-muted">{book.chapters} chapters · {book.totalVerses.toLocaleString()} verses</p>
   </div>
 )}

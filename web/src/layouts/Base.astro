@@ -30,12 +30,9 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString(
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fredoka (headings) and Nunito (body) are self-hosted; see styles/global.css -->
+    <link rel="preload" href="/fonts/fredoka-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/nunito-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="The Hey Bible Podcast" href="/feed.xml" />
