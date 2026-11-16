@@ -2,6 +2,7 @@
 import Base from '~/layouts/Base.astro';
 import ChapterPlayer from '~/components/ChapterPlayer.astro';
 import SubscribeLinks from '~/components/SubscribeLinks.astro';
+import Sticker from '~/components/Sticker.astro';
 import { latestRelease, inProgressBook, bookAudioUrl } from '~/lib/books';
 import { fetchChapters } from '~/lib/chapters';
 
@@ -17,26 +18,28 @@ const inProgressPct =
     : 0;
 ---
 <Base>
-  <section class="text-center py-8 sm:py-12">
-    <h1 class="text-3xl md:text-5xl font-extrabold">The Hey Bible Podcast</h1>
-    <p class="text-xl mt-3 opacity-80">
-      <span class="font-bold" style="color: var(--color-retro-primary);">✝️.fm</span>
+  <section class="surface-card has-sticker text-center max-w-[860px] mx-auto mt-8 px-5 pt-10 pb-8 sm:px-10 sm:pt-12 sm:pb-10">
+    <!-- The one sticker on this page: a sheep peeking over the card -->
+    <Sticker name="sheep" class="card-sticker" />
+    <h1>The Hey Bible Podcast</h1>
+    <p class="text-xl mt-3">
+      <span class="font-extrabold" style="color: var(--color-retro-primary);">&#x271D;&#xFE0E;.fm</span>
       &middot; The whole Bible, read aloud, one book at a time.
     </p>
-    <p class="max-w-[640px] mx-auto mt-4 opacity-80">
+    <p class="max-w-[640px] mx-auto mt-4 text-retro-muted">
       Two books every Sunday. Free, ad-free, supporting local churches and food banks.
       Audio from the <a href="https://worldenglish.bible" target="_blank" rel="noopener noreferrer">World English Bible</a>, public domain.
     </p>
-    <p class="max-w-[640px] mx-auto mt-3 opacity-80">
+    <p class="max-w-[640px] mx-auto mt-3 text-retro-muted">
       Brought to you by <a href="https://heybible.org" target="_blank" rel="noopener noreferrer">Hey Bible</a> — a free and easy to use app for searching Bible verses, saving favorites, and creating beautiful verse art.
     </p>
   </section>
 
   {featured && featuredAudio ? (
-    <section class="mt-8">
-      <div class="flex items-baseline justify-between mb-3">
-        <h2 class="text-2xl font-extrabold">Latest release: {featured.name}</h2>
-        <a href={`/books/${featured.slug}/`} class="text-sm font-semibold">View book →</a>
+    <section class="mt-10">
+      <div class="flex flex-wrap items-baseline justify-between gap-x-4 mb-3 px-2">
+        <h2>Latest release: {featured.name}</h2>
+        <a href={`/books/${featured.slug}/`} class="text-sm">View book →</a>
       </div>
       <ChapterPlayer
         audioSrc={featuredAudio}
@@ -47,24 +50,18 @@ const inProgressPct =
     </section>
   ) : inProgress ? (
     <section class="surface-card mt-8 text-center">
-      <h2 class="text-2xl font-extrabold mb-2">First release coming soon</h2>
-      <p class="opacity-80 mb-4">
+      <h2 class="mb-2">First release coming soon</h2>
+      <p class="text-retro-muted mb-4">
         We're currently recording <strong>{inProgress.name}</strong>.
         Right now we're on chapter {inProgress.progress?.chapter}, verse {inProgress.progress?.verse}.
       </p>
-      <div
-        class="w-full max-w-[480px] mx-auto h-3 rounded-full overflow-hidden"
-        style="background: var(--color-retro-secondary);"
-      >
-        <div
-          class="h-full"
-          style={`background: var(--color-retro-primary); width: ${inProgressPct}%;`}
-        />
+      <div class="progress-track w-full max-w-[480px] mx-auto h-3">
+        <div class="progress-fill" style={`width: ${inProgressPct}%;`} />
       </div>
-      <p class="text-sm opacity-70 mt-2">
+      <p class="text-sm text-retro-muted mt-2">
         {inProgress.progress?.completedVerses.toLocaleString()} of {inProgress.totalVerses.toLocaleString()} verses ({inProgressPct}%)
       </p>
-      <a href={`/books/${inProgress.slug}/`} class="cta-button mt-6 inline-block">
+      <a href={`/books/${inProgress.slug}/`} class="cta-button mt-6">
         Track progress →
       </a>
     </section>

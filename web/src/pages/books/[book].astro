@@ -40,11 +40,11 @@ const artSrc = episodeArtSrc(book.slug);
   ogImage={artSrc ?? '/og-image.png'}
 >
   <section class="py-6">
-    <p class="text-sm opacity-70 mb-1">
+    <p class="text-sm mb-1">
       <a href="/books/">← All books</a>
     </p>
-    <h1 class="text-3xl md:text-4xl font-extrabold">The Book of {book.name}</h1>
-    <p class="opacity-80 mt-1">
+    <h1>The Book of {book.name}</h1>
+    <p class="text-retro-muted mt-1">
       {book.chapters} chapters · {book.totalVerses.toLocaleString()} verses · {book.testament === 'old' ? 'Old' : 'New'} Testament
     </p>
   </section>
@@ -53,8 +53,7 @@ const artSrc = episodeArtSrc(book.slug);
     <img
       src={artSrc}
       alt=""
-      class="w-full mb-6"
-      style="display: block; border-radius: var(--radius-md);"
+      class="sticker-frame w-full mb-8"
     />
   )}
 
@@ -68,30 +67,24 @@ const artSrc = episodeArtSrc(book.slug);
   ) : isInProgress ? (
     <section class="surface-card text-center">
       <p class="text-lg font-bold mb-2">In progress</p>
-      <p class="opacity-80 mb-4">
+      <p class="text-retro-muted mb-4">
         Currently recording chapter {book.progress?.chapter}, verse {book.progress?.verse}.
         Two books are released every Sunday.
       </p>
-      <div
-        class="w-full max-w-[480px] mx-auto h-3 rounded-full overflow-hidden"
-        style="background: var(--color-retro-secondary);"
-      >
-        <div
-          class="h-full"
-          style={`background: var(--color-retro-primary); width: ${progressPct}%;`}
-        />
+      <div class="progress-track w-full max-w-[480px] mx-auto h-3">
+        <div class="progress-fill" style={`width: ${progressPct}%;`} />
       </div>
-      <p class="text-sm opacity-70 mt-2">
+      <p class="text-sm text-retro-muted mt-2">
         {book.progress?.completedVerses.toLocaleString()} of {book.totalVerses.toLocaleString()} verses ({progressPct}%)
       </p>
     </section>
   ) : (
     <section class="surface-card text-center">
       <p class="text-lg font-bold mb-2">Coming soon</p>
-      <p class="opacity-80">
+      <p class="text-retro-muted">
         {book.name} is on the schedule. Subscribe so you don't miss the release.
       </p>
-      <a href="/" class="cta-button mt-6 inline-block">Subscribe</a>
+      <a href="/" class="cta-button mt-6">Subscribe</a>
     </section>
   )}
 </Base>

@@ -1,0 +1,22 @@
+---
+// The Hey Bible lockup: the book-and-cross mark beside the Fredoka wordmark,
+// with a small chip that names this site. Everything is drawn in the current
+// text colour, so one logo works by day and at night. Size it with --logo-size.
+//
+// The mark is drawn on a 24-unit grid: a rounded book with the cross and the
+// page edge cut out. The viewBox is cropped to the book itself, because empty
+// space around the mark would push the lockup's visible centre to one side.
+---
+<span class="logo">
+  <svg class="logo-mark" viewBox="4 2.5 16 19" aria-hidden="true" focusable="false">
+    <mask id="logo-mark-cutout">
+      <rect x="0" y="0" width="24" height="24" fill="#fff" />
+      <rect x="10.8" y="5.2" width="2.4" height="9" rx="0.6" fill="#000" />
+      <rect x="8" y="7.8" width="8" height="2.4" rx="0.6" fill="#000" />
+      <rect x="7" y="16.6" width="10.5" height="2.4" rx="1.2" fill="#000" />
+    </mask>
+    <rect x="4" y="2.5" width="16" height="19" rx="3.5" fill="currentColor" mask="url(#logo-mark-cutout)" />
+  </svg>
+  <span class="logo-wordmark">Hey Bible</span>
+  <span class="logo-tag">Podcast</span>
+</span>

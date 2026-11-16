@@ -1,4 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#7fcdeb"/>
-  <text x="50%" y="56%" text-anchor="middle" dominant-baseline="middle" font-family="Nunito, sans-serif" font-size="44" font-weight="800" fill="#ffffff">✝</text>
+  <!-- The Hey Bible mark: a rounded book with the cross and the page edge cut
+       out, drawn on a 24-unit grid. Brown ink on the cream page colour. The
+       cut-outs are painted in cream rather than masked, so every renderer
+       draws them the same way. -->
+  <rect width="64" height="64" rx="14" fill="#F3E8D6"/>
+  <g transform="translate(2 2) scale(2.5)">
+    <rect x="4" y="2.5" width="16" height="19" rx="3.5" fill="#43302A"/>
+    <g fill="#F3E8D6">
+      <rect x="10.8" y="5.2" width="2.4" height="9" rx="0.6"/>
+      <rect x="8" y="7.8" width="8" height="2.4" rx="0.6"/>
+      <rect x="7" y="16.6" width="10.5" height="2.4" rx="1.2"/>
+    </g>
+  </g>
 </svg>

@@ -7,7 +7,8 @@ Astro 5 static site for the Hey Bible podcast. Streams each released book in-bro
 - **Astro 5** with static export (`output: 'static'`, trailing-slash directories)
 - **Tailwind CSS v4** via `@tailwindcss/vite`
 - **Native `<audio>`** element with timestamp-based chapter seeking
-- **Nunito** from Google Fonts
+- **Storybook Sticker** theme, copied from the Hey Bible app: cream page, brown ink, die-cut cards (see `src/styles/global.css`)
+- **Fredoka** (headings) and **Nunito** (body), self-hosted in `public/fonts`
 - 3-mode theme toggle (light / dark / system) via `localStorage` + `<html data-theme>`
 
 ## Local dev
@@ -88,8 +89,12 @@ The R2 base URL is hard-coded in `src/lib/books.ts` as `R2_PUBLIC_BASE`. Update 
 web/
 ├── astro.config.mjs       site = https://podcast.heybible.org
 ├── wrangler.jsonc         Cloudflare Workers Static Assets config
+├── scripts/
+│   └── og-image.html      source for public/og-image.png
 ├── public/
-│   ├── favicon.svg
+│   ├── favicon.svg        the Hey Bible book-and-cross mark
+│   ├── og-image.png       1200×630 social preview
+│   ├── fonts/             Fredoka + Nunito (variable, latin subset)
 │   └── robots.txt
 └── src/
     ├── data/
@@ -98,10 +103,12 @@ web/
     ├── lib/
     │   ├── books.ts       typed loaders + URL builders
     │   └── chapters.ts    build-time sidecar fetcher
-    ├── styles/global.css  @theme + wave SVG bg
+    ├── styles/global.css  theme tokens (light + night) and component styles
     ├── layouts/Base.astro
     ├── components/
     │   ├── Header.astro   sticky nav + 3-mode theme toggle
+    │   ├── Logo.astro     mark + wordmark lockup
+    │   ├── Sticker.astro  sheep / sun / moon decoration
     │   ├── Footer.astro
     │   ├── ThemeScript.astro  pre-paint to avoid FOUC
     │   ├── BookCard.astro
@@ -112,4 +119,22 @@ web/
         ├── books/index.astro
         ├── books/[book].astro
         └── feed.xml.ts    podcast RSS endpoint
+```
+
+## Theme
+
+The look is the Hey Bible app's Storybook Sticker theme: a cream page, brown ink, terracotta buttons and links, and cards cut out with a white edge and a soft shadow. Dark mode is the same sheet at night, on an indigo sky with cream edges.
+
+- The tokens live at the top of `src/styles/global.css`. `--color-retro-*` are the page, text, primary and surface colours; `--sticker-*` are the die-cut edge, the shadows and the pastel tints. Dark mode overrides both sets under `html[data-theme="dark"]`.
+- White text goes only on terracotta or darker. Text on a pastel pill is always ink (`--sticker-ink`), in both modes.
+- Stickers are accents: at most one `<Sticker>` per page, and none on cards in a list.
+
+### Social preview image
+
+`public/og-image.png` is a screenshot of `scripts/og-image.html`. To regenerate it, from `web/`:
+
+```sh
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+  --screenshot=public/og-image.png --window-size=1200,630 --hide-scrollbars \
+  "file://$PWD/scripts/og-image.html"
 ```
