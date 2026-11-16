@@ -1,0 +1,6 @@
+# supermog config — schema documented in workingdevshero/supermog.
+#
+# Every MP3 in this repo is in Git LFS (about 9 GB). No fleet job reads the audio: the site in
+# web/ plays it from R2. Leave the pointers as pointers so a checkout stays small.
+lfs:
+  exclude: ["*.mp3"]
