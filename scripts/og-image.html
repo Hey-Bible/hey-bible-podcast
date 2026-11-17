@@ -1,0 +1,246 @@
+<!doctype html>
+<!--
+  Source for public/og-image.png, the 1200×630 preview image shown when a
+  podcast.heybible.org link is shared.
+
+  To regenerate it, run this from the web/ folder:
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+      --screenshot=public/og-image.png --window-size=1200,630 --hide-scrollbars \
+      "file://$PWD/scripts/og-image.html"
+
+  The fonts are read from public/fonts, so the page needs no network.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>The Hey Bible Podcast social preview</title>
+    <style>
+      @font-face {
+        font-family: 'Fredoka';
+        font-weight: 300 700;
+        src: url('../public/fonts/fredoka-variable-latin.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito';
+        font-weight: 300 800;
+        src: url('../public/fonts/nunito-variable-latin.woff2') format('woff2');
+      }
+
+      html,
+      body {
+        margin: 0;
+      }
+
+      .card {
+        position: relative;
+        box-sizing: border-box;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        padding: 0 84px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f3e8d6;
+        color: #43302a;
+      }
+
+      .mark {
+        display: block;
+        width: 64px;
+        height: 76px;
+      }
+
+      .title {
+        margin: 26px 0 0;
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 600;
+        font-size: 96px;
+        line-height: 1.04;
+        white-space: nowrap;
+      }
+
+      .tagline {
+        margin: 26px 0 0;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 800;
+        font-size: 38px;
+        line-height: 1.25;
+        color: #6b5347;
+      }
+
+      /* A button pill: white text on terracotta, cut out with the white edge */
+      .pill {
+        display: inline-block;
+        margin: 34px 0 0;
+        padding: 12px 30px;
+        border: 6px solid #fff;
+        border-radius: 999px;
+        background: #a4573e;
+        box-shadow: 0 8px 16px rgba(67, 48, 42, 0.16);
+        color: #fff;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 800;
+        font-size: 28px;
+        line-height: 1.3;
+      }
+
+      /* The die-cut: a white edge all the way round the art, then a soft shadow */
+      .sticker {
+        flex: none;
+        transform: rotate(3deg);
+        filter: drop-shadow(7px 0 0 #fff) drop-shadow(-7px 0 0 #fff)
+          drop-shadow(0 7px 0 #fff) drop-shadow(0 -7px 0 #fff)
+          drop-shadow(0 14px 16px rgba(67, 48, 42, 0.22));
+      }
+
+      .sprig {
+        position: absolute;
+        opacity: 0.6;
+      }
+
+      /* Soft filler: small flat sprigs and four-point stars, scattered thinly in
+         the gaps. Each is placed by its centre. */
+      .bit {
+        position: absolute;
+        translate: -50% -50%;
+      }
+
+      .bit.leaf {
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <svg class="sprig" width="150" height="170" viewBox="0 0 64 72" style="left: -34px; bottom: -22px; transform: rotate(-24deg)">
+        <path d="M32 70 C32 50 30 30 34 6" fill="none" stroke="#C9A98F" stroke-width="2.5" stroke-linecap="round" />
+        <ellipse cx="22" cy="52" rx="10" ry="5" transform="rotate(35 22 52)" fill="#E8B3A0" />
+        <ellipse cx="43" cy="44" rx="10" ry="5" transform="rotate(-35 43 44)" fill="#E8B3A0" />
+        <ellipse cx="22" cy="32" rx="9" ry="4.5" transform="rotate(35 22 32)" fill="#E8B3A0" />
+        <ellipse cx="43" cy="24" rx="9" ry="4.5" transform="rotate(-35 43 24)" fill="#E8B3A0" />
+        <ellipse cx="34" cy="9" rx="4.5" ry="8" fill="#E8B3A0" />
+      </svg>
+      <svg class="sprig" width="150" height="170" viewBox="0 0 64 72" style="right: -30px; top: -34px; transform: rotate(204deg)">
+        <path d="M32 70 C32 50 30 30 34 6" fill="none" stroke="#9DB08A" stroke-width="2.5" stroke-linecap="round" />
+        <ellipse cx="22" cy="52" rx="10" ry="5" transform="rotate(35 22 52)" fill="#9DB08A" />
+        <ellipse cx="43" cy="44" rx="10" ry="5" transform="rotate(-35 43 44)" fill="#9DB08A" />
+        <ellipse cx="22" cy="32" rx="9" ry="4.5" transform="rotate(35 22 32)" fill="#9DB08A" />
+        <ellipse cx="43" cy="24" rx="9" ry="4.5" transform="rotate(-35 43 24)" fill="#9DB08A" />
+        <ellipse cx="34" cy="9" rx="4.5" ry="8" fill="#9DB08A" />
+      </svg>
+
+      <!-- A thin scatter of sprigs and stars in the gaps -->
+      <svg class="bit leaf" viewBox="0 0 64 72" style="left: 640px; top: 96px; width: 64px; rotate: 65deg" aria-hidden="true">
+        <path d="M32 70 C32 50 30 30 34 6" fill="none" stroke="#9DB08A" stroke-width="2.5" stroke-linecap="round" />
+        <ellipse cx="22" cy="52" rx="10" ry="5" transform="rotate(35 22 52)" fill="#9DB08A" />
+        <ellipse cx="43" cy="44" rx="10" ry="5" transform="rotate(-35 43 44)" fill="#9DB08A" />
+        <ellipse cx="22" cy="32" rx="9" ry="4.5" transform="rotate(35 22 32)" fill="#9DB08A" />
+        <ellipse cx="43" cy="24" rx="9" ry="4.5" transform="rotate(-35 43 24)" fill="#9DB08A" />
+        <ellipse cx="34" cy="9" rx="4.5" ry="8" fill="#9DB08A" />
+      </svg>
+      <svg class="bit leaf" viewBox="0 0 64 72" style="left: 980px; top: 566px; width: 62px; rotate: -70deg" aria-hidden="true">
+        <path d="M32 70 C32 50 30 30 34 6" fill="none" stroke="#C9A98F" stroke-width="2.5" stroke-linecap="round" />
+        <ellipse cx="22" cy="52" rx="10" ry="5" transform="rotate(35 22 52)" fill="#E8B3A0" />
+        <ellipse cx="43" cy="44" rx="10" ry="5" transform="rotate(-35 43 44)" fill="#E8B3A0" />
+        <ellipse cx="22" cy="32" rx="9" ry="4.5" transform="rotate(35 22 32)" fill="#E8B3A0" />
+        <ellipse cx="43" cy="24" rx="9" ry="4.5" transform="rotate(-35 43 24)" fill="#E8B3A0" />
+        <ellipse cx="34" cy="9" rx="4.5" ry="8" fill="#E8B3A0" />
+      </svg>
+      <svg class="bit" viewBox="0 0 20 20" style="left: 300px; top: 70px; width: 28px" aria-hidden="true">
+        <path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z" fill="#E8C277" />
+      </svg>
+      <svg class="bit" viewBox="0 0 20 20" style="left: 880px; top: 70px; width: 24px" aria-hidden="true">
+        <path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z" fill="#E8B3A0" />
+      </svg>
+      <svg class="bit" viewBox="0 0 20 20" style="left: 1160px; top: 330px; width: 24px" aria-hidden="true">
+        <path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z" fill="#9DB08A" />
+      </svg>
+      <svg class="bit" viewBox="0 0 20 20" style="left: 700px; top: 540px; width: 28px" aria-hidden="true">
+        <path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z" fill="#E8C277" />
+      </svg>
+      <svg class="bit" viewBox="0 0 20 20" style="left: 420px; top: 590px; width: 22px" aria-hidden="true">
+        <path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z" fill="#9DB08A" />
+      </svg>
+      <svg class="bit" viewBox="0 0 20 20" style="left: 660px; top: 320px; width: 22px" aria-hidden="true">
+        <path d="M10 1 Q10 10 19 10 Q10 10 10 19 Q10 10 1 10 Q10 10 10 1z" fill="#E8B3A0" />
+      </svg>
+
+      <div>
+        <!-- The Hey Bible mark: a rounded book with the cross and the page edge cut out -->
+        <svg class="mark" viewBox="4 2.5 16 19" aria-hidden="true">
+          <mask id="mark">
+            <rect x="0" y="0" width="24" height="24" fill="#fff" />
+            <rect x="10.8" y="5.2" width="2.4" height="9" rx="0.6" fill="#000" />
+            <rect x="8" y="7.8" width="8" height="2.4" rx="0.6" fill="#000" />
+            <rect x="7" y="16.6" width="10.5" height="2.4" rx="1.2" fill="#000" />
+          </mask>
+          <rect x="4" y="2.5" width="16" height="19" rx="3.5" fill="#43302A" mask="url(#mark)" />
+        </svg>
+        <h1 class="title">The Hey Bible<br />Podcast</h1>
+        <p class="tagline">The whole Bible, read aloud</p>
+        <span class="pill">Two books every Sunday · Free</span>
+      </div>
+
+      <div class="sticker">
+        <svg width="372" height="338" viewBox="0 0 220 200">
+          <path d="M26 150 C4 88 40 28 110 26 C182 24 216 84 196 150 z" fill="#CFE3EC" />
+          <circle cx="150" cy="56" r="17" fill="#E8C277" stroke="#5B4636" stroke-width="2.6" />
+          <path d="M52 72 a11 11 0 0 1 18 -9 a13 13 0 0 1 24 3 a9 9 0 0 1 2 18 h-40 a8 8 0 0 1 -4 -12z" fill="#FFFFFF" />
+          <path d="M12 152 C60 100 152 98 208 152 C200 184 28 186 12 152z" fill="#9DB08A" stroke="#5B4636" stroke-width="2.6" stroke-linejoin="round" />
+          <g transform="translate(134 68.4) scale(0.85)">
+            <path d="M11 95 V25 a6 6 0 0 1 12 0 v2" fill="none" stroke="#5B4636" stroke-width="7.4" stroke-linecap="round" />
+            <path d="M11 95 V25 a6 6 0 0 1 12 0 v2" fill="none" stroke="#C99A6B" stroke-width="2.4" stroke-linecap="round" />
+            <rect x="31" y="88" width="7" height="8" rx="3.5" fill="#5B4636" />
+            <rect x="42" y="88" width="7" height="8" rx="3.5" fill="#5B4636" />
+            <clipPath id="shepherd-robe">
+              <path d="M28 54 C25 68 23 81 22 92 q18 3 36 0 C57 81 55 68 52 54 z" />
+            </clipPath>
+            <path d="M28 54 C25 68 23 81 22 92 q18 3 36 0 C57 81 55 68 52 54 z" fill="#FDF8EE" />
+            <g clip-path="url(#shepherd-robe)">
+              <path d="M26 50 L38 50 L62 90 L52 98 Z" fill="#E8B3A0" stroke="#5B4636" stroke-width="2.2" stroke-linejoin="round" />
+            </g>
+            <path d="M28 54 C25 68 23 81 22 92 q18 3 36 0 C57 81 55 68 52 54 z" fill="none" stroke="#5B4636" stroke-width="2.6" stroke-linejoin="round" />
+            <path d="M31 56 q-11 1 -18 9 l4 7 q7 -6 14 -5 z" fill="#FDF8EE" stroke="#5B4636" stroke-width="2.6" stroke-linejoin="round" />
+            <circle cx="12" cy="69" r="4" fill="#E2B594" stroke="#5B4636" stroke-width="2.2" />
+            <path d="M49 56 q8 5 10 19 l-7 1.5 q-1 -8 -6 -12 z" fill="#FDF8EE" stroke="#5B4636" stroke-width="2.6" stroke-linejoin="round" />
+            <circle cx="55.5" cy="77.5" r="3.8" fill="#E2B594" stroke="#5B4636" stroke-width="2.2" />
+            <path d="M23 38 a17 17 0 0 1 34 0 v14 q0 5 -5 5 h-24 q-5 0 -5 -5 z" fill="#8B6247" stroke="#5B4636" stroke-width="2.6" stroke-linejoin="round" />
+            <circle cx="40" cy="36" r="14.5" fill="#E2B594" stroke="#5B4636" stroke-width="2.4" />
+            <path d="M25.6 33 a14.5 14.5 0 0 1 28.8 0 q-7 -7 -14.4 -2 q-7.4 -5 -14.4 2z" fill="#8B6247" stroke="#5B4636" stroke-width="2.2" stroke-linejoin="round" />
+            <circle cx="30.5" cy="40.5" r="2.2" fill="#E39A8A" opacity="0.85" />
+            <circle cx="49.5" cy="40.5" r="2.2" fill="#E39A8A" opacity="0.85" />
+            <path d="M27.5 43.5 q2 12.5 12.5 12.5 q10.5 0 12.5 -12.5 q-3.5 3 -7 1.5 q-5.5 -2.5 -11 0 q-3.5 1.5 -7 -1.5z" fill="#8B6247" stroke="#5B4636" stroke-width="2.2" stroke-linejoin="round" />
+            <ellipse cx="40" cy="48.2" rx="4.2" ry="2.8" fill="#E2B594" />
+            <path d="M37.9 47.6 q2.1 1.9 4.2 0" fill="none" stroke="#5B4636" stroke-width="1.8" stroke-linecap="round" />
+            <path d="M32.2 38 q2.3 -2.9 4.6 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+            <path d="M43.2 38 q2.3 -2.9 4.6 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+          </g>
+          <g transform="translate(48 84)">
+            <rect x="34" y="54" width="7" height="17" rx="3.5" fill="#5B4636" />
+            <rect x="55" y="54" width="7" height="17" rx="3.5" fill="#5B4636" />
+            <path d="M26 54 a12 12 0 0 1 -2 -22 a13 13 0 0 1 20 -12 a14 14 0 0 1 24 2 a12 12 0 0 1 8 22 a11 11 0 0 1 -12 12 a12 12 0 0 1 -20 2 a12 12 0 0 1 -18 -4 z" fill="#FDF8EE" stroke="#5B4636" stroke-width="2.6" stroke-linejoin="round" />
+            <ellipse cx="63" cy="29" rx="5" ry="3" transform="rotate(-25 63 29)" fill="#D9A98B" stroke="#5B4636" stroke-width="2.2" />
+            <ellipse cx="74" cy="39" rx="10.5" ry="11.5" fill="#EBC4A8" stroke="#5B4636" stroke-width="2.6" />
+            <circle cx="73" cy="27.5" r="5.5" fill="#FDF8EE" stroke="#5B4636" stroke-width="2.2" />
+            <path d="M68 38 q2.2 -2.8 4.4 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+            <path d="M76 38 q2.2 -2.8 4.4 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+            <circle cx="67.5" cy="43" r="2.2" fill="#E39A8A" opacity="0.8" />
+            <circle cx="80.5" cy="43" r="2.2" fill="#E39A8A" opacity="0.8" />
+            <path d="M72 44.5 q2 1.8 4 0" fill="none" stroke="#5B4636" stroke-width="1.8" stroke-linecap="round" />
+          </g>
+          <g transform="translate(14 108) scale(0.62)">
+            <rect x="34" y="54" width="7" height="17" rx="3.5" fill="#5B4636" />
+            <rect x="55" y="54" width="7" height="17" rx="3.5" fill="#5B4636" />
+            <path d="M26 54 a12 12 0 0 1 -2 -22 a13 13 0 0 1 20 -12 a14 14 0 0 1 24 2 a12 12 0 0 1 8 22 a11 11 0 0 1 -12 12 a12 12 0 0 1 -20 2 a12 12 0 0 1 -18 -4 z" fill="#FDF8EE" stroke="#5B4636" stroke-width="3.4" stroke-linejoin="round" />
+            <ellipse cx="74" cy="39" rx="10.5" ry="11.5" fill="#EBC4A8" stroke="#5B4636" stroke-width="3.4" />
+            <path d="M68 38 q2.2 -2.8 4.4 0" fill="none" stroke="#5B4636" stroke-width="2.6" stroke-linecap="round" />
+            <path d="M76 38 q2.2 -2.8 4.4 0" fill="none" stroke="#5B4636" stroke-width="2.6" stroke-linecap="round" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </body>
+</html>

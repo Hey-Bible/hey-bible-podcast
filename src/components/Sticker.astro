@@ -1,0 +1,67 @@
+---
+// A die-cut sticker. Decoration only: hidden from assistive technology and
+// never clickable. Size it with --sticker-size. Use at most one per page.
+// The art is the same as the Hey Bible app's stickers.
+interface Props {
+  name: 'sheep' | 'moon' | 'sun';
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+---
+<span class:list={['sticker', className]} aria-hidden="true">
+  {name === 'sheep' && (
+    <svg viewBox="0 0 96 78" focusable="false">
+      <rect x="34" y="54" width="7" height="17" rx="3.5" fill="#5B4636" />
+      <rect x="55" y="54" width="7" height="17" rx="3.5" fill="#5B4636" />
+      <path
+        d="M26 54 a12 12 0 0 1 -2 -22 a13 13 0 0 1 20 -12 a14 14 0 0 1 24 2 a12 12 0 0 1 8 22 a11 11 0 0 1 -12 12 a12 12 0 0 1 -20 2 a12 12 0 0 1 -18 -4 z"
+        fill="#FDF8EE"
+        stroke="#5B4636"
+        stroke-width="2.6"
+        stroke-linejoin="round"
+      />
+      <ellipse cx="63" cy="29" rx="5" ry="3" transform="rotate(-25 63 29)" fill="#D9A98B" stroke="#5B4636" stroke-width="2.2" />
+      <ellipse cx="74" cy="39" rx="10.5" ry="11.5" fill="#EBC4A8" stroke="#5B4636" stroke-width="2.6" />
+      <circle cx="73" cy="27.5" r="5.5" fill="#FDF8EE" stroke="#5B4636" stroke-width="2.2" />
+      <path d="M68 38 q2.2 -2.8 4.4 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+      <path d="M76 38 q2.2 -2.8 4.4 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+      <circle cx="67.5" cy="43" r="2.2" fill="#E39A8A" opacity="0.8" />
+      <circle cx="80.5" cy="43" r="2.2" fill="#E39A8A" opacity="0.8" />
+      <path d="M72 44.5 q2 1.8 4 0" fill="none" stroke="#5B4636" stroke-width="1.8" stroke-linecap="round" />
+    </svg>
+  )}
+  {name === 'moon' && (
+    <svg viewBox="0 0 60 60" focusable="false">
+      <path
+        d="M40 6 A25 25 0 1 0 54 40 A20 20 0 0 1 40 6z"
+        fill="#F6E3A6"
+        stroke="#5B4636"
+        stroke-width="2.6"
+        stroke-linejoin="round"
+      />
+      <path d="M19 30 q2.5 -3 5 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+      <path d="M29 33 q2.5 -3 5 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+      <circle cx="18" cy="36" r="2.4" fill="#E39A8A" opacity="0.85" />
+      <circle cx="33" cy="39.5" r="2.4" fill="#E39A8A" opacity="0.85" />
+      <path d="M23 38 q2.2 2 4.4 0.6" fill="none" stroke="#5B4636" stroke-width="1.8" stroke-linecap="round" />
+    </svg>
+  )}
+  {name === 'sun' && (
+    <svg viewBox="0 0 60 60" focusable="false">
+      <path
+        d="M30 4v6M30 50v6M4 30h6M50 30h6M11.6 11.6l4.2 4.2M44.2 44.2l4.2 4.2M11.6 48.4l4.2-4.2M44.2 15.8l4.2-4.2"
+        fill="none"
+        stroke="#5B4636"
+        stroke-width="2.6"
+        stroke-linecap="round"
+      />
+      <circle cx="30" cy="30" r="15.5" fill="#E8C277" stroke="#5B4636" stroke-width="2.6" />
+      <path d="M23 28.5 q2.5 -3 5 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+      <path d="M32 28.5 q2.5 -3 5 0" fill="none" stroke="#5B4636" stroke-width="2" stroke-linecap="round" />
+      <circle cx="22" cy="34" r="2.4" fill="#E39A8A" opacity="0.85" />
+      <circle cx="38" cy="34" r="2.4" fill="#E39A8A" opacity="0.85" />
+      <path d="M27.8 34.5 q2.2 2 4.4 0" fill="none" stroke="#5B4636" stroke-width="1.8" stroke-linecap="round" />
+    </svg>
+  )}
+</span>
