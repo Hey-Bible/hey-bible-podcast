@@ -1,12 +1,12 @@
 {
-  "ts": "2026-11-15T14:08:06.419460+00:00",
+  "ts": "2026-11-22T14:06:42.184729+00:00",
   "status": "released",
-  "released_book": "jonah",
+  "released_book": "nahum",
   "released_books": [
-    "jonah",
-    "micah"
+    "nahum",
+    "habakkuk"
   ],
-  "title": "Jonah, Micah",
+  "title": "Nahum, Habakkuk",
   "reason": null,
   "compile_rc": 0,
   "release_rc": 0,
@@ -44,6 +44,8 @@
     "amos",
     "obadiah",
     "jonah",
-    "micah"
+    "micah",
+    "nahum",
+    "habakkuk"
   ]
 }
