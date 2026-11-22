@@ -1,0 +1,31 @@
+---
+import subscribe from '~/data/subscribe.json';
+
+const links = [
+  { href: subscribe.apple, label: 'Apple Podcasts', tint: 'rose' },
+  { href: subscribe.spotify, label: 'Spotify', tint: 'sage' },
+  { href: subscribe.overcast, label: 'Overcast', tint: 'wheat' },
+  { href: subscribe.rss, label: 'RSS', tint: 'sky' },
+];
+---
+<section class="text-center py-6 mt-6">
+  <h2 class="mb-4">Subscribe</h2>
+  <p class="text-retro-muted mb-6 max-w-[600px] mx-auto">
+    Listen on your favorite podcast app. Two books every Sunday.
+  </p>
+  <div class="flex flex-wrap items-center justify-center gap-3">
+    {links.map(({ href, label, tint }) => (
+      <a
+        href={href}
+        class={`pill-button pill-${tint}`}
+        target={href.startsWith('http') ? '_blank' : undefined}
+        rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+      >
+        {label}
+      </a>
+    ))}
+  </div>
+  <p class="text-sm text-retro-muted mt-6">
+    Search verses, save favorites, and create beautiful verse art with the free <a href="https://heybible.org" target="_blank" rel="noopener noreferrer">Hey Bible</a> app.
+  </p>
+</section>

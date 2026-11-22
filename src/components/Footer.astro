@@ -1,0 +1,21 @@
+---
+const year = new Date().getFullYear();
+---
+<footer
+  class="border-t py-6 mt-12"
+  style="background-color: var(--color-retro-surface-bar); border-color: var(--color-retro-secondary);"
+>
+  <nav class="flex flex-col items-center gap-4 px-4 max-w-[1200px] mx-auto">
+    <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
+      <a href="/" class="footer-link">Home</a>
+      <a href="/books/" class="footer-link">Books</a>
+      <a href="/about/" class="footer-link">About</a>
+      <a href="/feed.xml" class="footer-link">RSS</a>
+      <a href="https://github.com/Hey-Bible/hey-bible-podcast" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://heybible.org" class="footer-link" target="_blank" rel="noopener noreferrer">Hey Bible</a>
+    </div>
+    <p class="text-xs text-retro-muted">
+      &#x271D;&#xFE0E;.fm · Hey Bible Podcast · &copy; {year} Working Dev's Hero
+    </p>
+  </nav>
+</footer>

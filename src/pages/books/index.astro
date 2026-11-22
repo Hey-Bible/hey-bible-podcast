@@ -1,0 +1,38 @@
+---
+import Base from '~/layouts/Base.astro';
+import BookCard from '~/components/BookCard.astro';
+import Sticker from '~/components/Sticker.astro';
+import { oldTestament, newTestament } from '~/lib/books';
+
+const ot = oldTestament();
+const nt = newTestament();
+---
+<Base title="All Books — The Hey Bible Podcast" description="All 66 books of the Bible, with audio releases as they become available.">
+  <section class="text-center py-6">
+    <h1 class="has-sticker inline-block">
+      All 66 Books
+      <!-- The one sticker on this page: the sun by day, the moon at night -->
+      <span class="heading-sticker">
+        <Sticker name="sun" class="sticker-day" />
+        <Sticker name="moon" class="sticker-night" />
+      </span>
+    </h1>
+    <p class="text-retro-muted mt-2">
+      Two books are released every Sunday.
+    </p>
+  </section>
+
+  <section class="mt-8">
+    <h2 class="mb-4">Old Testament</h2>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {ot.map((book) => <BookCard book={book} />)}
+    </div>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="mb-4">New Testament</h2>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {nt.map((book) => <BookCard book={book} />)}
+    </div>
+  </section>
+</Base>
