@@ -118,7 +118,7 @@ python3 scripts/release-book.py       # (called by first-Sunday cron; direct pub
 
 ## Book art
 
-Each released book has one square painting in `assets/book-art/{slug}.jpg`, at least 1400×1400 (today's are 2048×2048), in the Storybook Sticker style: a die-cut sticker scene on a plain cream background, with no text.
+Each of the 66 books, including those not released yet, has one square painting in `assets/book-art/{slug}.jpg`, at least 1400×1400 (today's are 2048×2048), in the Storybook Sticker style: a die-cut sticker scene on a plain cream background, with no text.
 
 `scripts/install-episode-art.py <slug> [slug...]` turns it into the files the site and feed use:
 
