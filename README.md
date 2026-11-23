@@ -116,6 +116,22 @@ python3 scripts/compile-book.py       # (called by first-Sunday cron)
 python3 scripts/release-book.py       # (called by first-Sunday cron; direct publish, no review pause)
 ```
 
+## Book art
+
+Each released book has one square painting in `assets/book-art/{slug}.jpg`, at least 1400×1400 (today's are 2048×2048), in the Storybook Sticker style: a die-cut sticker scene on a plain cream background, with no text.
+
+`scripts/install-episode-art.py <slug> [slug...]` turns it into the files the site and feed use:
+
+| File in `web/public/book-art/` | Size | Used for |
+|---|---|---|
+| `{slug}-square.jpg` | the painting's own square, under 500 KB | each episode's `<itunes:image>` in the feed |
+| `{slug}.jpg` | 1920×1080, the sticker centred on matching cream | the book page and its `og:image` |
+| `{slug}-thumb.jpg` | 144×80, a crop from the middle of the scene | the card on the books page |
+
+The script stops if a painting is not square or is smaller than 1400×1400. It needs Pillow; its tests run with `python3 -m unittest discover -s scripts -p 'test_*.py'`.
+
+The show cover is `web/public/podcast-cover.jpg` (3000×3000, under 500 KB), with a copy in `assets/hey-bible-podcast-square.jpeg`.
+
 ## File naming convention
 
 | Kind             | Pattern                              | Example                  |
