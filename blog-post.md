@@ -65,7 +65,7 @@ The book is ready for May 1st release. You can download it now from GitHub Relea
 ## Marketing Assets
 
 We generated a full brand kit:
-- **Podcast cover art** (1400x1400px) — for Apple Podcasts, Spotify
+- **Podcast cover art** (3000x3000px) — for Apple Podcasts, Spotify
 - **Twitter/X banner** (1500x500px)
 - **Instagram template** (1080x1080px)
 - **Marketing copy** — descriptions for podcast platforms
