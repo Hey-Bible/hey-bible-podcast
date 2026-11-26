@@ -4,3 +4,8 @@
 # web/ plays it from R2. Leave the pointers as pointers so a checkout stays small.
 lfs:
   exclude: ["*.mp3"]
+
+learn:
+  file: CLAUDE.md
+report:
+  friction: true
